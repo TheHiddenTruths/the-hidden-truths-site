@@ -94,13 +94,20 @@
   .voice:hover .lbl,.voice:focus-visible .lbl{color:#fff}
   .voice:focus-visible{outline:none}
 
-  /* selettore lingua, in basso a sinistra sulla stessa guida */
-  .langs{margin-top:auto;display:flex;align-items:center;gap:13px;font-size:13px}
+  /* blocco in basso a sinistra: lingue + footer legale minimo */
+  .bottom{margin-top:auto;display:flex;flex-direction:column;gap:clamp(11px,1.6vh,18px)}
+  .langs{display:flex;align-items:center;gap:13px;font-size:13px}
   .langs button{background:none;border:0;padding:0;cursor:pointer;color:var(--mut);
     font:inherit;letter-spacing:.11em;font-weight:600;transition:color .2s}
   .langs button:hover{color:var(--ink)}
   .langs button.on{color:var(--gold)}
   .langs .sep{color:#585858}
+  /* footer legale: microscopico e defilato (solo P.IVA visibile + link alle pagine dedicate) */
+  .legal{font-size:clamp(9.5px,.72vw,11px);color:#6b7079;letter-spacing:.02em;line-height:1.6;max-width:560px}
+  .legal a{color:#878d96;text-decoration:none;transition:color .2s}
+  .legal a:hover{color:var(--gold)}
+  .legal .sep{color:#3f434a;padding:0 3px}
+  .legal .piva{color:#878d96}
 
   @media (prefers-reduced-motion:reduce){ .payoff.animate{animation:none;opacity:1} }
 </style>
@@ -124,11 +131,16 @@
       <a class="voice" data-key="passo"        href="primo-passo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Il primo passo</span></a>
     </nav>
 
-    <div class="langs" aria-label="Lingua">
-      <button data-lang="it" class="on">IT</button><span class="sep">|</span>
-      <button data-lang="en">EN</button><span class="sep">|</span>
-      <button data-lang="es">ES</button><span class="sep">|</span>
-      <button data-lang="fr">FR</button>
+    <div class="bottom">
+      <div class="langs" aria-label="Lingua">
+        <button data-lang="it" class="on">IT</button><span class="sep">|</span>
+        <button data-lang="en">EN</button><span class="sep">|</span>
+        <button data-lang="es">ES</button><span class="sep">|</span>
+        <button data-lang="fr">FR</button>
+      </div>
+      <div class="legal">
+        © 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a>
+      </div>
     </div>
 
   </div>
