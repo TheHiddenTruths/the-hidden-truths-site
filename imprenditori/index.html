@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THT — Per veri imprenditori</title>
+<style>
+  :root{--bg:#000;--ink:#fff;--gold:#e7b24e;--gutter:clamp(28px,6.2vw,92px)}
+  *{box-sizing:border-box} html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);overflow:hidden;
+    font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;display:flex;flex-direction:column;min-height:100%}
+  .home{position:fixed;top:clamp(26px,5vh,52px);left:var(--gutter);width:clamp(112px,11vw,168px);z-index:2}
+  .home img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 14px #ffffff1c)}
+  main{flex:1;display:flex;align-items:center;padding:0 var(--gutter)}
+  h1{margin:0;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+    font-size:clamp(26px,5vw,60px);line-height:1.05;text-wrap:balance}
+  h1::after{content:"";display:block;width:clamp(64px,7vw,104px);height:2px;background:var(--gold);
+    margin-top:clamp(18px,2.4vh,28px)}
+</style>
+</head>
+<body>
+  <a class="home" href="../" aria-label="Torna alla home THT">
+    <img src="../assets/marchio-tht-vetro.png" alt="THT — The Hidden Truths" width="382" height="192">
+  </a>
+  <main><h1>Per veri imprenditori</h1></main>
+</body>
+</html>

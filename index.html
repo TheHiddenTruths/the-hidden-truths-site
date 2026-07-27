@@ -71,6 +71,7 @@
     gap:clamp(20px,3.6vh,40px);width:var(--menu-w)}
   .voice{display:block;width:100%;background:none;border:0;padding:0 0 clamp(9px,1.4vh,14px);
     border-bottom:1px solid transparent;cursor:pointer;color:var(--ink);font:inherit;text-align:left;
+    text-decoration:none;
     font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;text-transform:uppercase;
     transition:color .22s,border-color .22s}
   .voice:hover,.voice:focus-visible{color:#fff;border-bottom-color:var(--gold)}
@@ -99,10 +100,10 @@
     <div class="payoff animate" id="payoff">LE VERITÀ NASCOSTE</div>
 
     <nav class="menu" aria-label="Menu principale">
-      <button class="voice" data-key="imprenditori">Per veri imprenditori</button>
-      <button class="voice" data-key="controllo">Controllo aziendale</button>
-      <button class="voice" data-key="segretezza">Segretezza assoluta</button>
-      <button class="voice" data-key="passo">Il primo passo</button>
+      <a class="voice" data-key="imprenditori" href="imprenditori/">Per veri imprenditori</a>
+      <a class="voice" data-key="controllo"    href="controllo/">Controllo aziendale</a>
+      <a class="voice" data-key="segretezza"   href="segretezza/">Segretezza assoluta</a>
+      <a class="voice" data-key="passo"        href="primo-passo/">Il primo passo</a>
     </nav>
 
     <div class="langs" aria-label="Lingua">
