@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>THT — Le verità nascoste</title>
 <meta name="description" content="THT — The Hidden Truths. Le verità nascoste dell'impresa: controllo aziendale, per veri imprenditori.">
-<!-- preview live: animazione «747» a fuoco + soli col raggio -->
+<!-- preview live: cometa (scia triangolare) + atterraggio «747» dall'alto -->
 <style>
   :root{
     --bg:#000;
@@ -61,15 +61,16 @@
   /* «Boeing 747»: THT fermo. Il payoff arriva DRITTO (niente diagonale), enorme come se ti
      sorvolasse da dietro: prima solo una SAGOMA sfocata (ombra/fumo), poi mette a fuoco come una
      focale, rimpicciolisce sul posto, SBATTE (contrae+flash) e si fissa nitido. */
-  .payoff.animate{opacity:0;animation:payoffBoom 4.2s cubic-bezier(.3,0,.12,1) .25s forwards}
+  .payoff.animate{opacity:0;animation:payoffBoom 4.6s cubic-bezier(.52,0,.14,1) .2s forwards}
   @keyframes payoffBoom{
-    0%   {opacity:0;   transform:translate(2vw,-16vh) scale(19); filter:blur(46px) brightness(1.4)}  /* ENORME sopra la testa: non capisci cos'è, come una carlinga */
-    6%   {opacity:.78; transform:translate(2vw,-16vh) scale(19); filter:blur(42px) brightness(1.4)}  /* imponente e presente, non timido */
-    44%  {opacity:.92; transform:translate(1vw,-6vh)  scale(5.6); filter:blur(20px) brightness(1.22)}/* SCENDE DRITTO e si materializza dalla nebbia */
-    74%  {opacity:1;   transform:translate(0,0)       scale(1.34);filter:blur(2px)  brightness(1.08)}
-    86%  {             transform:translate(0,0)       scale(.9);  filter:blur(0)    brightness(2)}   /* SI STAMPA: impatto + flash */
-    93%  {             transform:translate(0,0)       scale(1.03);filter:brightness(1.2)}
-    100% {opacity:1;   transform:translate(0,0)       scale(1);   filter:brightness(1)}              /* fissato, nitido, allineato */
+    0%   {opacity:0;   transform:translate(2vw,-36vh) scale(26); filter:blur(54px) brightness(1.5)}  /* GIGANTE sopra/alle spalle: solo il "rombo", non capisci cos'è */
+    5%   {opacity:.86; transform:translate(2vw,-34vh) scale(25); filter:blur(50px) brightness(1.5)}  /* c'è, enorme, presente */
+    38%  {opacity:.92; transform:translate(1.5vw,-17vh) scale(9.5);filter:blur(30px) brightness(1.3)}/* SCENDE DRITTO, ancora gigantesco */
+    68%  {opacity:1;   transform:translate(1vw,-5vh)   scale(2.6); filter:blur(10px) brightness(1.15)}/* si materializza dalla nebbia */
+    84%  {             transform:translate(0,0)        scale(1.12);filter:blur(1px)  brightness(1.08)}
+    90%  {             transform:translate(0,0)        scale(.88); filter:blur(0)    brightness(2.1)} /* SI STAMPA: impatto + flash */
+    95%  {             transform:translate(0,0)        scale(1.03);filter:brightness(1.2)}
+    100% {opacity:1;   transform:translate(0,0)        scale(1);   filter:brightness(1)}              /* fissato, nitido, allineato */
   }
 
   /* menu: 4 voci. Ogni voce = SOLE (a filo del bordo sinistro) + testo, tutto dentro il rettangolo.
@@ -79,16 +80,18 @@
   /* voce: TESTO giustificato nella colonna. Appena SOTTO (~1-2mm) la sottolineatura = un solo oggetto:
      una piccola STELLA-sorgente sotto la prima lettera, da cui NASCE il raggio (stesso oro, più brillante). */
   .voice{position:relative;display:block;width:100%;
-    padding-bottom:clamp(13px,1.7vh,17px);   /* underline vicinissimo al testo, tipo sottolineato */
+    padding-bottom:clamp(24px,3.4vh,30px);   /* spazio per la testa della cometa sotto il testo */
     cursor:pointer;color:var(--ink);text-decoration:none}
   .voice .lbl{display:block;width:100%;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
     text-transform:uppercase;white-space:nowrap;transition:color .22s}
-  .voice .sole{position:absolute;left:-11px;bottom:-8px;width:32px;height:32px;   /* RADDOPPIATO; centro sotto la 1a lettera, sul rigo dell'underline; FERMA */
-    opacity:.95;filter:drop-shadow(0 0 5px #e7b24e85);transition:opacity .25s,filter .25s}
-  .voice::after{content:"";position:absolute;left:2px;right:0;bottom:7px;height:2px;border-radius:2px;  /* NASCE dal sole, ~1-2mm sotto il testo; centro raggio (8px)=centro sole (8px) */
-    background:linear-gradient(90deg,#fff4d6 0%,#f4d38a 10%,#e7b24e 38%,#e7b24e 82%,#e7b24eaa 94%,#e7b24e00 100%);  /* pickup oro, steso FINO ALLA FINE delle parole (bordo destro), tip morbido */
-    box-shadow:0 0 9px #f4d38a55;opacity:0;transform:scaleX(.5);transform-origin:left;
-    transition:opacity .28s,transform .42s cubic-bezier(.2,.7,.2,1)}
+  /* STELLA COMETA: testa (sole) più grande + SCIA TRIANGOLARE che si assottiglia e sfuma verso la fine */
+  .voice .sole{position:absolute;left:-15px;bottom:-2px;width:40px;height:40px;   /* testa della cometa, sotto la 1a lettera; FERMA */
+    opacity:.96;filter:drop-shadow(0 0 6px #e7b24e8f);transition:opacity .25s,filter .25s}
+  .voice::after{content:"";position:absolute;left:0;right:0;bottom:13px;height:10px;   /* scia: centro (18px)=centro cometa */
+    background:linear-gradient(90deg,#fff4d6 0%,#f4d38a 12%,#e7b24e 40%,#e7b24e00 100%);  /* pickup oro, luminosa alla testa, sfuma verso la fine */
+    clip-path:polygon(0 0,100% 50%,0 100%);   /* TRIANGOLO: base alla testa, punta alla fine delle parole */
+    filter:blur(.5px);opacity:0;transform:scaleX(.5);transform-origin:left;
+    transition:opacity .28s,transform .46s cubic-bezier(.2,.7,.2,1)}
   .voice:hover::after,.voice:focus-visible::after{opacity:1;transform:scaleX(1)}   /* il raggio scatta fuori dal sole */
   .voice:hover .sole,.voice:focus-visible .sole{opacity:1;filter:drop-shadow(0 0 8px #fff4d6) drop-shadow(0 0 4px #f4d38a)}  /* il sole si ACCENDE (sorgente), NON si muove */
   .voice:hover .lbl,.voice:focus-visible .lbl{color:#fff}
