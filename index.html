@@ -49,13 +49,12 @@
   .mark{width:var(--logo-w)}
   .mark img{display:block;width:100%;height:auto}   /* l'alone e' gia' nel marchio originale */
 
-  /* payoff: entra da protagonista, si posa sotto THT, resta statico (bold, come la realizzazione) */
+  /* payoff: OGGETTO grafico estratto (lettering grunge), non un font. Entra da protagonista,
+     si posa sotto THT scalato alla larghezza esatta del marchio, resta statico. */
   .payoff{
-    width:var(--logo-w);
-    margin-top:clamp(7px,1.3vh,15px);
-    font-size:clamp(13px,1.35vw,19px);
-    font-weight:700;letter-spacing:.135em;
-    color:var(--ink);white-space:nowrap;
+    display:block;
+    width:var(--logo-w);height:auto;
+    margin-top:clamp(8px,1.5vh,17px);
     transform-origin:left center;
   }
   .payoff.animate{opacity:0;animation:payoff 2.6s cubic-bezier(.22,.61,.36,1) .35s forwards}
@@ -97,7 +96,8 @@
       <img src="assets/marchio-tht-logo.png" alt="THT — The Hidden Truths" width="2515" height="1404">
     </div>
 
-    <div class="payoff animate" id="payoff">LE VERITÀ NASCOSTE</div>
+    <img class="payoff animate" id="payoff" src="assets/payoff-verita-nascoste.png"
+         alt="Le verità nascoste" width="345" height="42">
 
     <nav class="menu" aria-label="Menu principale">
       <a class="voice" data-key="imprenditori" href="imprenditori/">Per veri imprenditori</a>
@@ -124,38 +124,15 @@
     es:{ payoff:"LAS VERDADES OCULTAS", imprenditori:"Para verdaderos empresarios", controllo:"Control empresarial", segretezza:"Secreto absoluto", passo:"El primer paso" },
     fr:{ payoff:"LES VÉRITÉS CACHÉES", imprenditori:"Pour les vrais entrepreneurs", controllo:"Contrôle d'entreprise", segretezza:"Confidentialité absolue", passo:"Le premier pas" }
   };
-  const payoff = document.getElementById('payoff');
-
-  // GIUSTIFICAZIONE del payoff: le lettere spanano ESATTAMENTE la larghezza del marchio THT
-  // (flush a sinistra E a destra). La spaziatura è calcolata, non fissa: esatta in ogni lingua e schermo.
-  function fitPayoff(){
-    const img = document.querySelector('.mark img'); if(!img) return;
-    const logoW = img.getBoundingClientRect().width;
-    const len = payoff.textContent.length; if(len < 2) return;
-    payoff.style.letterSpacing = '0px';
-    payoff.style.width = 'max-content';
-    const nat = payoff.getBoundingClientRect().width;   // larghezza naturale del testo
-    payoff.style.width = logoW + 'px';
-    payoff.style.letterSpacing = ((logoW - nat) / (len - 1)) + 'px';
-  }
-
+  // Il payoff è un OGGETTO grafico (lettering grunge estratto), per ora solo IT.
+  // Le versioni EN/ES/FR saranno oggetti dedicati: il cambio lingua per ora tocca solo le voci.
   function setLang(lang){
     const t = I18N[lang]; if(!t) return;
     document.documentElement.lang = lang;
-    payoff.textContent = t.payoff;                 // niente replay: l'entrata è già avvenuta
     document.querySelectorAll('.voice').forEach(v=> v.textContent = t[v.dataset.key]);
     document.querySelectorAll('.langs button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
-    fitPayoff();
   }
   document.querySelectorAll('.langs button').forEach(b=> b.addEventListener('click',()=>setLang(b.dataset.lang)));
-
-  // giustifica dopo l'entrata (o subito, se l'animazione è disattivata), e a ogni resize
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>{
-    if(reduce){ fitPayoff(); }
-    else payoff.addEventListener('animationend', ()=>{ payoff.classList.remove('animate'); fitPayoff(); }, {once:true});
-  });
-  let rz; addEventListener('resize', ()=>{ clearTimeout(rz); rz=setTimeout(fitPayoff, 120); });
 </script>
 
 </body>
