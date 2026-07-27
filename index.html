@@ -83,10 +83,10 @@
     cursor:pointer;color:var(--ink);text-decoration:none}
   .voice .lbl{display:block;width:100%;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
     text-transform:uppercase;white-space:nowrap;transition:color .22s}
-  .voice .sole{position:absolute;left:-3px;bottom:0;width:16px;height:16px;   /* piccola, sotto la 1a lettera, sul rigo dell'underline; FERMA */
-    opacity:.95;filter:drop-shadow(0 0 4px #e7b24e85);transition:opacity .25s,filter .25s}
+  .voice .sole{position:absolute;left:-11px;bottom:-8px;width:32px;height:32px;   /* RADDOPPIATO; centro sotto la 1a lettera, sul rigo dell'underline; FERMA */
+    opacity:.95;filter:drop-shadow(0 0 5px #e7b24e85);transition:opacity .25s,filter .25s}
   .voice::after{content:"";position:absolute;left:2px;right:0;bottom:7px;height:2px;border-radius:2px;  /* NASCE dal sole, ~1-2mm sotto il testo; centro raggio (8px)=centro sole (8px) */
-    background:linear-gradient(90deg,#fff4d6,#f4d38a 12%,#e7b24e 40%,#e7b24e55 72%,#e7b24e00);  /* pickup oro del sole, più brillante all'origine, sfuma a destra */
+    background:linear-gradient(90deg,#fff4d6 0%,#f4d38a 10%,#e7b24e 38%,#e7b24e 82%,#e7b24eaa 94%,#e7b24e00 100%);  /* pickup oro, steso FINO ALLA FINE delle parole (bordo destro), tip morbido */
     box-shadow:0 0 9px #f4d38a55;opacity:0;transform:scaleX(.5);transform-origin:left;
     transition:opacity .28s,transform .42s cubic-bezier(.2,.7,.2,1)}
   .voice:hover::after,.voice:focus-visible::after{opacity:1;transform:scaleX(1)}   /* il raggio scatta fuori dal sole */
@@ -132,7 +132,7 @@
     </nav>
 
     <div class="bottom">
-      <div class="langs" aria-label="Lingua">
+      <div class="langs" aria-label="Idioma">
         <button data-lang="it" class="on">IT</button><span class="sep">|</span>
         <button data-lang="en">EN</button><span class="sep">|</span>
         <button data-lang="es">ES</button><span class="sep">|</span>
