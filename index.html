@@ -3,137 +3,136 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>THT Check — La diagnosi d'impresa deterministica</title>
-<meta name="description" content="THT Check: diagnosi d'impresa deterministica, oggettiva, ripetibile. Instant · Fast · Full.">
+<title>THT — Le verità nascoste</title>
+<meta name="description" content="THT — The Hidden Truths. Le verità nascoste dell'impresa: controllo aziendale, per veri imprenditori.">
 <style>
   :root{
-    --bg:#08111e; --bg2:#0d1b30; --panel:#0a1422e8; --line:#243a54;
-    --ink:#e9f0f8; --mut:#9db2cc; --blu:#5B9BD5; --blu2:#2E5A88;
-    --gold:#C8B79A; --ok:#5fbf8f;
+    --bg:#000;
+    --ink:#ffffff;
+    --mut:#b7bbc2;
+    --gold:#e7b24e;                       /* l'oro della lampada: unico accento */
+    --gutter:clamp(28px,6.2vw,92px);      /* la guida verticale sinistra */
+    --logo-w:clamp(210px,20vw,320px);
+    --menu-w:clamp(272px,25vw,384px);     /* larghezza colonna menu = larghezza della riga oro */
   }
   *{box-sizing:border-box}
-  html,body{margin:0}
+  html,body{margin:0;height:100%}
   body{
-    background:#000;
+    background:var(--bg);
     color:var(--ink);
-    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased; line-height:1.55;
+    font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
   }
-  /* sfondo a tema lampada (coerente con la copertina): fisso, lampada in basso a destra */
-  body::before{content:"";position:fixed;inset:0;z-index:-2;
-    background:#000 url(assets/sfondo-lampada.png) no-repeat right bottom;
-    background-size:auto 96vh;}
-  /* velo scuro sul lato sinistro/alto: i contenuti restano sempre leggibili */
-  body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:linear-gradient(90deg,#000 0%,#000c 34%,#0007 52%,transparent 72%);}
-  @media (max-width:760px){ body::before{background-size:auto 52vh;opacity:.5} }
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 
-  /* header */
-  header.top{display:flex;align-items:center;justify-content:space-between;
-    padding:18px 20px;max-width:1120px;margin:0 auto}
-  .brand{display:flex;align-items:baseline;gap:10px;font-weight:800;letter-spacing:.14em}
-  .brand .tht{font-size:20px}
-  .brand .sub{font-size:11px;color:var(--mut);letter-spacing:.22em;font-weight:600}
-  .pw{font-size:11px;color:var(--mut);letter-spacing:.06em}
-  .pw b{color:var(--gold);font-weight:700}
+  /* ---- HERO 100vh: la composizione approvata (nero a sinistra, lampada+fumo a destra) ---- */
+  .hero{position:fixed;inset:0;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:#000 url(assets/hero-lampada.png) no-repeat center center;
+    background-size:cover;
+  }
+  .hero::after{                 /* velo appena percettibile: tiene il testo a sinistra sempre nitido */
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,#000 0%,#000 22%,#00000099 40%,transparent 60%);
+  }
+  @media (max-width:820px){
+    .hero::before{background-size:auto 60vh;background-position:right bottom;opacity:.7}
+    .hero::after{background:linear-gradient(180deg,#000 32%,#0000009c 62%,transparent 100%)}
+  }
 
-  /* hero */
-  .hero{text-align:center;padding:26px 0 8px}
-  .hero h1{font-size:clamp(26px,5vw,46px);line-height:1.12;margin:.2em 0 .3em;font-weight:800;
-    letter-spacing:-.01em}
-  .hero h1 .g{background:linear-gradient(90deg,var(--blu),var(--gold));-webkit-background-clip:text;
-    background-clip:text;color:transparent}
-  .hero p.claim{font-size:clamp(15px,2.2vw,19px);color:var(--mut);max-width:720px;margin:0 auto}
-  .motto{margin:14px auto 0;font-style:italic;color:var(--gold);font-size:15px}
+  /* ---- colonna sinistra ---- */
+  .stage{position:relative;z-index:2;height:100%;
+    display:flex;flex-direction:column;
+    padding:clamp(50px,10vh,116px) var(--gutter) clamp(30px,7vh,66px);}
 
-  .mapwrap{margin:26px auto 8px;max-width:980px;border:1px solid var(--line);border-radius:16px;
-    overflow:hidden;box-shadow:0 24px 60px #0009, inset 0 0 0 1px #ffffff08}
-  .mapwrap img{display:block;width:100%;height:auto}
+  .mark{width:var(--logo-w)}
+  .mark img{display:block;width:100%;height:auto;filter:drop-shadow(0 0 16px #ffffff1f)}
 
-  /* CTA demo */
-  .cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:26px 0 8px}
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:12px;
-    font-weight:700;font-size:15px;border:1px solid transparent;transition:.15s;cursor:pointer}
-  .btn.primary{background:linear-gradient(180deg,var(--blu),var(--blu2));color:#fff;
-    box-shadow:0 10px 24px #2e5a8855}
-  .btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
-  .btn.ghost{background:#ffffff08;border-color:var(--line);color:var(--ink)}
-  .btn.ghost:hover{background:#ffffff12;border-color:var(--blu)}
+  /* payoff: entra da protagonista, si posa sotto THT, resta statico (bold, come la realizzazione) */
+  .payoff{
+    width:var(--logo-w);
+    margin-top:clamp(7px,1.3vh,15px);
+    font-size:clamp(13px,1.35vw,19px);
+    font-weight:700;letter-spacing:.135em;
+    color:var(--ink);white-space:nowrap;
+    transform-origin:left center;
+  }
+  .payoff.animate{opacity:0;animation:payoff 2.6s cubic-bezier(.22,.61,.36,1) .35s forwards}
+  @keyframes payoff{
+    0%   {opacity:0; transform:translate(11vw,30vh) scale(1.9); filter:blur(7px) brightness(2);   letter-spacing:.34em}
+    18%  {opacity:1; filter:blur(0) brightness(1.6)}
+    52%  {opacity:1; transform:translate(11vw,30vh) scale(1.9); filter:blur(0) brightness(1.6);   letter-spacing:.34em}
+    100% {opacity:1; transform:translate(0,0) scale(1);         filter:blur(0) brightness(1);     letter-spacing:.135em}
+  }
 
-  /* products */
-  .sec-title{text-align:center;margin:48px 0 6px;font-size:13px;letter-spacing:.24em;
-    color:var(--mut);text-transform:uppercase;font-weight:700}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0 10px}
-  @media(max-width:760px){.grid{grid-template-columns:1fr}}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 20px;
-    position:relative;backdrop-filter:blur(6px)}
-  .card h3{margin:.1em 0 .1em;font-size:20px;display:flex;align-items:center;gap:8px}
-  .card .code{font-size:11px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;font-weight:700}
-  .card .desc{color:var(--mut);font-size:14px;margin:8px 0 14px;min-height:66px}
-  .card ul{margin:0 0 16px;padding:0;list-style:none;font-size:13.5px;color:#c7d6e8}
-  .card ul li{padding:5px 0;border-top:1px dashed #ffffff12}
-  .card ul li:first-child{border-top:0}
-  /* la targhetta È il pulsante: allineata al titolo, alta ~metà, verde=prova / arancio=in arrivo */
-  .cta-tag{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-    padding:3px 11px;border-radius:999px;line-height:1;white-space:nowrap;text-decoration:none;color:#fff}
-  a.cta-tag.go{background:linear-gradient(180deg,#2ee06a,#1fb257);border:1px solid #46e884;
-    box-shadow:0 2px 8px #1fb2574d;transition:filter .15s,transform .15s}
-  a.cta-tag.go:hover{filter:brightness(1.08);transform:translateY(-1px)}
-  .cta-tag.soon{background:linear-gradient(180deg,#f3982f,#d9761a);border:1px solid #f6ab52}
-  .card .act{display:flex;gap:8px;flex-wrap:wrap}
-  .card.dim{opacity:.72}
+  /* menu: 4 voci, testo nudo (niente puntini). Indicatore = sottile riga oro sotto la voce */
+  nav.menu{margin-top:clamp(42px,8.5vh,102px);display:flex;flex-direction:column;
+    gap:clamp(20px,3.6vh,40px);width:var(--menu-w)}
+  .voice{display:block;width:100%;background:none;border:0;padding:0 0 clamp(9px,1.4vh,14px);
+    border-bottom:1px solid transparent;cursor:pointer;color:var(--ink);font:inherit;text-align:left;
+    font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;text-transform:uppercase;
+    transition:color .22s,border-color .22s}
+  .voice:hover,.voice:focus-visible{color:#fff;border-bottom-color:var(--gold)}
+  .voice:focus-visible{outline:none}
 
-  footer{margin:56px 0 34px;text-align:center;color:var(--mut);font-size:12.5px}
-  footer .rule{height:1px;background:var(--line);max-width:520px;margin:0 auto 18px}
-  footer b{color:var(--gold)}
-  .note{display:inline-block;margin-top:10px;font-size:11.5px;color:#7f93ad;
-    border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+  /* selettore lingua, in basso a sinistra sulla stessa guida */
+  .langs{margin-top:auto;display:flex;align-items:center;gap:13px;font-size:13px}
+  .langs button{background:none;border:0;padding:0;cursor:pointer;color:var(--mut);
+    font:inherit;letter-spacing:.11em;font-weight:600;transition:color .2s}
+  .langs button:hover{color:var(--ink)}
+  .langs button.on{color:var(--gold)}
+  .langs .sep{color:#585858}
+
+  @media (prefers-reduced-motion:reduce){ .payoff.animate{animation:none;opacity:1} }
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="brand"><span class="tht">THT</span><span class="sub">THE&nbsp;HIDDEN&nbsp;TRUTHS</span></div>
-  <div class="pw">Powered by <b>THT</b> Systems</div>
-</header>
+<div class="hero">
+  <div class="stage">
 
-<main class="wrap">
-  <section class="hero">
-    <h1>La diagnosi d'impresa <span class="g">deterministica</span></h1>
-    <p class="claim">Oggettiva, ripetibile, verificabile sul dato. La strumentazione di bordo
-      dell'imprenditore — non il consuntivo, ma la rotta.</p>
-    <div class="motto">«non per arricchirsi, ma per curare»</div>
-
-  </section>
-
-  <div class="sec-title">I tre livelli di lettura</div>
-  <section class="grid">
-
-    <div class="card">
-      <h3>Instant Check <a class="cta-tag go" href="instant/mask/">Prova ora</a></h3>
-      <div class="desc">La fotografia dell'adesso: <b>quanto stai guadagnando davvero</b> e <b>quanto di quel denaro puoi metterti in tasca</b>. Una sola lettura, subito — senza commercialista.</div>
+    <div class="mark">
+      <img src="assets/marchio-tht-vetro.png" alt="THT — The Hidden Truths" width="382" height="192">
     </div>
 
-    <div class="card">
-      <h3>Fast Check <a class="cta-tag go" href="fast/mask/">Prova ora</a></h3>
-      <div class="desc">La visita prognostica coi primi esami del sangue: <b>redditività, liquidità e rischio</b> su due letture, con relazione e cruscotto. Dove va la tua impresa, non solo dov'è.</div>
+    <div class="payoff animate" id="payoff">LE VERITÀ NASCOSTE</div>
+
+    <nav class="menu" aria-label="Menu principale">
+      <button class="voice" data-key="imprenditori">Per veri imprenditori</button>
+      <button class="voice" data-key="controllo">Controllo aziendale</button>
+      <button class="voice" data-key="segretezza">Segretezza assoluta</button>
+      <button class="voice" data-key="passo">Il primo passo</button>
+    </nav>
+
+    <div class="langs" aria-label="Lingua">
+      <button data-lang="it" class="on">IT</button><span class="sep">|</span>
+      <button data-lang="en">EN</button><span class="sep">|</span>
+      <button data-lang="es">ES</button><span class="sep">|</span>
+      <button data-lang="fr">FR</button>
     </div>
 
-    <div class="card">
-      <h3>Full Check <span class="cta-tag soon">In arrivo</span></h3>
-      <div class="desc">La risonanza total body: <b>analisi completa e pluriennale</b> di finanza, economia e organizzazione, con cockpit direzionale. La diagnosi che vede tutto.</div>
-    </div>
+  </div>
+</div>
 
-  </section>
-
-  <footer>
-    <div class="rule"></div>
-    <div>THT Check — <b>The Hidden Truths</b> · Powered by <b>THT</b> Systems</div>
-    <div class="note">Anteprima dimostrativa · dati di simulazione · motori di calcolo non inclusi</div>
-  </footer>
-</main>
+<script>
+  // i18n: payoff (la spiegazione del nome) + le 4 voci del menu
+  const I18N = {
+    it:{ payoff:"LE VERITÀ NASCOSTE", imprenditori:"Per veri imprenditori", controllo:"Controllo aziendale", segretezza:"Segretezza assoluta", passo:"Il primo passo" },
+    en:{ payoff:"THE HIDDEN TRUTHS",  imprenditori:"For true entrepreneurs", controllo:"Business control",    segretezza:"Absolute confidentiality", passo:"The first step" },
+    es:{ payoff:"LAS VERDADES OCULTAS", imprenditori:"Para verdaderos empresarios", controllo:"Control empresarial", segretezza:"Secreto absoluto", passo:"El primer paso" },
+    fr:{ payoff:"LES VÉRITÉS CACHÉES", imprenditori:"Pour les vrais entrepreneurs", controllo:"Contrôle d'entreprise", segretezza:"Confidentialité absolue", passo:"Le premier pas" }
+  };
+  const payoff = document.getElementById('payoff');
+  function setLang(lang){
+    const t = I18N[lang]; if(!t) return;
+    document.documentElement.lang = lang;
+    payoff.textContent = t.payoff;                 // niente replay: l'entrata è già avvenuta
+    document.querySelectorAll('.voice').forEach(v=> v.textContent = t[v.dataset.key]);
+    document.querySelectorAll('.langs button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
+  }
+  document.querySelectorAll('.langs button').forEach(b=> b.addEventListener('click',()=>setLang(b.dataset.lang)));
+</script>
 
 </body>
 </html>
