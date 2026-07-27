@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>THT — Le verità nascoste</title>
 <meta name="description" content="THT — The Hidden Truths. Le verità nascoste dell'impresa: controllo aziendale, per veri imprenditori.">
+<!-- preview live: animazione «747» a fuoco + soli col raggio -->
 <style>
   :root{
     --bg:#000;
@@ -57,26 +58,40 @@
     margin-top:clamp(8px,1.5vh,17px);
     transform-origin:left center;
   }
-  /* «Boeing 747»: THT resta fermo; il payoff arriva ENORME dal nulla, si avvicina e BOOM, stampo con impatto */
-  .payoff.animate{opacity:0;animation:payoffBoom 3.2s cubic-bezier(.5,.05,.18,1) .35s forwards}
+  /* «Boeing 747»: THT fermo. Il payoff arriva DRITTO (niente diagonale), enorme come se ti
+     sorvolasse da dietro: prima solo una SAGOMA sfocata (ombra/fumo), poi mette a fuoco come una
+     focale, rimpicciolisce sul posto, SBATTE (contrae+flash) e si fissa nitido. */
+  .payoff.animate{opacity:0;animation:payoffBoom 3.6s cubic-bezier(.38,0,.2,1) .3s forwards}
   @keyframes payoffBoom{
-    0%   {opacity:0; transform:translate(20vw,34vh) scale(5.2); filter:blur(14px) brightness(2.6)}
-    12%  {opacity:1;                                            filter:blur(7px)  brightness(2.1)}
-    68%  {opacity:1; transform:translate(3vw,3.5vh) scale(1.42); filter:blur(1px) brightness(1.3)}
-    84%  {opacity:1; transform:translate(0,0) scale(.94);        filter:blur(0)   brightness(1.9)}  /* BOOM: impatto/flash */
-    92%  {opacity:1; transform:translate(0,0) scale(1.02);       filter:brightness(1.2)}
-    100% {opacity:1; transform:translate(0,0) scale(1);          filter:brightness(1)}
+    0%   {opacity:0;   transform:scale(7);    filter:blur(26px) brightness(.20)}  /* sagoma enorme, indefinita, come fumo */
+    9%   {opacity:.5;                          filter:blur(22px) brightness(.30)}
+    58%  {opacity:.85; transform:scale(2.6);  filter:blur(8px)  brightness(.68)}  /* si avvicina e comincia a definirsi */
+    82%  {opacity:1;   transform:scale(1.16); filter:blur(1.4px) brightness(1.12)} /* quasi a fuoco */
+    90%  {             transform:scale(.93);  filter:blur(0)    brightness(1.8)}  /* SBATTE: impatto + flash */
+    96%  {             transform:scale(1.025);filter:brightness(1.15)}
+    100% {opacity:1;   transform:scale(1);    filter:brightness(1)}              /* fissato, nitido, allineato */
   }
 
-  /* menu: 4 voci, testo nudo (niente puntini). Indicatore = sottile riga oro sotto la voce */
-  nav.menu{margin-top:clamp(42px,8.5vh,102px);display:flex;flex-direction:column;
-    gap:clamp(20px,3.6vh,40px);width:var(--menu-w)}
-  .voice{display:block;width:100%;background:none;border:0;padding:0 0 clamp(9px,1.4vh,14px);
-    border-bottom:1px solid transparent;cursor:pointer;color:var(--ink);font:inherit;text-align:left;
-    text-decoration:none;
-    font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;text-transform:uppercase;
-    transition:color .22s,border-color .22s}
-  .voice:hover,.voice:focus-visible{color:#fff;border-bottom-color:var(--gold)}
+  /* menu: 4 voci. Ogni voce = SOLE (a filo del bordo sinistro) + testo, tutto dentro il rettangolo.
+     Indicatore = BARRA ILLUMINANTE (gradiente oro con alone) da bordo a bordo, compare allo sfioramento. */
+  nav.menu{margin-top:clamp(38px,7.5vh,92px);display:flex;flex-direction:column;
+    gap:clamp(16px,3vh,32px);width:var(--menu-w)}
+  /* voce: TESTO in alto (a filo del bordo sinistro, come THT). SOTTO, a livello della sottolineatura,
+     il SOLE (fermo) col centro sul bordo sinistro, e il RAGGIO che ne emana lateralmente allo sfioramento */
+  .voice{position:relative;display:block;width:100%;
+    padding-bottom:clamp(22px,3vh,30px);
+    cursor:pointer;color:var(--ink);text-decoration:none}
+  .voice .lbl{display:block;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
+    text-transform:uppercase;white-space:nowrap;transition:color .22s}
+  .voice .sole{position:absolute;left:-14px;bottom:-6px;width:28px;height:28px;   /* centro sul bordo sinistro; FERMO */
+    opacity:.9;filter:drop-shadow(0 0 4px #e7b24e66);transition:opacity .25s,filter .25s}
+  .voice::after{content:"";position:absolute;left:6px;right:0;bottom:7px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,#f4d38a,#e7b24e 30%,#e7b24e66 66%,#e7b24e00);  /* raggio dal sole, sfuma a destra */
+    box-shadow:0 0 8px #e7b24e5c;opacity:0;transform:scaleX(.7);transform-origin:left;
+    transition:opacity .3s,transform .38s}
+  .voice:hover::after,.voice:focus-visible::after{opacity:1;transform:scaleX(1)}
+  .voice:hover .sole,.voice:focus-visible .sole{opacity:1;filter:drop-shadow(0 0 11px #f4d38a)}  /* si accende, NON si muove */
+  .voice:hover .lbl,.voice:focus-visible .lbl{color:#fff}
   .voice:focus-visible{outline:none}
 
   /* selettore lingua, in basso a sinistra sulla stessa guida */
@@ -103,10 +118,10 @@
          alt="Le verità nascoste" width="345" height="42">
 
     <nav class="menu" aria-label="Menu principale">
-      <a class="voice" data-key="imprenditori" href="imprenditori/">Per veri imprenditori</a>
-      <a class="voice" data-key="controllo"    href="controllo/">Controllo aziendale</a>
-      <a class="voice" data-key="segretezza"   href="segretezza/">Segretezza assoluta</a>
-      <a class="voice" data-key="passo"        href="primo-passo/">Il primo passo</a>
+      <a class="voice" data-key="imprenditori" href="imprenditori/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Per veri imprenditori</span></a>
+      <a class="voice" data-key="controllo"    href="controllo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Controllo aziendale</span></a>
+      <a class="voice" data-key="segretezza"   href="segretezza/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Segretezza assoluta</span></a>
+      <a class="voice" data-key="passo"        href="primo-passo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Il primo passo</span></a>
     </nav>
 
     <div class="langs" aria-label="Lingua">
@@ -132,7 +147,7 @@
   function setLang(lang){
     const t = I18N[lang]; if(!t) return;
     document.documentElement.lang = lang;
-    document.querySelectorAll('.voice').forEach(v=> v.textContent = t[v.dataset.key]);
+    document.querySelectorAll('.voice').forEach(v=> v.querySelector('.lbl').textContent = t[v.dataset.key]);
     document.querySelectorAll('.langs button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
   }
   document.querySelectorAll('.langs button').forEach(b=> b.addEventListener('click',()=>setLang(b.dataset.lang)));
