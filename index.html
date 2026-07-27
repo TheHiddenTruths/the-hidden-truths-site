@@ -57,12 +57,15 @@
     margin-top:clamp(8px,1.5vh,17px);
     transform-origin:left center;
   }
-  .payoff.animate{opacity:0;animation:payoff 2.6s cubic-bezier(.22,.61,.36,1) .35s forwards}
-  @keyframes payoff{
-    0%   {opacity:0; transform:translate(11vw,30vh) scale(1.9); filter:blur(7px) brightness(2);   letter-spacing:.34em}
-    18%  {opacity:1; filter:blur(0) brightness(1.6)}
-    52%  {opacity:1; transform:translate(11vw,30vh) scale(1.9); filter:blur(0) brightness(1.6);   letter-spacing:.34em}
-    100% {opacity:1; transform:translate(0,0) scale(1);         filter:blur(0) brightness(1);     letter-spacing:.135em}
+  /* «Boeing 747»: THT resta fermo; il payoff arriva ENORME dal nulla, si avvicina e BOOM, stampo con impatto */
+  .payoff.animate{opacity:0;animation:payoffBoom 3.2s cubic-bezier(.5,.05,.18,1) .35s forwards}
+  @keyframes payoffBoom{
+    0%   {opacity:0; transform:translate(20vw,34vh) scale(5.2); filter:blur(14px) brightness(2.6)}
+    12%  {opacity:1;                                            filter:blur(7px)  brightness(2.1)}
+    68%  {opacity:1; transform:translate(3vw,3.5vh) scale(1.42); filter:blur(1px) brightness(1.3)}
+    84%  {opacity:1; transform:translate(0,0) scale(.94);        filter:blur(0)   brightness(1.9)}  /* BOOM: impatto/flash */
+    92%  {opacity:1; transform:translate(0,0) scale(1.02);       filter:brightness(1.2)}
+    100% {opacity:1; transform:translate(0,0) scale(1);          filter:brightness(1)}
   }
 
   /* menu: 4 voci, testo nudo (niente puntini). Indicatore = sottile riga oro sotto la voce */
