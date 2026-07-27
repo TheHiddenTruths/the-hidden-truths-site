@@ -13,7 +13,7 @@
     --gold:#e7b24e;                       /* l'oro della lampada: unico accento */
     --gutter:clamp(28px,6.2vw,92px);      /* la guida verticale sinistra */
     --logo-w:clamp(210px,20vw,320px);
-    --menu-w:clamp(272px,25vw,384px);     /* larghezza colonna menu = larghezza della riga oro */
+    --menu-w:var(--logo-w);               /* colonna menu = larghezza ESATTA del marchio THT */
   }
   *{box-sizing:border-box}
   html,body{margin:0;height:100%}
@@ -125,14 +125,37 @@
     fr:{ payoff:"LES VÉRITÉS CACHÉES", imprenditori:"Pour les vrais entrepreneurs", controllo:"Contrôle d'entreprise", segretezza:"Confidentialité absolue", passo:"Le premier pas" }
   };
   const payoff = document.getElementById('payoff');
+
+  // GIUSTIFICAZIONE del payoff: le lettere spanano ESATTAMENTE la larghezza del marchio THT
+  // (flush a sinistra E a destra). La spaziatura è calcolata, non fissa: esatta in ogni lingua e schermo.
+  function fitPayoff(){
+    const img = document.querySelector('.mark img'); if(!img) return;
+    const logoW = img.getBoundingClientRect().width;
+    const len = payoff.textContent.length; if(len < 2) return;
+    payoff.style.letterSpacing = '0px';
+    payoff.style.width = 'max-content';
+    const nat = payoff.getBoundingClientRect().width;   // larghezza naturale del testo
+    payoff.style.width = logoW + 'px';
+    payoff.style.letterSpacing = ((logoW - nat) / (len - 1)) + 'px';
+  }
+
   function setLang(lang){
     const t = I18N[lang]; if(!t) return;
     document.documentElement.lang = lang;
     payoff.textContent = t.payoff;                 // niente replay: l'entrata è già avvenuta
     document.querySelectorAll('.voice').forEach(v=> v.textContent = t[v.dataset.key]);
     document.querySelectorAll('.langs button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
+    fitPayoff();
   }
   document.querySelectorAll('.langs button').forEach(b=> b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  // giustifica dopo l'entrata (o subito, se l'animazione è disattivata), e a ogni resize
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>{
+    if(reduce){ fitPayoff(); }
+    else payoff.addEventListener('animationend', ()=>{ payoff.classList.remove('animate'); fitPayoff(); }, {once:true});
+  });
+  let rz; addEventListener('resize', ()=>{ clearTimeout(rz); rz=setTimeout(fitPayoff, 120); });
 </script>
 
 </body>
