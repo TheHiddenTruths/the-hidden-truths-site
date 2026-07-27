@@ -61,15 +61,15 @@
   /* «Boeing 747»: THT fermo. Il payoff arriva DRITTO (niente diagonale), enorme come se ti
      sorvolasse da dietro: prima solo una SAGOMA sfocata (ombra/fumo), poi mette a fuoco come una
      focale, rimpicciolisce sul posto, SBATTE (contrae+flash) e si fissa nitido. */
-  .payoff.animate{opacity:0;animation:payoffBoom 4s cubic-bezier(.32,0,.14,1) .3s forwards}
+  .payoff.animate{opacity:0;animation:payoffBoom 4.2s cubic-bezier(.3,0,.12,1) .25s forwards}
   @keyframes payoffBoom{
-    0%   {opacity:0;  transform:translate(9vw,-7vh) scale(11); filter:blur(36px) brightness(1.2)} /* ENORME, sopra gli occhi, indefinito come fumo CHIARO */
-    8%   {opacity:.42;transform:translate(9vw,-7vh) scale(11); filter:blur(33px) brightness(1.2)}
-    50%  {opacity:.8; transform:translate(4.5vw,-3vh) scale(3.4); filter:blur(13px) brightness(1.15)} /* si avvicina, comincia a mettere a fuoco */
-    80%  {opacity:1;  transform:translate(0,0) scale(1.2);  filter:blur(1.6px) brightness(1.1)}   /* quasi a fuoco, verso sinistra sotto THT */
-    89%  {            transform:translate(0,0) scale(.9);   filter:blur(0)    brightness(1.9)}    /* SI STAMPA: impatto + flash */
-    95%  {            transform:translate(0,0) scale(1.03); filter:brightness(1.15)}
-    100% {opacity:1;  transform:translate(0,0) scale(1);    filter:brightness(1)}                 /* fissato, nitido, allineato */
+    0%   {opacity:0;   transform:translate(2vw,-16vh) scale(19); filter:blur(46px) brightness(1.4)}  /* ENORME sopra la testa: non capisci cos'è, come una carlinga */
+    6%   {opacity:.78; transform:translate(2vw,-16vh) scale(19); filter:blur(42px) brightness(1.4)}  /* imponente e presente, non timido */
+    44%  {opacity:.92; transform:translate(1vw,-6vh)  scale(5.6); filter:blur(20px) brightness(1.22)}/* SCENDE DRITTO e si materializza dalla nebbia */
+    74%  {opacity:1;   transform:translate(0,0)       scale(1.34);filter:blur(2px)  brightness(1.08)}
+    86%  {             transform:translate(0,0)       scale(.9);  filter:blur(0)    brightness(2)}   /* SI STAMPA: impatto + flash */
+    93%  {             transform:translate(0,0)       scale(1.03);filter:brightness(1.2)}
+    100% {opacity:1;   transform:translate(0,0)       scale(1);   filter:brightness(1)}              /* fissato, nitido, allineato */
   }
 
   /* menu: 4 voci. Ogni voce = SOLE (a filo del bordo sinistro) + testo, tutto dentro il rettangolo.
@@ -85,12 +85,12 @@
     text-transform:uppercase;white-space:nowrap;transition:color .22s}
   .voice .sole{position:absolute;left:-24px;bottom:-14px;width:48px;height:48px;   /* centro sul bordo sinistro; FERMO */
     opacity:.92;filter:drop-shadow(0 0 6px #e7b24e6e);transition:opacity .25s,filter .25s}
-  .voice::after{content:"";position:absolute;left:16px;right:0;bottom:9px;height:2px;border-radius:2px;  /* centro raggio (10px) = centro sole (10px) */
-    background:linear-gradient(90deg,#f4d38a,#e7b24e 30%,#e7b24e66 66%,#e7b24e00);  /* raggio dal sole, sfuma a destra */
-    box-shadow:0 0 8px #e7b24e5c;opacity:0;transform:scaleX(.7);transform-origin:left;
-    transition:opacity .3s,transform .38s}
-  .voice:hover::after,.voice:focus-visible::after{opacity:1;transform:scaleX(1)}
-  .voice:hover .sole,.voice:focus-visible .sole{opacity:1;filter:drop-shadow(0 0 11px #f4d38a)}  /* si accende, NON si muove */
+  .voice::after{content:"";position:absolute;left:6px;right:0;bottom:9px;height:2.5px;border-radius:3px;  /* parte DAL sole (x~0); centro raggio (10px)=centro sole */
+    background:linear-gradient(90deg,#fff4d6,#f4d38a 14%,#e7b24e 42%,#e7b24e55 74%,#e7b24e00);  /* RAGGIO che esce dal sole: brillante all'origine, sfuma a destra */
+    box-shadow:0 0 11px #f4d38a5c;opacity:0;transform:scaleX(.5);transform-origin:left;
+    transition:opacity .28s,transform .44s cubic-bezier(.2,.7,.2,1)}
+  .voice:hover::after,.voice:focus-visible::after{opacity:1;transform:scaleX(1)}   /* il raggio scatta fuori dal sole */
+  .voice:hover .sole,.voice:focus-visible .sole{opacity:1;filter:drop-shadow(0 0 14px #fff4d6) drop-shadow(0 0 6px #f4d38a)}  /* il sole si ACCENDE (sorgente del raggio), NON si muove */
   .voice:hover .lbl,.voice:focus-visible .lbl{color:#fff}
   .voice:focus-visible{outline:none}
 
