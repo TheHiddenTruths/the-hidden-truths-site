@@ -87,14 +87,14 @@
   /* STELLA COMETA: testa (sole) più grande + SCIA TRIANGOLARE che si assottiglia e sfuma verso la fine */
   /* la STELLA simbolica (sole.png, Mano che Sogna) INGRANDITA, ferma sotto la 1a lettera;
      da lì ESCE un raggio che DEGRADA (gradiente oro brillante all'origine -> trasparente) */
-  .voice .sole{position:absolute;left:-15px;bottom:-16px;width:40px;height:40px;   /* stella, abbassata ~2mm, sotto la 1a lettera */
+  .voice .sole{position:absolute;left:-16px;bottom:-16px;width:44px;height:44px;   /* stella ingrandita, abbassata ~2mm, sotto la 1a lettera */
     opacity:.96;filter:drop-shadow(0 0 5px #e7b24e7a);transition:opacity .25s,filter .25s}
-  /* RAGGIO ARCATO (parabola = sottolineatura a mano): esce dalla stella, sottile all'origine, degrada
-     e si allunga fino alla fine della parola. Si DISEGNA all'hover (stroke-dashoffset). */
-  .voice .ray{position:absolute;left:0;right:0;bottom:-12px;height:34px;overflow:visible;pointer-events:none}
-  .voice .ray path{stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 3px #f4d38a4d);
-    transition:stroke-dashoffset .62s cubic-bezier(.22,.7,.2,1)}
-  .voice:hover .ray path,.voice:focus-visible .ray path{stroke-dashoffset:0}
+  /* RAGGIO ARCATO che parte DAL CENTRO della stella, si RASTREMA (fine fine fine) e arriva alla fine
+     della frase; parabola = sottolineatura a mano. Si DISEGNA all'hover (rivelo da sinistra). */
+  .voice .ray{position:absolute;left:0;right:0;bottom:-12px;height:34px;overflow:visible;pointer-events:none;
+    clip-path:inset(0 100% 0 0);filter:drop-shadow(0 0 3px #f4d38a44);
+    transition:clip-path .62s cubic-bezier(.22,.7,.2,1)}
+  .voice:hover .ray,.voice:focus-visible .ray{clip-path:inset(0 0 0 0)}
   .voice:hover .sole,.voice:focus-visible .sole{opacity:1;filter:drop-shadow(0 0 8px #fff4d6) drop-shadow(0 0 4px #f4d38a)}  /* la stella si ACCENDE (sorgente), NON si muove */
   .voice:hover .lbl,.voice:focus-visible .lbl{color:#fff}
   .voice:focus-visible{outline:none}
@@ -123,9 +123,10 @@
   <svg width="0" height="0" aria-hidden="true"><defs>
     <linearGradient id="rayGrad" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#fff6de"/>
-      <stop offset="14%" stop-color="#f4d38a"/>
-      <stop offset="50%" stop-color="#e7b24e"/>
-      <stop offset="100%" stop-color="#e7b24e" stop-opacity="0"/>
+      <stop offset="12%" stop-color="#f4d38a"/>
+      <stop offset="45%" stop-color="#e7b24e"/>
+      <stop offset="90%" stop-color="#e7b24e"/>
+      <stop offset="100%" stop-color="#e7b24e" stop-opacity=".32"/>
     </linearGradient>
   </defs></svg>
   <div class="stage">
@@ -138,10 +139,10 @@
          alt="Le verità nascoste" width="345" height="42">
 
     <nav class="menu" aria-label="Menu principale">
-      <a class="voice" data-key="imprenditori" href="imprenditori/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Per veri imprenditori</span><svg class="ray" viewBox="0 0 300 34" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,18 Q150,26 296,14" fill="none" stroke="url(#rayGrad)" stroke-width="1.7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></a>
-      <a class="voice" data-key="controllo"    href="controllo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Controllo aziendale</span><svg class="ray" viewBox="0 0 300 34" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,18 Q150,26 296,14" fill="none" stroke="url(#rayGrad)" stroke-width="1.7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></a>
-      <a class="voice" data-key="segretezza"   href="segretezza/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Segretezza assoluta</span><svg class="ray" viewBox="0 0 300 34" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,18 Q150,26 296,14" fill="none" stroke="url(#rayGrad)" stroke-width="1.7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></a>
-      <a class="voice" data-key="passo"        href="primo-passo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Il primo passo</span><svg class="ray" viewBox="0 0 300 34" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4,18 Q150,26 296,14" fill="none" stroke="url(#rayGrad)" stroke-width="1.7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></a>
+      <a class="voice" data-key="imprenditori" href="imprenditori/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Per veri imprenditori</span><svg class="ray" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6,16.5 Q150,25 298,16.4 L298,17.6 Q150,31 6,21.5 Z" fill="url(#rayGrad)"/></svg></a>
+      <a class="voice" data-key="controllo"    href="controllo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Controllo aziendale</span><svg class="ray" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6,16.5 Q150,25 298,16.4 L298,17.6 Q150,31 6,21.5 Z" fill="url(#rayGrad)"/></svg></a>
+      <a class="voice" data-key="segretezza"   href="segretezza/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Segretezza assoluta</span><svg class="ray" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6,16.5 Q150,25 298,16.4 L298,17.6 Q150,31 6,21.5 Z" fill="url(#rayGrad)"/></svg></a>
+      <a class="voice" data-key="passo"        href="primo-passo/"><img class="sole" src="assets/sole.png" width="140" height="140" alt="" aria-hidden="true"><span class="lbl">Il primo passo</span><svg class="ray" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path d="M6,16.5 Q150,25 298,16.4 L298,17.6 Q150,31 6,21.5 Z" fill="url(#rayGrad)"/></svg></a>
     </nav>
 
     <div class="bottom">
