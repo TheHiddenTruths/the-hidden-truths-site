@@ -1,0 +1,30 @@
+{
+  "_nota": "REGISTRO STATI — la fonte VIVA che alimenta i LED del cockpit. Regola: quando Aquila costruisce o cambia un componente, aggiorna qui il suo stato. Il LED non deve mai mentire (niente 'tutto verde' aspirazionale). Dati NON sensibili -> puo' stare nel repo pubblico.",
+  "_legenda": {
+    "verde": "attivo / funzionante / verificato",
+    "giallo": "dormiente / parziale / c'e' ma incompleto",
+    "rosso": "non funzionante / non costruito",
+    "grigio": "non applicabile / in attesa"
+  },
+  "_aggiornato": "2026-07-28",
+  "componenti": [
+    { "id": "motore-fast",        "nome": "Motore Fast (engine.js)",        "strato": "motori",      "stato": "verde",  "nota": "verificato 161/161" },
+    { "id": "motore-instant",     "nome": "Motore Instant",                 "strato": "motori",      "stato": "giallo", "nota": "mask c'e', motore da costruire" },
+    { "id": "motore-full",        "nome": "Motore Full",                    "strato": "motori",      "stato": "rosso",  "nota": "solo sorgenti Excel" },
+    { "id": "motori-libreria",    "nome": "Motori libreria (KPI, Diagnostic, Scoring...)", "strato": "motori", "stato": "rosso", "nota": "design, non costruiti" },
+    { "id": "mask-fast",          "nome": "Mask Fast",                      "strato": "interfaccia", "stato": "verde",  "nota": "" },
+    { "id": "mask-instant",       "nome": "Mask Instant",                   "strato": "interfaccia", "stato": "verde",  "nota": "senza motore collegato" },
+    { "id": "dossier-fast",       "nome": "Dossier Fast (relazione)",       "strato": "interfaccia", "stato": "verde",  "nota": "beta, pubblicato" },
+    { "id": "dossier-altri",      "nome": "Dossier Instant / Full",         "strato": "interfaccia", "stato": "rosso",  "nota": "placeholder" },
+    { "id": "sito-landing",       "nome": "Sito landing",                   "strato": "interfaccia", "stato": "giallo", "nota": "parziale" },
+    { "id": "sito-scroll",        "nome": "Sito a 3 layer (scroll)",        "strato": "interfaccia", "stato": "rosso",  "nota": "da progettare" },
+    { "id": "cockpit-riservato",  "nome": "Cockpit riservato",              "strato": "interfaccia", "stato": "giallo", "nota": "struttura v0" },
+    { "id": "dati-json",          "nome": "JSON scaricabili",               "strato": "dati",        "stato": "verde",  "nota": "nessun backend" },
+    { "id": "dati-db",            "nome": "Database (PostgreSQL)",          "strato": "dati",        "stato": "rosso",  "nota": "il ponte, da fare" },
+    { "id": "infra-github",       "nome": "GitHub Repository",              "strato": "infra",       "stato": "verde",  "nota": "attivo" },
+    { "id": "infra-pages",        "nome": "GitHub Pages (deploy sito)",     "strato": "infra",       "stato": "verde",  "nota": "workflow attivo" },
+    { "id": "infra-backend",      "nome": "Docker / VPS / Backend",         "strato": "infra",       "stato": "rosso",  "nota": "non esistono" },
+    { "id": "serv-pagamenti",     "nome": "Stripe / Squarespace / Cloudflare", "strato": "servizi", "stato": "rosso",  "nota": "non collegati" },
+    { "id": "serv-llm",           "nome": "LLM API (OpenAI, Claude)",       "strato": "servizi",     "stato": "grigio", "nota": "no dati personali alle LLM" }
+  ]
+}
