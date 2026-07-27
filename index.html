@@ -82,13 +82,13 @@
   .voice{position:relative;display:block;width:100%;
     padding-bottom:clamp(24px,3.4vh,30px);   /* spazio per la testa della cometa sotto il testo */
     cursor:pointer;color:var(--ink);text-decoration:none}
-  .voice .lbl{display:block;width:100%;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
+  .voice .lbl{position:relative;z-index:1;display:block;width:100%;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
     text-transform:uppercase;white-space:nowrap;transition:color .22s}
   /* STELLA COMETA: testa (sole) più grande + SCIA TRIANGOLARE che si assottiglia e sfuma verso la fine */
   /* la STELLA simbolica (sole.png, Mano che Sogna) INGRANDITA, ferma sotto la 1a lettera;
      da lì ESCE un raggio che DEGRADA (gradiente oro brillante all'origine -> trasparente) */
-  .voice .sole{position:absolute;left:-16px;bottom:-16px;width:44px;height:44px;   /* stella ingrandita, abbassata ~2mm, sotto la 1a lettera */
-    opacity:.96;filter:drop-shadow(0 0 5px #e7b24e7a);transition:opacity .25s,filter .25s}
+  .voice .sole{position:absolute;left:-38px;bottom:-38px;width:88px;height:88px;z-index:-1;   /* stella RADDOPPIATA, luminosa, dietro il testo; centro sotto la 1a lettera */
+    opacity:.96;filter:drop-shadow(0 0 8px #e7b24e7a);transition:opacity .25s,filter .25s}
   /* RAGGIO ARCATO che parte DAL CENTRO della stella, si RASTREMA (fine fine fine) e arriva alla fine
      della frase; parabola = sottolineatura a mano. Si DISEGNA all'hover (rivelo da sinistra). */
   .voice .ray{position:absolute;left:0;right:0;bottom:-12px;height:34px;overflow:visible;pointer-events:none;
