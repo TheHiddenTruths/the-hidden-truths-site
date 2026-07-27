@@ -75,17 +75,17 @@
   /* menu: 4 voci. Ogni voce = SOLE (a filo del bordo sinistro) + testo, tutto dentro il rettangolo.
      Indicatore = BARRA ILLUMINANTE (gradiente oro con alone) da bordo a bordo, compare allo sfioramento. */
   nav.menu{margin-top:clamp(34px,6.8vh,84px);display:flex;flex-direction:column;
-    gap:clamp(13px,2.4vh,26px);width:var(--menu-w)}
-  /* voce: TESTO in alto (a filo del bordo sinistro, come THT). SOTTO, a livello della sottolineatura,
-     il SOLE (fermo) col centro sul bordo sinistro, e il RAGGIO che ne emana lateralmente allo sfioramento */
+    gap:clamp(9px,1.8vh,18px);width:var(--menu-w)}
+  /* voce: TESTO giustificato nella colonna. SOTTO, VICINO al testo, la sottolineatura = RAGGIO che
+     emana dal SOLE (fermo, centro sul bordo sinistro, centrato sulla riga del raggio) allo sfioramento */
   .voice{position:relative;display:block;width:100%;
-    padding-bottom:clamp(38px,5vh,50px);
+    padding-bottom:clamp(21px,2.9vh,27px);
     cursor:pointer;color:var(--ink);text-decoration:none}
-  .voice .lbl{display:block;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
+  .voice .lbl{display:block;width:100%;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
     text-transform:uppercase;white-space:nowrap;transition:color .22s}
-  .voice .sole{position:absolute;left:-28px;bottom:-18px;width:56px;height:56px;   /* +100%; centro sul bordo sinistro; FERMO */
+  .voice .sole{position:absolute;left:-24px;bottom:-14px;width:48px;height:48px;   /* centro sul bordo sinistro; FERMO */
     opacity:.92;filter:drop-shadow(0 0 6px #e7b24e6e);transition:opacity .25s,filter .25s}
-  .voice::after{content:"";position:absolute;left:18px;right:0;bottom:9px;height:2px;border-radius:2px;  /* centro raggio (10px) = centro sole (10px) */
+  .voice::after{content:"";position:absolute;left:16px;right:0;bottom:9px;height:2px;border-radius:2px;  /* centro raggio (10px) = centro sole (10px) */
     background:linear-gradient(90deg,#f4d38a,#e7b24e 30%,#e7b24e66 66%,#e7b24e00);  /* raggio dal sole, sfuma a destra */
     box-shadow:0 0 8px #e7b24e5c;opacity:0;transform:scaleX(.7);transform-origin:left;
     transition:opacity .3s,transform .38s}
@@ -156,13 +156,30 @@
   };
   // Il payoff è un OGGETTO grafico (lettering grunge estratto), per ora solo IT.
   // Le versioni EN/ES/FR saranno oggetti dedicati: il cambio lingua per ora tocca solo le voci.
+  // giustifica ogni voce nella colonna ESATTA del marchio (letter-spacing calcolato, come il payoff)
+  function fitVoices(){
+    const img=document.querySelector('.mark img'); if(!img) return;
+    const colW=img.getBoundingClientRect().width;
+    document.querySelectorAll('.voice .lbl').forEach(el=>{
+      const len=el.textContent.length; if(len<2) return;
+      el.style.letterSpacing='0px'; el.style.display='inline-block'; el.style.width='auto';
+      const nat=el.getBoundingClientRect().width;                 // larghezza naturale del testo
+      el.style.display=''; el.style.width='';                     // torna block width:100%
+      el.style.letterSpacing=Math.max(0,(colW-nat)/(len-1))+'px'; // riempie la colonna, flush ai due bordi
+    });
+  }
+
   function setLang(lang){
     const t = I18N[lang]; if(!t) return;
     document.documentElement.lang = lang;
     document.querySelectorAll('.voice').forEach(v=> v.querySelector('.lbl').textContent = t[v.dataset.key]);
     document.querySelectorAll('.langs button').forEach(b=> b.classList.toggle('on', b.dataset.lang===lang));
+    fitVoices();
   }
   document.querySelectorAll('.langs button').forEach(b=> b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  (document.fonts?document.fonts.ready:Promise.resolve()).then(fitVoices);
+  let _rzv; addEventListener('resize',()=>{clearTimeout(_rzv);_rzv=setTimeout(fitVoices,120);});
 </script>
 
 </body>
