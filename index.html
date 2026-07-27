@@ -61,31 +61,31 @@
   /* «Boeing 747»: THT fermo. Il payoff arriva DRITTO (niente diagonale), enorme come se ti
      sorvolasse da dietro: prima solo una SAGOMA sfocata (ombra/fumo), poi mette a fuoco come una
      focale, rimpicciolisce sul posto, SBATTE (contrae+flash) e si fissa nitido. */
-  .payoff.animate{opacity:0;animation:payoffBoom 3.6s cubic-bezier(.38,0,.2,1) .3s forwards}
+  .payoff.animate{opacity:0;animation:payoffBoom 4s cubic-bezier(.32,0,.14,1) .3s forwards}
   @keyframes payoffBoom{
-    0%   {opacity:0;   transform:scale(7);    filter:blur(26px) brightness(.20)}  /* sagoma enorme, indefinita, come fumo */
-    9%   {opacity:.5;                          filter:blur(22px) brightness(.30)}
-    58%  {opacity:.85; transform:scale(2.6);  filter:blur(8px)  brightness(.68)}  /* si avvicina e comincia a definirsi */
-    82%  {opacity:1;   transform:scale(1.16); filter:blur(1.4px) brightness(1.12)} /* quasi a fuoco */
-    90%  {             transform:scale(.93);  filter:blur(0)    brightness(1.8)}  /* SBATTE: impatto + flash */
-    96%  {             transform:scale(1.025);filter:brightness(1.15)}
-    100% {opacity:1;   transform:scale(1);    filter:brightness(1)}              /* fissato, nitido, allineato */
+    0%   {opacity:0;  transform:translate(9vw,-7vh) scale(11); filter:blur(36px) brightness(1.2)} /* ENORME, sopra gli occhi, indefinito come fumo CHIARO */
+    8%   {opacity:.42;transform:translate(9vw,-7vh) scale(11); filter:blur(33px) brightness(1.2)}
+    50%  {opacity:.8; transform:translate(4.5vw,-3vh) scale(3.4); filter:blur(13px) brightness(1.15)} /* si avvicina, comincia a mettere a fuoco */
+    80%  {opacity:1;  transform:translate(0,0) scale(1.2);  filter:blur(1.6px) brightness(1.1)}   /* quasi a fuoco, verso sinistra sotto THT */
+    89%  {            transform:translate(0,0) scale(.9);   filter:blur(0)    brightness(1.9)}    /* SI STAMPA: impatto + flash */
+    95%  {            transform:translate(0,0) scale(1.03); filter:brightness(1.15)}
+    100% {opacity:1;  transform:translate(0,0) scale(1);    filter:brightness(1)}                 /* fissato, nitido, allineato */
   }
 
   /* menu: 4 voci. Ogni voce = SOLE (a filo del bordo sinistro) + testo, tutto dentro il rettangolo.
      Indicatore = BARRA ILLUMINANTE (gradiente oro con alone) da bordo a bordo, compare allo sfioramento. */
-  nav.menu{margin-top:clamp(38px,7.5vh,92px);display:flex;flex-direction:column;
-    gap:clamp(16px,3vh,32px);width:var(--menu-w)}
+  nav.menu{margin-top:clamp(34px,6.8vh,84px);display:flex;flex-direction:column;
+    gap:clamp(13px,2.4vh,26px);width:var(--menu-w)}
   /* voce: TESTO in alto (a filo del bordo sinistro, come THT). SOTTO, a livello della sottolineatura,
      il SOLE (fermo) col centro sul bordo sinistro, e il RAGGIO che ne emana lateralmente allo sfioramento */
   .voice{position:relative;display:block;width:100%;
-    padding-bottom:clamp(22px,3vh,30px);
+    padding-bottom:clamp(38px,5vh,50px);
     cursor:pointer;color:var(--ink);text-decoration:none}
   .voice .lbl{display:block;font-size:clamp(12.5px,1.05vw,15.5px);font-weight:400;letter-spacing:.17em;
     text-transform:uppercase;white-space:nowrap;transition:color .22s}
-  .voice .sole{position:absolute;left:-14px;bottom:-6px;width:28px;height:28px;   /* centro sul bordo sinistro; FERMO */
-    opacity:.9;filter:drop-shadow(0 0 4px #e7b24e66);transition:opacity .25s,filter .25s}
-  .voice::after{content:"";position:absolute;left:6px;right:0;bottom:7px;height:2px;border-radius:2px;
+  .voice .sole{position:absolute;left:-28px;bottom:-18px;width:56px;height:56px;   /* +100%; centro sul bordo sinistro; FERMO */
+    opacity:.92;filter:drop-shadow(0 0 6px #e7b24e6e);transition:opacity .25s,filter .25s}
+  .voice::after{content:"";position:absolute;left:18px;right:0;bottom:12px;height:2px;border-radius:2px;
     background:linear-gradient(90deg,#f4d38a,#e7b24e 30%,#e7b24e66 66%,#e7b24e00);  /* raggio dal sole, sfuma a destra */
     box-shadow:0 0 8px #e7b24e5c;opacity:0;transform:scaleX(.7);transform-origin:left;
     transition:opacity .3s,transform .38s}
