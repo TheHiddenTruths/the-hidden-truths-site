@@ -168,7 +168,7 @@
 </div></div>
 
 <script>
-var PASSWORD="9369";
+var PASSWORD="931969";
 /* --- dati incorporati (baked dal registro + git log) --- */
 var COMPONENTI=[
  {n:"Motore Fast",s:"verde",strato:"motori",nota:"161/161"},
@@ -207,12 +207,13 @@ var SVILUPPO=[{"id": 1, "pri": "rosso", "t": "Autenticità anti-manomissione del
 
 /* gate */
 var gate=document.getElementById('gate'),cockpit=document.getElementById('cockpit');
-function unlock(){gate.style.display='none';cockpit.style.display='block';localStorage.setItem('tht_riservato','1');render();}
+function unlock(){gate.style.display='none';cockpit.style.display='block';render();}
 function tryPw(){document.getElementById('pw').value.trim()===PASSWORD?unlock():document.getElementById('err').textContent='Codice errato.';}
 document.getElementById('enter').onclick=tryPw;
 document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryPw();});
-document.getElementById('logout').onclick=function(){localStorage.removeItem('tht_riservato');location.reload();};
-if(localStorage.getItem('tht_riservato')==='1')unlock();
+document.getElementById('logout').onclick=function(){location.href='../';};
+/* Il cockpit chiede il codice OGNI volta: nessuna persistenza. Uscendo si torna alla landing
+   (il gate del sito, in sessionStorage 'tht_gate', resta aperto → non si rifà il primo cancello). */
 
 function arc(pct,color,label){
   var r=30,c=2*Math.PI*r,off=c*(1-pct/100),ticks='';
