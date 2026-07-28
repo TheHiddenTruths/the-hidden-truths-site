@@ -84,7 +84,7 @@
 
   /* modale */
   .modal{position:fixed;inset:0;background:rgba(6,7,9,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
-  .modal .card{background:var(--panel2);border:1px solid var(--line);border-radius:16px;max-width:560px;width:100%;max-height:80vh;overflow:auto;padding:20px}
+  .modal .card{background:var(--panel2);border:1px solid var(--line);border-radius:16px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:20px}
   .modal h3{margin:0 0 4px;font-size:17px}
   .modal .sub{color:var(--muted);font-size:12px;margin:0 0 14px;font-family:var(--mono)}
   .modal ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
@@ -143,8 +143,8 @@
     <div class="gauge"><div class="k">% Implementato</div><div id="g1"></div></div>
     <div class="gauge"><div class="k">Motori reali</div><div id="g2"></div></div>
     <div class="cmds">
-      <button class="cmd" id="btn-manca"><span class="ic">🔴</span> Cosa manca <span class="badge" id="b-manca">…</span></button>
-      <button class="cmd" id="btn-lavoro"><span class="ic">🕒</span> Ultimo lavoro <span class="badge">8</span></button>
+      <button class="cmd" id="btn-manca"><span class="ic">🔴</span> Nodi da risolvere <span class="badge" id="b-manca">…</span></button>
+      <button class="cmd" id="btn-lavoro"><span class="ic">🕒</span> Registro attività <span class="badge">8</span></button>
     </div>
   </div>
 
@@ -250,19 +250,23 @@ function render(){
 }
 /* modali */
 var modal=document.getElementById('modal');
-document.getElementById('mx').onclick=function(){modal.style.display='none';};
-modal.onclick=function(e){if(e.target===modal)modal.style.display='none';};
+function closeModal(){modal.style.display='none';document.documentElement.style.overflow='';document.body.style.overflow='';}
+document.getElementById('mx').onclick=closeModal;
+modal.onclick=function(e){if(e.target===modal)closeModal();};
 function openModal(t,s,items){document.getElementById('m-title').textContent=t;document.getElementById('m-sub').textContent=s;
-  document.getElementById('m-list').innerHTML=items;modal.style.display='flex';}
+  document.getElementById('m-list').innerHTML=items;modal.style.display='flex';
+  /* blocca lo scroll del fondo: cosi' sull'iPad scorre la LISTA, non il retinato dietro */
+  document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
+  document.querySelector('#modal .card').scrollTop=0;}
 document.getElementById('btn-manca').onclick=function(){
   var nonverdi=COMPONENTI.filter(function(x){return x.s!=='verde'&&x.s!=='grigio';});
   var items=nonverdi.map(function(c){return '<li style="border-left-color:'+COL[c.s]+'"><span class="dot '+c.s+'" style="align-self:center"></span>'+c.n+' <span class="dt">'+(c.nota||'')+'</span></li>';}).join('');
   items+='<li style="border-left-color:#c9b48a"><b>+ '+TODO_APERTI+' punti aperti</b> nel promemoria (da-fare.json) — da collegare live</li>';
-  openModal('Cosa manca','componenti non-verdi + promemoria · il revisore automatico',items);
+  openModal('Nodi da risolvere','componenti non-verdi + promemoria · il revisore automatico',items);
 };
 document.getElementById('btn-lavoro').onclick=function(){
   var items=COMMITS.map(function(c){return '<li style="border-left-color:#6586A7"><span class="hash">'+c.h+'</span> '+c.s+'<span class="dt">'+c.dt+'</span></li>';}).join('');
-  openModal('Ultimo lavoro','gli ultimi commit — cosa ho fatto',items);
+  openModal('Registro attività','gli ultimi commit — cosa ho fatto',items);
 };
 </script>
 </body>
