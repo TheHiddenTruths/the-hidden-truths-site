@@ -7,13 +7,14 @@
     "grigio": "non applicabile / in attesa"
   },
   "_aggiornato": "2026-07-28",
+  "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
   "componenti": [
-    { "id": "motore-fast",        "nome": "Motore Fast (engine.js)",        "strato": "motori",      "stato": "verde",  "nota": "verificato 161/161" },
     { "id": "motore-instant",     "nome": "Motore Instant",                 "strato": "motori",      "stato": "giallo", "nota": "mask c'e', motore da costruire" },
+    { "id": "motore-fast",        "nome": "Motore Fast (engine.js)",        "strato": "motori",      "stato": "verde",  "nota": "verificato 161/161" },
     { "id": "motore-full",        "nome": "Motore Full",                    "strato": "motori",      "stato": "rosso",  "nota": "solo sorgenti Excel" },
     { "id": "motori-libreria",    "nome": "Motori libreria (KPI, Diagnostic, Scoring...)", "strato": "motori", "stato": "rosso", "nota": "design, non costruiti" },
-    { "id": "mask-fast",          "nome": "Mask Fast",                      "strato": "interfaccia", "stato": "verde",  "nota": "" },
     { "id": "mask-instant",       "nome": "Mask Instant",                   "strato": "interfaccia", "stato": "verde",  "nota": "senza motore collegato" },
+    { "id": "mask-fast",          "nome": "Mask Fast",                      "strato": "interfaccia", "stato": "verde",  "nota": "" },
     { "id": "dossier-fast",       "nome": "Dossier Fast (relazione)",       "strato": "interfaccia", "stato": "verde",  "nota": "beta, pubblicato" },
     { "id": "dossier-altri",      "nome": "Dossier Instant / Full",         "strato": "interfaccia", "stato": "rosso",  "nota": "placeholder" },
     { "id": "sito-landing",       "nome": "Sito landing",                   "strato": "interfaccia", "stato": "giallo", "nota": "parziale" },
