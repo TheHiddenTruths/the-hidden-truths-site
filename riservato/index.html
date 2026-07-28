@@ -27,7 +27,10 @@
   #gate{position:fixed;inset:0;background:#050404;overflow:hidden;z-index:100}
   #gate .gimg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover}
   #gate .ov{position:absolute}
-  #gate .pin input{position:absolute;top:69.25%;transform:translate(-50%,-50%);width:5.2%;height:5.6%;padding:0;line-height:1;background:transparent;border:0;outline:none;text-align:center;color:#f0f2f4;font-family:var(--mono);font-weight:700;font-size:clamp(15px,2.6vmin,27px);caret-color:var(--gold);-webkit-text-security:disc;text-security:disc}
+  #gate .pin input{position:absolute;top:69.25%;transform:translate(-50%,-50%);width:4%;height:5.6%;padding:0;line-height:1;background:transparent;border:0;outline:none;border-radius:8px;text-align:center;color:#f0f2f4;font-family:var(--mono);font-weight:700;font-size:clamp(15px,2.6vmin,27px);caret-color:transparent;-webkit-text-security:disc;text-security:disc}
+  #gate .pin input.active{animation:pincue 1.15s steps(1,end) infinite}
+  @keyframes pincue{0%,55%{box-shadow:0 0 0 1.5px var(--gold),0 0 12px -2px var(--gold)}56%,100%{box-shadow:none}}
+  @media (prefers-reduced-motion:reduce){#gate .pin input.active{animation:none;box-shadow:0 0 0 1.5px var(--gold)}}
   #gate .pin input:nth-child(1){left:34.32%}
   #gate .pin input:nth-child(2){left:40.54%}
   #gate .pin input:nth-child(3){left:46.69%}
@@ -44,7 +47,7 @@
   #gate .enter-hot{position:absolute;left:41%;top:78.6%;width:18%;height:6%;background:transparent;border:0;cursor:pointer}
   #gate .back-hot{position:absolute;left:31%;top:85%;width:38%;height:5%;background:transparent;cursor:pointer;display:block}
   #gate .err{position:absolute;left:0;top:73%;width:100%;text-align:center;color:#ff7369;font-family:var(--mono);font-size:clamp(11px,1.7vmin,14px);letter-spacing:.06em;pointer-events:none}
-  #gate .gate-ver{position:absolute;left:0;right:0;bottom:12px;text-align:center;color:#9298a0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;z-index:3;pointer-events:none}
+  #gate .gate-ver{position:absolute;right:16px;bottom:12px;text-align:right;color:#9298a0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;z-index:3;pointer-events:none}
 
   #cockpit{display:none;max-width:1100px;margin:0 auto;padding:16px}
 
@@ -148,7 +151,7 @@
     <a class="back-hot" href="../" aria-label="Torna alla landing page"></a>
     <div class="err" id="err"></div>
   </div>
-  <div class="gate-ver">v2026.1 · a78c9b4 · Powered by THT Systems</div>
+  <div class="gate-ver">v2026.1 · be25709 · Powered by THT Systems</div>
 </div>
 
 <div id="cockpit">
@@ -185,7 +188,7 @@
     <span><i class="dot rosso"></i> da costruire</span>
     <span><i class="dot grigio"></i> n/a</span>
   </div>
-  <div class="foot">v2026.1 · a78c9b4 · Powered by THT Systems · i LED dicono il vero</div>
+  <div class="foot">v2026.1 · be25709 · Powered by THT Systems · i LED dicono il vero</div>
 </div>
 
 <div class="modal" id="modal"><div class="card">
@@ -210,6 +213,8 @@ function unlock(){gate.style.display='none';cockpit.style.display='block';render
 var pins=[].slice.call(document.querySelectorAll('#pin input'));
 var err=document.getElementById('err');
 function pinCode(){return pins.map(function(p){return p.value;}).join('');}
+/* la guida (bordo che pulsa) sta sulla PRIMA casella vuota, e si sposta man mano */
+function markActive(){var f=pins.filter(function(p){return !p.value;})[0];pins.forEach(function(p){p.classList.toggle('active',p===f);});}
 /* invio SOLO su ENTER: cosi' se sbagli una cifra rivedi tutto prima, poi confermi */
 function tryPw(){
   if(pinCode()===PASSWORD){unlock();}
@@ -220,16 +225,18 @@ pins.forEach(function(p,i){
     p.value=p.value.replace(/\D/g,'').slice(0,1);
     err.textContent='';
     if(p.value&&i<pins.length-1)pins[i+1].focus();   /* avanza, NON invia */
+    markActive();
   });
   p.addEventListener('keydown',function(e){
     if(e.key==='Backspace'&&!p.value&&i>0){pins[i-1].focus();}
     if(e.key==='Enter')tryPw();
+    markActive();
   });
   p.addEventListener('paste',function(e){
     e.preventDefault();
     var t=((e.clipboardData||window.clipboardData).getData('text')||'').replace(/\D/g,'').slice(0,6);
     for(var j=0;j<t.length&&i+j<pins.length;j++){pins[i+j].value=t[j];}
-    var n=Math.min(i+t.length,pins.length-1);pins[n].focus();
+    var n=Math.min(i+t.length,pins.length-1);pins[n].focus();markActive();
   });
 });
 document.getElementById('enter').onclick=tryPw;
@@ -250,6 +257,7 @@ function fitOv(){var iw=gimg.naturalWidth||1448,ih=gimg.naturalHeight||1086,vw=w
 if(gimg.complete)fitOv();else gimg.addEventListener('load',fitOv);
 window.addEventListener('resize',fitOv);
 if(pins[0])pins[0].focus();
+markActive();
 document.getElementById('logout').onclick=function(){location.href='../';};
 /* Il cockpit chiede il codice OGNI volta: nessuna persistenza. Uscendo si torna alla landing
    (il gate del sito, in sessionStorage 'tht_gate', resta aperto → non si rifà il primo cancello). */
