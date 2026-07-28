@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>THT — I prodotti</title>
+<style>
+  :root{--bg:#000;--panel:#0d0f12;--line:#23272e;--ink:#fff;--mut:#b7bbc2;--dim:#6b7079;--gold:#e7b24e;--green:#3fb765}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(22px,5vh,60px) clamp(18px,4vw,40px)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:30px}
+  .back{display:inline-flex;align-items:center;gap:7px;color:var(--mut);text-decoration:none;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+  .back:hover{color:var(--gold)}
+  .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+  h1.t{font-size:clamp(22px,3.4vw,34px);font-weight:300;letter-spacing:.02em;margin:.15em 0 0}
+  h1.t b{font-weight:600;color:var(--gold)}
+  .lead{color:var(--mut);font-size:13px;max-width:560px;margin:.6em 0 26px}
+  .lead b{color:#fff}
+  .prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+  .pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 20px;display:flex;flex-direction:column;gap:14px}
+  .pcard h2{margin:0;font-size:19px;font-weight:600;letter-spacing:.04em}
+  .pcard .dens{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .pcard .desc{font-size:12.5px;color:var(--mut);line-height:1.55;min-height:34px}
+  .arts{display:flex;gap:10px;margin-top:2px}
+  .art{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:10px;border:1px solid var(--line);background:#0a0c0f;text-decoration:none;color:inherit;transition:.18s;-webkit-tap-highlight-color:transparent}
+  .art .n{font-size:12.5px;font-weight:600;letter-spacing:.03em}
+  .art .st{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}
+  .art.ok{border-color:#2a4a35;box-shadow:0 0 0 1px #2a4a35,0 0 14px #3fb76522}
+  .art.ok .st{color:var(--green)}
+  .art.wip{opacity:.5;cursor:not-allowed}.art.wip .st{color:var(--dim)}
+  @media (hover:hover){.art.ok:hover{background:#0f1712;border-color:var(--green)}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="../">◂ landing</a>
+      <div style="text-align:right"><div class="eyebrow">secondo layer · controllo</div></div>
+    </div>
+    <h1 class="t">I <b>prodotti</b> — controlli tutto da qui</h1>
+    <p class="lead">Ogni prodotto espone la sua <b>maschera</b> (input) e il suo <b>dossier</b> (output), secondo lo sviluppo. I LED dicono cosa è pronto davvero.</p>
+    <div class="prods">
+
+      <div class="pcard">
+        <div class="dens">densità 1</div>
+        <h2>INSTANT CHECK</h2>
+        <div class="desc">La porta d'ingresso. La maschera c'è; il motore è da collegare.</div>
+        <div class="arts">
+          <a class="art ok" href="../instant/mask/"><span class="n">Maschera ▸</span><span class="st">apri</span></a>
+          <div class="art wip"><span class="n">Dossier</span><span class="st">in sviluppo</span></div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="dens">densità 2</div>
+        <h2>FAST CHECK</h2>
+        <div class="desc">Il cuore della gamma. Motore engine.js verificato 161/161 — l'unico reale oggi.</div>
+        <div class="arts">
+          <a class="art ok" href="../fast/mask/"><span class="n">Maschera ▸</span><span class="st">apri</span></a>
+          <a class="art ok" href="../fast/dossier/"><span class="n">Dossier ▸</span><span class="st">beta</span></a>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="dens">densità 3</div>
+        <h2>FULL CHECK</h2>
+        <div class="desc">Il livello più profondo. Oggi solo sorgenti Excel: mask e dossier da costruire.</div>
+        <div class="arts">
+          <div class="art wip"><span class="n">Maschera</span><span class="st">in sviluppo</span></div>
+          <div class="art wip"><span class="n">Dossier</span><span class="st">in sviluppo</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
