@@ -1,0 +1,23 @@
+{
+  "_nota": "Mappa CARTELLA→STATO per i LED dell'albero dell'architettura. REGOLA FERMA: il LED non mente. Si mette verde/giallo/rosso SOLO dove lo stato e' vero e verificabile; una cartella non elencata resta GRIGIA (non ancora valutata / n.a.). Aggiornare qui quando cambia lo stato reale (come stato-componenti.json).",
+  "_legenda": { "verde": "attivo/verificato", "giallo": "parziale/dormiente", "rosso": "da costruire", "grigio": "non valutato / n.a." },
+  "stati": {
+    ".github":                       { "s": "verde",  "nota": "workflow di deploy attivo" },
+    "commons":                       { "s": "giallo", "nota": "marchio THT Systems depositato, parziale" },
+    "condiviso":                     { "s": "verde",  "nota": "tronco condiviso attivo (anagrafica, privacy)" },
+    "memoria":                       { "s": "verde",  "nota": "memoria attiva e viva" },
+    "principles":                    { "s": "verde",  "nota": "principi presenti" },
+    "prodotti":                      { "s": "giallo", "nota": "1 di 3 pronto (Fast)" },
+    "prodotti/tht-check":            { "s": "giallo", "nota": "famiglia Check: Fast pronto, Instant a meta', Full da fare" },
+    "prodotti/tht-check/fast":       { "s": "verde",  "nota": "engine.js verificato 161/161, dossier beta" },
+    "prodotti/tht-check/instant":    { "s": "giallo", "nota": "mask c'e', motore da collegare" },
+    "prodotti/tht-check/full":       { "s": "rosso",  "nota": "solo sorgenti Excel" },
+    "site":                          { "s": "giallo", "nota": "vetrina parziale, in evoluzione" },
+    "site/fast":                     { "s": "verde",  "nota": "mask + dossier pubblicati" },
+    "site/instant":                  { "s": "giallo", "nota": "mask sì, dossier no" },
+    "site/full":                     { "s": "rosso",  "nota": "placeholder" },
+    "site/riservato":                { "s": "giallo", "nota": "cockpit v1 operativo" },
+    "tools":                         { "s": "verde",  "nota": "build e deploy attivi" }
+  },
+  "legacy_grigio": ["Architecture", "ChatGPT", "Data", "Documentation", "Engines", "Releases", "Scripts", "Shared", "Tests"]
+}
