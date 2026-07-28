@@ -108,13 +108,13 @@
   .langs button.on{color:var(--gold)}
   .langs .sep{color:#585858}
   /* footer legale: microscopico e defilato (solo P.IVA visibile + link alle pagine dedicate) */
-  .legal{font-size:clamp(9.5px,.72vw,11px);color:#6b7079;letter-spacing:.02em;line-height:1.6;max-width:560px}
+  .legal{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;width:100%;font-size:clamp(9.5px,.72vw,11px);color:#6b7079;letter-spacing:.02em;line-height:1.6}
+  .legal .ver{color:#6b7079;white-space:nowrap;font-family:ui-monospace,monospace}
   .legal a{color:#878d96;text-decoration:none;transition:color .2s}
   .legal a:hover{color:var(--gold)}
   .legal .sep{color:#3f434a;padding:0 3px}
   .legal .piva{color:#878d96}
-  /* versione + firma: in basso a DESTRA, alla stessa altezza delle note legali (a sinistra) */
-  .site-ver{position:fixed;right:16px;bottom:12px;z-index:5;color:#6b7079;font-family:ui-monospace,monospace;font-size:clamp(9.5px,.72vw,11px);letter-spacing:.06em;pointer-events:none}
+  /* versione + firma: nella STESSA riga delle note legali (space-between) -> stesso orizzonte */
 
   @media (prefers-reduced-motion:reduce){ .payoff.animate{animation:none;opacity:1} }
 
@@ -151,7 +151,7 @@
     <input id="gl-pw" type="text" inputmode="numeric" autocomplete="off" aria-label="Codice">
     <button id="gl-enter" aria-label="Entra">&nbsp;</button>
   </div>
-  <div class="gl-ver">v2026.1 · be25709 · Powered by THT Systems</div>
+  <div class="gl-ver">v2026.1 · 4f9fd83 · Powered by THT Systems</div>
 </div>
 
 <div class="hero">
@@ -194,14 +194,13 @@
         <button data-lang="fr">FR</button>
       </div>
       <div class="legal">
-        © 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a>
+        <span class="legal-txt">© 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a></span>
+        <span class="ver">v2026.1 · 4f9fd83 · Powered by THT Systems</span>
       </div>
     </div>
 
   </div>
 </div>
-
-<div class="site-ver">v2026.1 · be25709 · Powered by THT Systems</div>
 
 <script>
   // i18n: payoff (la spiegazione del nome) + le 4 voci del menu
