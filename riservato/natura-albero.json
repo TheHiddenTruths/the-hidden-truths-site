@@ -1,0 +1,5 @@
+{
+  "_nota": "OVERRIDE della natura dei file nell'albero: 'acquisito' (Acquired, arrivato da fuori) vs 'realizzato' (Created, fatto da noi). Serve solo per le ECCEZIONI: per il resto decide la regola deterministica in build_architettura.py (testo/codice = realizzato; binari = acquisiti, tranne quelli generati da noi come renders/, preview_*, dossier). Elencare qui i percorsi (repo-relative) che la regola sbaglia.",
+  "acquisito": [],
+  "realizzato": []
+}
