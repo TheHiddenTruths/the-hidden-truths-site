@@ -4,207 +4,241 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>THT — Accesso Riservato</title>
+<title>THT — Cockpit di Comando</title>
 <!--
-  COCKPIT RISERVATO di THT (plancia di Stefano) — struttura v0.
-  MODELLO A 3 LAYER (come i prodotti):
-    L1 = questo cancello (accesso riservato, password SOFT — solo deterrente).
-    L2 = il menu delle FAMIGLIE di controllo (Architettura, Attività, Cruscotto, Finanziario, Fiscale).
-    L3 = il singolo pannello.
-  SICUREZZA (regola #23): la password NON protegge davvero (sito pubblico = codice visibile).
-  Percio' i DATI PRIVATI (finanziari/fiscali) NON si committano mai qui: vivono in localStorage,
-  nel browser di Stefano. Questa struttura non contiene un solo numero reale di Stefano.
-  "Connesso al repository": i pannelli non-sensibili (Attività, Cruscotto) leggeranno i dati
-  pubblici del repo (da-fare.json, avanzamento.json) quando saranno esposti in /site; i pannelli
-  sensibili leggono solo localStorage.
+  COCKPIT DI SVILUPPO v1 — la GUI operativa (non un poster).
+  Comanda, non racconta: LED + pulsanti + numeri, quasi niente testo.
+  I dati sono OGGI incorporati (baked) dal registro stato-componenti.json e da git log,
+  cosi' funziona anche in anteprima. Prossimo passo: rigenerarli a ogni commit (build).
+  SICUREZZA #23: password soft (deterrente); nessun dato sensibile qui.
 -->
 <style>
   :root{
-    --bg:#0b0c0e; --panel:#141619; --panel2:#1b1e22; --line:#2a2e34;
-    --ink:#e9ecef; --muted:#9aa1ab; --faint:#6b727c; --gold:#c9b48a;
-    --ok:#7fb98a; --wait:#d9b06a; --todo:#c98a8a; --accent:#6586A7;
+    --bg:#0a0b0d; --panel:#111418; --panel2:#171b20; --line:#252b32;
+    --ink:#e9ecef; --muted:#9aa1ab; --faint:#666d76; --gold:#c9b48a;
+    --verde:#3fb765; --giallo:#e0b03a; --rosso:#d0574f; --grigio:#5a636e; --blu:#6586A7;
     --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+  body{margin:0;background:radial-gradient(circle at 50% -10%,#14181d,#0a0b0d 60%);color:var(--ink);font-family:var(--sans)}
 
-  /* --- L1: cancello --- */
-  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(circle at 50% 30%,#16191d,#0b0c0e);z-index:100}
-  #gate .box{width:min(360px,88vw);text-align:center}
-  #gate .logo{font-weight:800;letter-spacing:.14em;font-size:26px}
-  #gate .logo small{display:block;font-weight:500;letter-spacing:.3em;font-size:11px;color:var(--muted);margin-top:4px}
-  #gate .lab{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:26px 0 12px}
-  #gate input{width:100%;padding:12px 14px;background:var(--panel);border:1px solid var(--line);
-    border-radius:10px;color:var(--ink);font-size:18px;text-align:center;letter-spacing:.3em;font-family:var(--mono)}
+  /* gate */
+  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:100}
+  #gate .box{width:min(340px,86vw);text-align:center}
+  #gate .logo{font-weight:800;letter-spacing:.16em;font-size:26px}
+  #gate .logo small{display:block;font-weight:600;letter-spacing:.34em;font-size:10px;color:var(--muted);margin-top:5px}
+  #gate .lab{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:24px 0 12px}
+  #gate input{width:100%;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--ink);font-size:20px;text-align:center;letter-spacing:.4em;font-family:var(--mono)}
   #gate input:focus{outline:none;border-color:var(--gold)}
-  #gate button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--gold);
-    color:#1a1a1a;font-weight:700;font-size:15px;cursor:pointer}
-  #gate .err{color:var(--todo);font-size:13px;height:18px;margin-top:10px;font-family:var(--mono)}
+  #gate button{margin-top:12px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--gold);color:#191919;font-weight:700;font-size:15px;cursor:pointer}
+  #gate .err{color:var(--rosso);font-size:12px;height:16px;margin-top:9px;font-family:var(--mono)}
 
-  /* --- cockpit --- */
-  #cockpit{display:none;min-height:100vh}
-  header.top{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--line);
-    position:sticky;top:0;background:rgba(11,12,14,.9);backdrop-filter:blur(6px);z-index:20}
-  header.top .t{font-weight:700;letter-spacing:.02em}
-  header.top .who{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:auto}
-  header.top .out{font-family:var(--mono);font-size:12px;color:var(--faint);cursor:pointer;border:1px solid var(--line);
-    padding:5px 10px;border-radius:8px}
-  .wrap{display:grid;grid-template-columns:230px 1fr;gap:0;min-height:calc(100vh - 55px)}
-  @media(max-width:720px){.wrap{grid-template-columns:1fr}}
+  #cockpit{display:none;max-width:1100px;margin:0 auto;padding:16px}
 
-  /* L2: menu famiglie */
-  nav.fam{border-right:1px solid var(--line);padding:16px 12px;display:flex;flex-direction:column;gap:6px}
-  @media(max-width:720px){nav.fam{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line)}}
-  nav.fam .lab{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);padding:0 8px 4px}
-  nav.fam button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:1px solid transparent;
-    color:var(--muted);padding:10px 12px;border-radius:9px;cursor:pointer;font-size:14px;font-family:var(--sans)}
-  nav.fam button:hover{background:var(--panel)}
-  nav.fam button.on{background:var(--panel);border-color:var(--line);color:var(--ink)}
-  nav.fam button .em{width:18px;text-align:center}
+  /* header strumenti */
+  .hdr{display:flex;align-items:center;gap:14px;padding:12px 16px;background:linear-gradient(#141821,#0e1116);
+    border:1px solid var(--line);border-radius:14px}
+  .hdr .brand{font-weight:800;letter-spacing:.14em;font-size:18px}
+  .hdr .brand small{font-weight:600;letter-spacing:.3em;font-size:8px;color:var(--muted);display:block}
+  .stat{display:flex;gap:18px;margin-left:auto;align-items:center}
+  .stat .cell{text-align:center;font-family:var(--mono)}
+  .stat .cell .k{font-size:9px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+  .stat .cell .v{font-size:15px;font-weight:700}
+  .stat .v.on{color:var(--verde)} .stat .v.warn{color:var(--giallo)}
+  .out{font-family:var(--mono);font-size:11px;color:var(--faint);cursor:pointer;border:1px solid var(--line);padding:6px 10px;border-radius:8px}
 
-  /* L3: pannello */
-  main.panel{padding:22px 26px}
-  .ph{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 4px}
-  h1{font-size:22px;margin:0 0 4px;font-weight:650}
-  .sub{color:var(--muted);font-size:14px;margin:0 0 20px}
-  .todo-note{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:16px 18px;color:var(--muted);font-size:14px}
-  .todo-note b{color:var(--ink)}
+  /* selettore prodotto */
+  .mode{display:flex;gap:8px;margin-top:14px}
+  .mode button{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;color:var(--muted);font-family:var(--sans)}
+  .mode button .n{font-size:17px;font-weight:700;letter-spacing:.02em}
+  .mode button .d{font-size:11px;color:var(--faint)}
+  .mode button.on{border-color:var(--gold);color:var(--ink);box-shadow:inset 0 0 24px rgba(201,180,138,.08)}
+  .mode button .led{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
 
-  /* pannello Architettura (interattivo) */
-  .filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-  .filters .grp{display:flex;gap:6px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 8px}
-  .filters .glab{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:4px}
-  .chip{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:16px;border:1px solid var(--line);color:var(--muted);cursor:pointer;user-select:none}
-  .chip.on{border-color:var(--gold);color:var(--ink)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-  .cmp{background:var(--panel);border:1px solid var(--line);border-left-width:4px;border-radius:10px;padding:12px 14px}
-  .cmp .n{font-size:14px;font-weight:600}
-  .cmp .m{font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:3px;display:flex;justify-content:space-between}
-  .cmp[data-stato="reale"]{border-left-color:var(--ok)}
-  .cmp[data-stato="roadmap"]{border-left-color:var(--wait)}
-  .cmp[data-stato="design"]{border-left-color:var(--todo)}
-  .cmp .st{text-transform:uppercase;letter-spacing:.06em}
-  .cmp[data-stato="reale"] .st{color:var(--ok)}
-  .cmp[data-stato="roadmap"] .st{color:var(--wait)}
-  .cmp[data-stato="design"] .st{color:var(--todo)}
-  .count{font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:10px}
+  /* riga strumenti: gauge + comandi */
+  .row{display:grid;grid-template-columns:150px 150px 1fr;gap:12px;margin-top:14px}
+  @media(max-width:680px){.row{grid-template-columns:1fr 1fr}}
+  .gauge{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+  .gauge .k{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+  .gauge svg{display:block;margin:4px auto 0}
+  .gauge .big{font-size:22px;font-weight:800;font-family:var(--mono)}
+  .cmds{display:flex;flex-direction:column;gap:8px;justify-content:center}
+  .cmd{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--ink);text-align:left;font-family:var(--sans);font-size:14px;font-weight:600}
+  .cmd:hover{border-color:var(--gold)}
+  .cmd .ic{font-size:17px}
+  .cmd .badge{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--gold);background:color-mix(in srgb,var(--gold) 14%,transparent);padding:2px 8px;border-radius:20px}
+
+  /* LED grid */
+  .grid-t{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint);text-transform:uppercase;margin:18px 4px 8px}
+  .leds{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+  .led-c{display:flex;align-items:center;gap:9px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+  .dot{width:11px;height:11px;border-radius:50%;flex:none;box-shadow:0 0 8px currentColor}
+  .dot.verde{background:var(--verde);color:var(--verde)} .dot.giallo{background:var(--giallo);color:var(--giallo)}
+  .dot.rosso{background:var(--rosso);color:var(--rosso)} .dot.grigio{background:var(--grigio);color:transparent;box-shadow:none}
+  .led-c .nm{font-size:13px} .led-c .st{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--faint);text-transform:uppercase}
+
+  .legend{display:flex;gap:16px;margin:14px 4px 0;font-family:var(--mono);font-size:11px;color:var(--muted);flex-wrap:wrap}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .legend .dot{width:9px;height:9px}
+
+  /* modale */
+  .modal{position:fixed;inset:0;background:rgba(6,7,9,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:18px}
+  .modal .card{background:var(--panel2);border:1px solid var(--line);border-radius:16px;max-width:560px;width:100%;max-height:80vh;overflow:auto;padding:20px}
+  .modal h3{margin:0 0 4px;font-size:17px}
+  .modal .sub{color:var(--muted);font-size:12px;margin:0 0 14px;font-family:var(--mono)}
+  .modal ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .modal li{font-size:13px;background:var(--panel);border:1px solid var(--line);border-left-width:3px;border-radius:8px;padding:9px 12px;display:flex;gap:8px;align-items:baseline}
+  .modal li .hash{font-family:var(--mono);color:var(--gold);font-size:11px}
+  .modal li .dt{font-family:var(--mono);color:var(--faint);font-size:11px;margin-left:auto;flex:none}
+  .modal .x{float:right;cursor:pointer;color:var(--faint);border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-family:var(--mono);font-size:12px}
+  .foot{font-family:var(--mono);font-size:10px;color:var(--faint);text-align:center;margin:22px 0 6px}
 </style>
 </head>
 <body>
 
-<!-- L1 · CANCELLO -->
-<div id="gate">
-  <div class="box">
-    <div class="logo">THT<small>THE HIDDEN TRUTHS</small></div>
-    <div class="lab">Accesso Riservato</div>
-    <input id="pw" type="password" inputmode="numeric" autocomplete="off" placeholder="••••" aria-label="Password">
-    <button id="enter">Entra</button>
-    <div class="err" id="err"></div>
+<div id="gate"><div class="box">
+  <div class="logo">THT<small>SYSTEMS</small></div>
+  <div class="lab">Accesso Riservato</div>
+  <input id="pw" type="password" inputmode="numeric" autocomplete="off" placeholder="••••" aria-label="Password">
+  <button id="enter">Entra</button>
+  <div class="err" id="err"></div>
+</div></div>
+
+<div id="cockpit">
+  <div class="hdr">
+    <div class="brand">THT<small>SYSTEMS · COCKPIT</small></div>
+    <div class="stat">
+      <div class="cell"><div class="k">Sistema</div><div class="v warn" id="s-sys">IN SVILUPPO</div></div>
+      <div class="cell"><div class="k">Verdi</div><div class="v on" id="s-verdi">7/18</div></div>
+      <div class="cell"><div class="k">Da fare</div><div class="v warn" id="s-todo">46</div></div>
+      <div class="cell"><div class="k">Ultimo</div><div class="v" id="s-last">00:23</div></div>
+    </div>
+    <span class="out" id="logout">Esci</span>
   </div>
+
+  <div class="mode" id="mode"></div>
+
+  <div class="row">
+    <div class="gauge"><div class="k">% Implementato</div><div id="g1"></div></div>
+    <div class="gauge"><div class="k">Motori reali</div><div id="g2"></div></div>
+    <div class="cmds">
+      <button class="cmd" id="btn-manca"><span class="ic">🔴</span> Cosa manca <span class="badge" id="b-manca">…</span></button>
+      <button class="cmd" id="btn-lavoro"><span class="ic">🕒</span> Ultimo lavoro <span class="badge">8</span></button>
+    </div>
+  </div>
+
+  <div class="grid-t">Componenti — stato reale</div>
+  <div class="leds" id="leds"></div>
+
+  <div class="legend">
+    <span><i class="dot verde"></i> attivo</span>
+    <span><i class="dot giallo"></i> dormiente</span>
+    <span><i class="dot rosso"></i> da costruire</span>
+    <span><i class="dot grigio"></i> n/a</span>
+  </div>
+  <div class="foot">THT SYSTEMS · cockpit di sviluppo v1 · i LED dicono il vero, non l'aspirazione</div>
 </div>
 
-<!-- COCKPIT -->
-<div id="cockpit">
-  <header class="top">
-    <span class="t">THT — Cockpit di Comando</span>
-    <span class="who">Area Riservata · Stefano</span>
-    <span class="out" id="logout">Esci</span>
-  </header>
-  <div class="wrap">
-    <nav class="fam">
-      <div class="lab">Famiglie di controllo</div>
-      <button data-fam="architettura" class="on"><span class="em">🗺️</span> Architettura</button>
-      <button data-fam="attivita"><span class="em">✅</span> Attività</button>
-      <button data-fam="cruscotto"><span class="em">🎛️</span> Cruscotto</button>
-      <button data-fam="finanziario"><span class="em">💶</span> Finanziario</button>
-      <button data-fam="fiscale"><span class="em">🧾</span> Fiscale</button>
-    </nav>
-    <main class="panel" id="panel"></main>
-  </div>
-</div>
+<div class="modal" id="modal"><div class="card">
+  <span class="x" id="mx">chiudi</span>
+  <h3 id="m-title"></h3><p class="sub" id="m-sub"></p>
+  <ul id="m-list"></ul>
+</div></div>
 
 <script>
-/* ---- password SOFT (deterrente, non serratura). Cambiala qui in una riga. ---- */
-var PASSWORD = "9369";
-var gate=document.getElementById('gate'), cockpit=document.getElementById('cockpit');
-function unlock(){gate.style.display='none';cockpit.style.display='block';localStorage.setItem('tht_riservato','1');render('architettura');}
-function tryPw(){var v=document.getElementById('pw').value.trim();
-  if(v===PASSWORD){unlock();}else{document.getElementById('err').textContent='Codice errato.';}}
+var PASSWORD="9369";
+/* --- dati incorporati (baked dal registro + git log) --- */
+var COMPONENTI=[
+ {n:"Motore Fast",s:"verde",strato:"motori",nota:"161/161"},
+ {n:"Motore Instant",s:"giallo",strato:"motori",nota:"mask sì, motore no"},
+ {n:"Motore Full",s:"rosso",strato:"motori",nota:"solo sorgenti"},
+ {n:"Motori libreria",s:"rosso",strato:"motori",nota:"design"},
+ {n:"Mask Fast",s:"verde",strato:"interfaccia",nota:""},
+ {n:"Mask Instant",s:"verde",strato:"interfaccia",nota:""},
+ {n:"Dossier Fast",s:"verde",strato:"interfaccia",nota:"beta"},
+ {n:"Dossier Instant/Full",s:"rosso",strato:"interfaccia",nota:"placeholder"},
+ {n:"Sito landing",s:"giallo",strato:"interfaccia",nota:"parziale"},
+ {n:"Sito 3 layer",s:"rosso",strato:"interfaccia",nota:""},
+ {n:"Cockpit riservato",s:"giallo",strato:"interfaccia",nota:"v1"},
+ {n:"JSON scaricabili",s:"verde",strato:"dati",nota:""},
+ {n:"Database",s:"rosso",strato:"dati",nota:"il ponte"},
+ {n:"GitHub",s:"verde",strato:"infra",nota:""},
+ {n:"GitHub Pages",s:"verde",strato:"infra",nota:""},
+ {n:"Docker/VPS/Backend",s:"rosso",strato:"infra",nota:""},
+ {n:"Stripe/Squarespace/CDN",s:"rosso",strato:"servizi",nota:""},
+ {n:"LLM API",s:"grigio",strato:"servizi",nota:"no dati personali"}
+];
+var COMMITS=[
+ {h:"2f3e43d",dt:"28/07 00:23",s:"Cockpit: chiusa la check-list (allineamento a tre)"},
+ {h:"3159e06",dt:"28/07 00:21",s:"Cockpit: riconciliata la relazione di ChatGPT"},
+ {h:"596396d",dt:"28/07 00:16",s:"Cockpit: revisione operativa (comando, non scena)"},
+ {h:"d220559",dt:"28/07 00:08",s:"Cockpit: adottato lo sfondo ufficiale"},
+ {h:"6dafce4",dt:"28/07 00:06",s:"Discriminante piattaforma/prodotto: prodotti/tht-check/"},
+ {h:"b6f1919",dt:"27/07 23:48",s:"Brief cockpit per ChatGPT"},
+ {h:"667da8b",dt:"27/07 23:42",s:"Cockpit = verità viva: registro stati + regola"},
+ {h:"f76223e",dt:"27/07 23:39",s:"Cockpit riservato v0: struttura"}
+];
+var TODO_APERTI=46;
+var COL={verde:"#3fb765",giallo:"#e0b03a",rosso:"#d0574f",grigio:"#5a636e"};
+
+/* gate */
+var gate=document.getElementById('gate'),cockpit=document.getElementById('cockpit');
+function unlock(){gate.style.display='none';cockpit.style.display='block';localStorage.setItem('tht_riservato','1');render();}
+function tryPw(){document.getElementById('pw').value.trim()===PASSWORD?unlock():document.getElementById('err').textContent='Codice errato.';}
 document.getElementById('enter').onclick=tryPw;
 document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')tryPw();});
 document.getElementById('logout').onclick=function(){localStorage.removeItem('tht_riservato');location.reload();};
-if(localStorage.getItem('tht_riservato')==='1'){unlock();}
+if(localStorage.getItem('tht_riservato')==='1')unlock();
 
-/* ---- L2 menu ---- */
-document.querySelectorAll('nav.fam button').forEach(function(b){
-  b.onclick=function(){document.querySelectorAll('nav.fam button').forEach(function(x){x.classList.remove('on');});
-    b.classList.add('on');render(b.dataset.fam);};
-});
-
-/* ---- dati Architettura (dal MASTER-CHART: stato reale/roadmap/design per componente) ---- */
-var COMPONENTI=[
-  {n:"Motore Fast (engine.js)",strato:"motori",stato:"reale",nota:"161/161"},
-  {n:"Motore Instant",strato:"motori",stato:"roadmap",nota:"in costruzione"},
-  {n:"Motore Full",strato:"motori",stato:"roadmap",nota:"dai sorgenti"},
-  {n:"Calculation · KPI · Diagnostic",strato:"motori",stato:"design",nota:"libreria"},
-  {n:"Scoring · Threshold · Risk",strato:"motori",stato:"design",nota:"libreria"},
-  {n:"Mask Fast",strato:"interfaccia",stato:"reale",nota:""},
-  {n:"Mask Instant",strato:"interfaccia",stato:"reale",nota:"senza motore"},
-  {n:"Dossier Fast",strato:"interfaccia",stato:"reale",nota:""},
-  {n:"Sito landing",strato:"interfaccia",stato:"reale",nota:"parziale"},
-  {n:"Sito a 3 layer (scroll)",strato:"interfaccia",stato:"roadmap",nota:""},
-  {n:"Dossier Instant · Full",strato:"interfaccia",stato:"roadmap",nota:"placeholder"},
-  {n:"JSON scaricabili",strato:"dati",stato:"reale",nota:"nessun backend"},
-  {n:"Database (PostgreSQL)",strato:"dati",stato:"roadmap",nota:"il ponte"},
-  {n:"GitHub + Pages",strato:"infra",stato:"reale",nota:"deploy sito"},
-  {n:"Docker · VPS · Backend",strato:"infra",stato:"roadmap",nota:""},
-  {n:"Stripe · Squarespace · Cloudflare",strato:"servizi",stato:"roadmap",nota:""},
-  {n:"LLM API (OpenAI, Claude)",strato:"servizi",stato:"roadmap",nota:"no dati personali"}
-];
-var fStato={reale:true,roadmap:true,design:true};
-var fStrato={motori:true,interfaccia:true,dati:true,infra:true,servizi:true};
-
-function panelArchitettura(){
+function arc(pct,color,label){
+  var r=30,c=2*Math.PI*r,off=c*(1-pct/100);
+  return '<svg viewBox="0 0 80 80" width="82" height="82">'
+   +'<circle cx="40" cy="40" r="30" fill="none" stroke="#252b32" stroke-width="8"/>'
+   +'<circle cx="40" cy="40" r="30" fill="none" stroke="'+color+'" stroke-width="8" stroke-linecap="round"'
+   +' stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'" transform="rotate(-90 40 40)"/>'
+   +'<text x="40" y="40" text-anchor="middle" dominant-baseline="central" font-size="17" font-weight="800" fill="#e9ecef" font-family="'+"ui-monospace,monospace"+'">'+label+'</text></svg>';
+}
+function render(){
+  var verdi=COMPONENTI.filter(function(x){return x.s==='verde';}).length,tot=COMPONENTI.length;
+  var pct=Math.round(verdi/tot*100);
+  document.getElementById('s-verdi').textContent=verdi+'/'+tot;
+  document.getElementById('s-todo').textContent=TODO_APERTI;
+  document.getElementById('g1').innerHTML=arc(pct,COL.verde,pct+'%');
+  document.getElementById('g2').innerHTML=arc(33,COL.giallo,'1/3');
+  document.getElementById('b-manca').textContent=(tot-verdi)+' + '+TODO_APERTI;
+  // selettore prodotto
+  var prods=[['Instant','densità 1','giallo'],['Fast','densità 2','verde'],['Full','densità 3','rosso']];
+  document.getElementById('mode').innerHTML=prods.map(function(p,i){return '<button class="'+(i===1?'on':'')+'">'
+    +'<div class="n"><span class="led" style="background:'+COL[p[2]]+'"></span>'+p[0]+'</div><div class="d">'+p[1]+'</div></button>';}).join('');
+  // LED grid per strato
   var strati=[["motori","Motori"],["interfaccia","Interfaccia"],["dati","Dati"],["infra","Infra"],["servizi","Servizi"]];
-  var stati=[["reale","Reale"],["roadmap","Roadmap"],["design","Design"]];
-  var h='<p class="ph">Famiglia · Architettura</p><h1>Componentistica del sistema</h1>'
-    +'<p class="sub">Accendi/spegni per stato e per strato. Verde = reale · ambra = roadmap · rosso = design. Sfondo: qui andrà la nuova chart.</p>';
-  h+='<div class="filters"><div class="grp"><span class="glab">Stato</span>'
-    +stati.map(function(s){return '<span class="chip '+(fStato[s[0]]?'on':'')+'" data-t="stato" data-k="'+s[0]+'">'+s[1]+'</span>';}).join('')+'</div>';
-  h+='<div class="grp"><span class="glab">Strato</span>'
-    +strati.map(function(s){return '<span class="chip '+(fStrato[s[0]]?'on':'')+'" data-t="strato" data-k="'+s[0]+'">'+s[1]+'</span>';}).join('')+'</div></div>';
-  var vis=COMPONENTI.filter(function(c){return fStato[c.stato]&&fStrato[c.strato];});
-  h+='<div class="count">'+vis.length+' componenti visibili</div><div class="grid">';
-  h+=vis.map(function(c){return '<div class="cmp" data-stato="'+c.stato+'"><div class="n">'+c.n+'</div>'
-    +'<div class="m"><span>'+c.strato+'</span><span class="st">'+c.stato+(c.nota?' · '+c.nota:'')+'</span></div></div>';}).join('');
-  h+='</div>';
-  document.getElementById('panel').innerHTML=h;
-  document.querySelectorAll('.chip').forEach(function(ch){ch.onclick=function(){
-    var t=ch.dataset.t,k=ch.dataset.k;if(t==='stato')fStato[k]=!fStato[k];else fStrato[k]=!fStrato[k];panelArchitettura();};});
+  var h='';
+  strati.forEach(function(st){
+    h+='<div style="grid-column:1/-1" class="grid-t">'+st[1]+'</div>';
+    COMPONENTI.filter(function(c){return c.strato===st[0];}).forEach(function(c){
+      h+='<div class="led-c"><span class="dot '+c.s+'"></span><span class="nm">'+c.n+'</span>'
+        +'<span class="st">'+(c.nota||c.s)+'</span></div>';
+    });
+  });
+  document.getElementById('leds').innerHTML=h;
 }
-
-function placeholder(ph,titolo,sub,nota){
-  document.getElementById('panel').innerHTML='<p class="ph">'+ph+'</p><h1>'+titolo+'</h1><p class="sub">'+sub+'</p>'
-    +'<div class="todo-note">'+nota+'</div>';
-}
-
-function render(fam){
-  if(fam==='architettura')return panelArchitettura();
-  if(fam==='attivita')return placeholder('Famiglia · Attività','Le cose aperte',
-    'I 45 punti del promemoria, filtrabili per priorità.',
-    '<b>Da collegare</b> al repo: leggerà <code>da-fare.json</code> (i punti) quando sarà esposto in /site. Dato non sensibile → può stare nel repo.');
-  if(fam==='cruscotto')return placeholder('Famiglia · Cruscotto','La spia della benzina',
-    'TRE Score, riserva tasse, cuscinetto, pareggio OÜ, tetto 85k, semaforo Fase 2.',
-    '<b>Da collegare</b>: i numeri di stato vivono in <b>localStorage</b> (privati) — mai committati nel repo pubblico.');
-  if(fam==='finanziario')return placeholder('Famiglia · Finanziario','Ricavi, riserve, flussi',
-    'Conti, accantonamenti, flusso di cassa personale.',
-    '<b>Dati sensibili → SOLO localStorage.</b> Nessun numero finanziario di Stefano finisce mai nel repo pubblico (regola #23).');
-  if(fam==='fiscale')return placeholder('Famiglia · Fiscale','Imposte, soglie, scadenze',
-    'Tetto forfettario 85k, riserva tasse, scadenze fiscali.',
-    '<b>Dati sensibili → SOLO localStorage.</b> Il cockpit calcola in locale, non pubblica nulla.');
-}
+/* modali */
+var modal=document.getElementById('modal');
+document.getElementById('mx').onclick=function(){modal.style.display='none';};
+modal.onclick=function(e){if(e.target===modal)modal.style.display='none';};
+function openModal(t,s,items){document.getElementById('m-title').textContent=t;document.getElementById('m-sub').textContent=s;
+  document.getElementById('m-list').innerHTML=items;modal.style.display='flex';}
+document.getElementById('btn-manca').onclick=function(){
+  var nonverdi=COMPONENTI.filter(function(x){return x.s!=='verde'&&x.s!=='grigio';});
+  var items=nonverdi.map(function(c){return '<li style="border-left-color:'+COL[c.s]+'"><span class="dot '+c.s+'" style="align-self:center"></span>'+c.n+' <span class="dt">'+(c.nota||'')+'</span></li>';}).join('');
+  items+='<li style="border-left-color:#c9b48a"><b>+ '+TODO_APERTI+' punti aperti</b> nel promemoria (da-fare.json) — da collegare live</li>';
+  openModal('Cosa manca','componenti non-verdi + promemoria · il revisore automatico',items);
+};
+document.getElementById('btn-lavoro').onclick=function(){
+  var items=COMMITS.map(function(c){return '<li style="border-left-color:#6586A7"><span class="hash">'+c.h+'</span> '+c.s+'<span class="dt">'+c.dt+'</span></li>';}).join('');
+  openModal('Ultimo lavoro','gli ultimi commit — cosa ho fatto',items);
+};
 </script>
 </body>
 </html>

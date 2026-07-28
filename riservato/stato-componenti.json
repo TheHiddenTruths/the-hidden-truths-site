@@ -18,7 +18,7 @@
     { "id": "dossier-altri",      "nome": "Dossier Instant / Full",         "strato": "interfaccia", "stato": "rosso",  "nota": "placeholder" },
     { "id": "sito-landing",       "nome": "Sito landing",                   "strato": "interfaccia", "stato": "giallo", "nota": "parziale" },
     { "id": "sito-scroll",        "nome": "Sito a 3 layer (scroll)",        "strato": "interfaccia", "stato": "rosso",  "nota": "da progettare" },
-    { "id": "cockpit-riservato",  "nome": "Cockpit riservato",              "strato": "interfaccia", "stato": "giallo", "nota": "struttura v0" },
+    { "id": "cockpit-riservato",  "nome": "Cockpit riservato",              "strato": "interfaccia", "stato": "giallo", "nota": "v1 operativo" },
     { "id": "dati-json",          "nome": "JSON scaricabili",               "strato": "dati",        "stato": "verde",  "nota": "nessun backend" },
     { "id": "dati-db",            "nome": "Database (PostgreSQL)",          "strato": "dati",        "stato": "rosso",  "nota": "il ponte, da fare" },
     { "id": "infra-github",       "nome": "GitHub Repository",              "strato": "infra",       "stato": "verde",  "nota": "attivo" },
