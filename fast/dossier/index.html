@@ -4,8 +4,9 @@
  *{box-sizing:border-box}
  body{margin:0;font-family:Calibri,"Segoe UI",Arial,sans-serif;color:#1a1a1a;background:#eceef1}
  .page{max-width:100%;margin:0;padding:22px 10px;background:transparent}
- .sheet{width:94vw;margin:0 auto 26px;background:#fff;box-shadow:0 6px 26px rgba(0,0,0,.16);border-radius:4px;padding:clamp(26px,5.5vw,52px)}
- .cover-sheet{min-height:min(760px,80vh);display:flex;flex-direction:column}
+ /* FOGLIO A4 VERO (WYSIWYG): larghezza 210mm, margini di stampa 14/15mm come @page. Cosi' schermo = stampa. */
+ .sheet{width:min(210mm,96vw);margin:0 auto 24px;background:#fff;box-shadow:0 6px 26px rgba(0,0,0,.16);border-radius:2px;padding:14mm 15mm 16mm}
+ .cover-sheet{min-height:calc(min(210mm,96vw) * 1.414);display:flex;flex-direction:column}  /* la copertina e' un A4 intero (210x297) */
  .cover-sheet .epigraph{margin-top:auto;margin-bottom:20px}
  
  .cover{padding-top:18px} .cover .logo{height:40px;margin-bottom:24px}
