@@ -27,8 +27,13 @@
   #gate{position:fixed;inset:0;background:#050404;overflow:hidden;z-index:100}
   #gate .gimg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover}
   #gate .ov{position:absolute}
-  #gate .pin{position:absolute;left:32.4%;top:66%;width:34.3%;height:5.6%;display:flex;gap:1.2%}
-  #gate .pin input{flex:1 1 0;min-width:0;width:100%;height:100%;background:transparent;border:0;outline:none;text-align:center;color:#f0f2f4;font-family:var(--mono);font-weight:700;font-size:clamp(15px,2.6vmin,27px);caret-color:var(--gold);-webkit-text-security:disc;text-security:disc}
+  #gate .pin input{position:absolute;top:68.8%;transform:translate(-50%,-50%);width:5.2%;height:5.6%;padding:0;background:transparent;border:0;outline:none;text-align:center;color:#f0f2f4;font-family:var(--mono);font-weight:700;font-size:clamp(15px,2.6vmin,27px);caret-color:var(--gold);-webkit-text-security:disc;text-security:disc}
+  #gate .pin input:nth-child(1){left:34.32%}
+  #gate .pin input:nth-child(2){left:40.54%}
+  #gate .pin input:nth-child(3){left:46.69%}
+  #gate .pin input:nth-child(4){left:52.69%}
+  #gate .pin input:nth-child(5){left:58.77%}
+  #gate .pin input:nth-child(6){left:64.85%}
   #gate .ov.revealed .pin input{-webkit-text-security:none;text-security:none}
   #gate .eye{position:absolute;left:68.8%;top:66%;height:5.6%;display:flex;align-items:center;background:none;border:0;cursor:pointer;color:var(--gold);padding:0 6px;opacity:.8}
   #gate .eye:hover{opacity:1}
@@ -178,7 +183,7 @@
     <span><i class="dot rosso"></i> da costruire</span>
     <span><i class="dot grigio"></i> n/a</span>
   </div>
-  <div class="foot">v2026.1 · 774fe1d · Powered by THT Systems · i LED dicono il vero</div>
+  <div class="foot">v2026.1 · 15c5d86 · Powered by THT Systems · i LED dicono il vero</div>
 </div>
 
 <div class="modal" id="modal"><div class="card">
