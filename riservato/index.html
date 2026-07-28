@@ -24,20 +24,16 @@
   body{margin:0;background:radial-gradient(circle at 50% -10%,#14181d,#0a0b0d 60%);color:var(--ink);font-family:var(--sans)}
 
   /* gate */
-  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;
-    background:radial-gradient(1000px 520px at 50% -8%, rgba(201,180,138,.06), transparent 60%), #08090b}
-  #gate .box{width:min(380px,90vw);text-align:center;padding:8px}
-  #gate .logo{font-weight:800;letter-spacing:.18em;font-size:30px;color:#eceff2}
-  #gate .logo small{display:block;font-weight:600;letter-spacing:.42em;font-size:10px;color:var(--muted);margin-top:6px}
-  #gate .soon{margin:18px 0 8px;font-size:27px;color:#e9ecef;font-family:"Snell Roundhand","Brush Script MT","Segoe Script",cursive;font-style:italic;opacity:.92}
-  #gate .lock{color:var(--gold);font-size:20px;margin:12px 0 6px}
-  #gate .lab{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
-  #gate .pin{display:flex;gap:7px;justify-content:center;margin:0 0 2px}
-  #gate .pin-d{flex:1 1 0;min-width:0;height:56px;text-align:center;font-size:24px;font-weight:700;color:#eceff2;background:#0d1116;border:1px solid rgba(201,180,138,.55);border-radius:9px;font-family:var(--mono);caret-color:var(--gold)}
+  #gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:100;background:#050404}
+  #gate .box{width:min(540px,96vw);text-align:center}
+  #gate .gimg{width:100%;display:block;margin:0 auto}
+  #gate .pin{display:flex;gap:8px;justify-content:center;margin:16px auto 0;width:min(330px,84%)}
+  #gate .pin-d{flex:1 1 0;min-width:0;height:50px;text-align:center;font-size:22px;font-weight:700;color:#eceff2;background:rgba(13,16,20,.55);border:1px solid rgba(201,180,138,.6);border-radius:8px;font-family:var(--mono);caret-color:var(--gold)}
   #gate .pin-d:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,180,138,.22)}
-  #gate button{margin-top:14px;width:100%;padding:12px;border:0;border-radius:10px;background:var(--gold);color:#191919;font-weight:700;font-size:15px;cursor:pointer;letter-spacing:.05em}
-  #gate .err{color:var(--rosso);font-size:12px;height:16px;margin-top:9px;font-family:var(--mono)}
-  #gate .back{display:inline-block;margin-top:16px;color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;opacity:.85}
+  #gate button{margin-top:22px;background:none;border:0;border-bottom:2px solid var(--gold);color:#f2f3f5;font-weight:700;font-size:20px;letter-spacing:.34em;padding:2px 6px 8px 12px;cursor:pointer;font-family:var(--sans)}
+  #gate button:hover{color:#fff}
+  #gate .err{color:var(--rosso);font-size:12px;height:16px;margin-top:11px;font-family:var(--mono)}
+  #gate .back{display:inline-block;margin-top:20px;color:var(--gold);font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;opacity:.9}
   #gate .back:hover{opacity:1;text-decoration:underline}
 
   #cockpit{display:none;max-width:1100px;margin:0 auto;padding:16px}
@@ -124,10 +120,7 @@
 <body>
 
 <div id="gate"><div class="box">
-  <div class="logo">THT<small>SYSTEMS</small></div>
-  <div class="soon">Coming Soon…</div>
-  <div class="lock">🔒</div>
-  <div class="lab">Accesso Riservato</div>
+  <img class="gimg" src="assets/gate-cockpit-top.png" alt="THT Systems — Coming Soon · Accesso Riservato">
   <div class="pin" id="pin">
     <input class="pin-d" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="cifra 1">
     <input class="pin-d" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="cifra 2">
@@ -136,7 +129,7 @@
     <input class="pin-d" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="cifra 5">
     <input class="pin-d" type="text" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="cifra 6">
   </div>
-  <button id="enter">Entra ▸</button>
+  <button id="enter">ENTER</button>
   <div class="err" id="err"></div>
   <a class="back" href="../">◂ Torna alla landing page</a>
 </div></div>
@@ -175,7 +168,7 @@
     <span><i class="dot rosso"></i> da costruire</span>
     <span><i class="dot grigio"></i> n/a</span>
   </div>
-  <div class="foot">v2026.1 · 6c30bf6 · Powered by THT Systems · i LED dicono il vero</div>
+  <div class="foot">v2026.1 · 1a42636 · Powered by THT Systems · i LED dicono il vero</div>
 </div>
 
 <div class="modal" id="modal"><div class="card">
