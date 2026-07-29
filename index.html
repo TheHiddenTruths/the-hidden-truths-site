@@ -151,7 +151,7 @@
     <input id="gl-pw" type="text" inputmode="numeric" autocomplete="off" aria-label="Codice">
     <button id="gl-enter" aria-label="Entra">&nbsp;</button>
   </div>
-  <div class="gl-ver">v2026.374 · 5d9df8c · Powered by THT Systems</div>
+  <div class="gl-ver">v2026.375 · 9c7eb76 · Powered by THT Systems</div>
 </div>
 
 <div class="hero">
@@ -195,7 +195,7 @@
       </div>
       <div class="legal">
         <span class="legal-txt">© 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a></span>
-        <span class="ver">v2026.374 · 5d9df8c · Powered by THT Systems</span>
+        <span class="ver">v2026.375 · 9c7eb76 · Powered by THT Systems</span>
       </div>
     </div>
 
@@ -255,14 +255,15 @@
     }
     document.getElementById('gl-enter').addEventListener('click',tryit);
     pw.addEventListener('keydown',function(e){ if(e.key==='Enter') tryit(); });
-    /* NIENTE autofocus al load: su iOS disegnava una stanghetta (caret) nel campo.
-       Da tastiera fisica il primo tasto porta il fuoco e digita, cosi' non si perde nulla. */
+    /* Rete tastiera fisica: se non si sta gia' scrivendo, il primo tasto porta il fuoco. */
     document.addEventListener('keydown',function(e){
       if(g.classList.contains('hidden'))return;
       if(document.activeElement===pw)return;
       if(/^[0-9]$/.test(e.key)){pw.focus();pw.value+=e.key;e.preventDefault();}
       else if(e.key==='Enter'){tryit();}
     });
+    /* autofocus: apre la tastiera e permette di digitare. Il caret e' nascosto (caret-color:transparent). */
+    setTimeout(function(){pw.focus();},60);
   })();
 </script>
 
