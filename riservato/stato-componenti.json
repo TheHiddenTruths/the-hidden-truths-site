@@ -6,7 +6,7 @@
     "rosso": "non funzionante / non costruito",
     "grigio": "non applicabile / in attesa"
   },
-  "_aggiornato": "2026-07-28",
+  "_aggiornato": "2026-07-29",
   "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
   "componenti": [
     { "id": "motore-instant",     "nome": "Motore Instant",                 "strato": "motori",      "stato": "giallo", "nota": "mask c'e', motore da costruire" },
@@ -24,9 +24,12 @@
     { "id": "dati-json",          "nome": "JSON scaricabili",               "strato": "dati",        "stato": "verde",  "nota": "nessun backend" },
     { "id": "dati-db",            "nome": "Database (PostgreSQL)",          "strato": "dati",        "stato": "rosso",  "nota": "il ponte, da fare" },
     { "id": "infra-github",       "nome": "GitHub Repository",              "strato": "infra",       "stato": "verde",  "nota": "attivo" },
-    { "id": "infra-pages",        "nome": "GitHub Pages (deploy sito)",     "strato": "infra",       "stato": "verde",  "nota": "workflow attivo" },
+    { "id": "robot-deploy",       "nome": "Robot deploy (GitHub Actions)",  "strato": "infra",       "stato": "verde",  "nota": "pubblica il sito a ogni push" },
+    { "id": "robot-scriba",       "nome": "Robot scriba (diario automatico)","strato": "infra",      "stato": "verde",  "nota": "scrive REGISTRO-CRONOLOGICO dal git log, ora italiana, a ogni push" },
+    { "id": "infra-squarespace",  "nome": "Squarespace (registrar dominio)","strato": "infra",       "stato": "verde",  "nota": "nameserver spostati a Cloudflare il 29/07" },
+    { "id": "infra-cloudflare",   "nome": "Cloudflare (DNS + sicurezza)",   "strato": "infra",       "stato": "giallo", "nota": "dominio ATTIVO 29/07; mancano sito sul dominio + Access OTP" },
     { "id": "infra-backend",      "nome": "Docker / VPS / Backend",         "strato": "infra",       "stato": "rosso",  "nota": "non esistono" },
-    { "id": "serv-pagamenti",     "nome": "Stripe / Squarespace / Cloudflare", "strato": "servizi", "stato": "rosso",  "nota": "non collegati" },
+    { "id": "serv-stripe",        "nome": "Stripe (pagamenti)",             "strato": "servizi",     "stato": "rosso",  "nota": "non collegato" },
     { "id": "serv-llm",           "nome": "LLM API (OpenAI, Claude)",       "strato": "servizi",     "stato": "grigio", "nota": "no dati personali alle LLM" }
   ]
 }
