@@ -9,6 +9,9 @@
   "_aggiornato": "2026-07-29",
   "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
   "componenti": [
+    { "id": "acq-instant",        "nome": "Acquisizione Instant",           "strato": "motori",      "stato": "verde",  "nota": "regole dettate a voce da Stefano, non un file Excel" },
+    { "id": "acq-fast",           "nome": "Acquisizione Fast",              "strato": "motori",      "stato": "verde",  "nota": "sorgente Excel originale + casi noti" },
+    { "id": "acq-full",           "nome": "Acquisizione Full",              "strato": "motori",      "stato": "verde",  "nota": "sorgenti Excel in prodotti/tht-check/full/source" },
     { "id": "motore-instant",     "nome": "Motore Instant",                 "strato": "motori",      "stato": "giallo", "nota": "mask c'e', motore da costruire" },
     { "id": "motore-fast",        "nome": "Motore Fast (engine.js)",        "strato": "motori",      "stato": "verde",  "nota": "verificato 161/161" },
     { "id": "motore-full",        "nome": "Motore Full",                    "strato": "motori",      "stato": "rosso",  "nota": "solo sorgenti Excel" },
