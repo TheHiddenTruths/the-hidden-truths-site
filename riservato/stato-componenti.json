@@ -37,6 +37,7 @@
     { "id": "robot-health",       "nome": "Robot Health «il Termometro»", "strato": "robot",        "stato": "giallo", "nota": "una percentuale sola, calcolata dai risultati veri degli altri robot; popup di dettaglio da fare dopo" },
     { "id": "robot-interazione",  "nome": "Robot Interazione «la Mano»", "strato": "robot",         "stato": "verde",  "nota": "clicca davvero su cockpit/robot e cattura errori di console; verificato con un bug vero riprodotto e ritrovato" },
     { "id": "robot-impatto",      "nome": "Robot Impact Analysis «il Navigatore»", "strato": "robot", "stato": "giallo", "nota": "usa il Grafo per dire quali pagine impatta l'ultimo commit; oggi solo informativo, non ancora usato per limitare i controlli" },
+    { "id": "robot-guardiano",    "nome": "Robot Guardiano «il Cancello»", "strato": "robot",        "stato": "verde",  "nota": "blocca il COMMIT stesso (non solo il check su GitHub) se il Setaccio trova un critico; verificato bloccando un commit vero e lasciandone passare uno pulito" },
     { "id": "infra-squarespace",  "nome": "Squarespace (registrar dominio)","strato": "infra",       "stato": "verde",  "nota": "nameserver spostati a Cloudflare il 29/07" },
     { "id": "infra-cloudflare",   "nome": "Cloudflare (DNS + sicurezza)",   "strato": "infra",       "stato": "giallo", "nota": "dominio ATTIVO 29/07; mancano sito sul dominio + Access OTP" },
     { "id": "infra-backend",      "nome": "Docker / VPS / Backend",         "strato": "infra",       "stato": "rosso",  "nota": "non esistono" },
