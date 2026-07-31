@@ -33,6 +33,7 @@
     { "id": "robot-test-motore",  "nome": "Robot test motore (CI 161/161)", "strato": "robot",       "stato": "verde",  "nota": "verifica engine.js contro il riferimento a ogni push, blocca regressioni" },
     { "id": "robot-validator",    "nome": "Robot Validator «il Setaccio»", "strato": "robot",        "stato": "verde",  "nota": "sintassi + compatibilita' browser, a ogni push" },
     { "id": "robot-visual",       "nome": "Robot Visual «l'Occhio»",      "strato": "robot",        "stato": "verde",  "nota": "screenshot + confronto pixel, a ogni push" },
+    { "id": "robot-grafo",        "nome": "Robot Grafo «chi-usa-cosa»",   "strato": "robot",        "stato": "giallo", "nota": "prima versione, 4 file condivisi tracciati con grep vero; cresce con il repo" },
     { "id": "infra-squarespace",  "nome": "Squarespace (registrar dominio)","strato": "infra",       "stato": "verde",  "nota": "nameserver spostati a Cloudflare il 29/07" },
     { "id": "infra-cloudflare",   "nome": "Cloudflare (DNS + sicurezza)",   "strato": "infra",       "stato": "giallo", "nota": "dominio ATTIVO 29/07; mancano sito sul dominio + Access OTP" },
     { "id": "infra-backend",      "nome": "Docker / VPS / Backend",         "strato": "infra",       "stato": "rosso",  "nota": "non esistono" },
