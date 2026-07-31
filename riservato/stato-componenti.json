@@ -30,6 +30,7 @@
     { "id": "robot-deploy",       "nome": "Robot deploy (GitHub Actions)",  "strato": "infra",       "stato": "verde",  "nota": "pubblica il sito a ogni push" },
     { "id": "robot-scriba",       "nome": "Robot scriba (diario automatico)","strato": "infra",      "stato": "verde",  "nota": "scrive REGISTRO-CRONOLOGICO dal git log, ora italiana, a ogni push" },
     { "id": "robot-censimento",   "nome": "Robot censimento (collaboratori)","strato": "infra",      "stato": "verde",  "nota": "becca i programmi dalle estensioni dei file (Excel, Word...): COLLABORATORI.md, auto" },
+    { "id": "robot-test-motore",  "nome": "Robot test motore (CI 161/161)", "strato": "infra",       "stato": "verde",  "nota": "verifica engine.js contro il riferimento a ogni push, blocca regressioni" },
     { "id": "infra-squarespace",  "nome": "Squarespace (registrar dominio)","strato": "infra",       "stato": "verde",  "nota": "nameserver spostati a Cloudflare il 29/07" },
     { "id": "infra-cloudflare",   "nome": "Cloudflare (DNS + sicurezza)",   "strato": "infra",       "stato": "giallo", "nota": "dominio ATTIVO 29/07; mancano sito sul dominio + Access OTP" },
     { "id": "infra-backend",      "nome": "Docker / VPS / Backend",         "strato": "infra",       "stato": "rosso",  "nota": "non esistono" },
