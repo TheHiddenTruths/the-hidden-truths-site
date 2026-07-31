@@ -17,7 +17,9 @@
     "site/instant":                  { "s": "giallo", "nota": "mask sì, dossier no" },
     "site/full":                     { "s": "rosso",  "nota": "placeholder" },
     "site/riservato":                { "s": "giallo", "nota": "cockpit v1 operativo" },
-    "tools":                         { "s": "verde",  "nota": "build e deploy attivi" }
+    "tools":                         { "s": "verde",  "nota": "build e deploy attivi" },
+    "tools/qa-engine":               { "s": "verde",  "nota": "famiglia QA Engine: Setaccio, Occhio, Interazione + Guardiano attivi e verificati" },
+    ".githooks":                     { "s": "verde",  "nota": "Guardiano: blocca il commit sul posto se il Setaccio trova un critico" }
   },
   "legacy_grigio": ["Architecture", "ChatGPT", "Data", "Documentation", "Engines", "Releases", "Scripts", "Shared", "Tests"]
 }
