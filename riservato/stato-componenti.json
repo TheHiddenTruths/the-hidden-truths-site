@@ -290,6 +290,20 @@
       "nota": "controlla il controllore: cosa e' scoperto, e se i controlli sanno fallire"
     },
     {
+      "id": "robot-copilot",
+      "nome": "Copilot Review",
+      "strato": "robot",
+      "stato": "rosso",
+      "nota": "solo diff dentro GitHub, non esegue e non vede il sito"
+    },
+    {
+      "id": "robot-codex",
+      "nome": "Codex Verified",
+      "strato": "robot",
+      "stato": "rosso",
+      "nota": "terza via: il verdetto di un autore diverso da Aquila"
+    },
+    {
       "id": "motori-libreria",
       "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
       "strato": "libreria",
