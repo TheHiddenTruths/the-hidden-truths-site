@@ -322,7 +322,7 @@
       "nome": "AI attiva",
       "strato": "robot",
       "stato": "verde",
-      "nota": "resta in ascolto dopo l'invio; provato su Sonnet→Fable"
+      "nota": "corsia rapida provata: cambio → sito in 34s, pagina viva ogni 30s"
     },
     {
       "id": "motori-libreria",
