@@ -375,10 +375,10 @@
     },
     {
       "id": "acq-instant",
-      "nome": "Acquisizione tecnica da regole del master",
+      "nome": "Master acquisito",
       "strato": "p-instant",
       "stato": "verde",
-      "nota": "qui il master non ha lasciato un foglio: le regole le ha dettate a voce"
+      "nota": "regole dettate a voce"
     },
     {
       "id": "mask-instant",
@@ -403,10 +403,10 @@
     },
     {
       "id": "acq-fast",
-      "nome": "Acquisizione tecnica da Excel master",
+      "nome": "Master acquisito",
       "strato": "p-fast",
       "stato": "verde",
-      "nota": "il foglio originale di Stefano: 199 righe con formula e valore atteso — e' il metro dei 161/161"
+      "nota": "il metro dei 161/161"
     },
     {
       "id": "mask-fast",
@@ -431,10 +431,10 @@
     },
     {
       "id": "acq-full",
-      "nome": "Acquisizione tecnica da Excel master",
+      "nome": "Master acquisito",
       "strato": "p-full",
       "stato": "verde",
-      "nota": "i due fogli originali in prodotti/tht-check/full/source — 93.892 formule, non ancora studiati"
+      "nota": "93.892 formule, da studiare"
     },
     {
       "id": "mask-full",
