@@ -321,8 +321,8 @@
       "id": "robot-modello-vivo",
       "nome": "AI attiva",
       "strato": "robot",
-      "stato": "giallo",
-      "nota": "si allinea all'avvio; l'hook a ogni messaggio va provato"
+      "stato": "verde",
+      "nota": "resta in ascolto dopo l'invio; provato su Sonnet→Fable"
     },
     {
       "id": "motori-libreria",
