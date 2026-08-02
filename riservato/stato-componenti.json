@@ -283,6 +283,13 @@
       "nota": "collauda la macchina che pubblica, prima del commit"
     },
     {
+      "id": "robot-sorvegliante",
+      "nome": "Coverage Audit",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "controlla il controllore: cosa e' scoperto, e se i controlli sanno fallire"
+    },
+    {
       "id": "motori-libreria",
       "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
       "strato": "libreria",
