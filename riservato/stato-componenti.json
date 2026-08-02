@@ -129,6 +129,27 @@
       "nota": "il motore non va mai online"
     },
     {
+      "id": "str-risveglio",
+      "nome": "Risveglio (installazione)",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "il file per un'Aquila senza memoria"
+    },
+    {
+      "id": "str-come-funziona",
+      "nome": "Come funziona (tecnico)",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "la macchina per discendenza dei flussi"
+    },
+    {
+      "id": "str-riscontri",
+      "nome": "Registro dei riscontri",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "chi aveva ragione, a due colonne"
+    },
+    {
       "id": "str-md2pdf",
       "nome": "Markdown → PDF",
       "strato": "strumenti",
@@ -183,6 +204,13 @@
       "strato": "robot",
       "stato": "verde",
       "nota": "scrive il diario dal git log, a ogni push"
+    },
+    {
+      "id": "robot-giornata",
+      "nome": "Daily Report",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "la relazione del giorno, dopo la mezzanotte italiana"
     },
     {
       "id": "robot-censimento",
