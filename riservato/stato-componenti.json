@@ -304,6 +304,13 @@
       "nota": "terza via: il verdetto di un autore diverso da Aquila"
     },
     {
+      "id": "robot-coscienza",
+      "nome": "Coscienza",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "nega la modifica se Aquila non ha guardato chi dipende"
+    },
+    {
       "id": "motori-libreria",
       "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
       "strato": "libreria",
