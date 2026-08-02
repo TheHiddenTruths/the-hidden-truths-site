@@ -311,6 +311,20 @@
       "nota": "nega la modifica se Aquila non ha guardato chi dipende"
     },
     {
+      "id": "robot-adunata",
+      "nome": "Adunata",
+      "strato": "robot",
+      "stato": "giallo",
+      "nota": "pulsante pronto, mai lanciato su GitHub"
+    },
+    {
+      "id": "robot-modello-vivo",
+      "nome": "AI attiva",
+      "strato": "robot",
+      "stato": "giallo",
+      "nota": "si allinea all'avvio; l'hook a ogni messaggio va provato"
+    },
+    {
       "id": "motori-libreria",
       "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
       "strato": "libreria",
