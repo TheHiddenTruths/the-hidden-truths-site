@@ -276,6 +276,13 @@
       "nota": "blocca il commit se trova un critico"
     },
     {
+      "id": "robot-collaudatore",
+      "nome": "Machine Test",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "collauda la macchina che pubblica, prima del commit"
+    },
+    {
       "id": "motori-libreria",
       "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
       "strato": "libreria",
