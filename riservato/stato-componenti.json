@@ -160,8 +160,8 @@
       "id": "str-preview",
       "nome": "Anteprima a screenshot",
       "strato": "strumenti",
-      "stato": "giallo",
-      "nota": "oggi lo fa il robot Visual"
+      "stato": "rosso",
+      "nota": "rotto dal riordino 27/07, lo fa il robot Visual"
     },
     {
       "id": "str-plancia",
@@ -181,8 +181,8 @@
       "id": "str-onefile",
       "nome": "HTML unico (one-file)",
       "strato": "strumenti",
-      "stato": "giallo",
-      "nota": "serviva al caricamento a mano"
+      "stato": "rosso",
+      "nota": "rotto dal riordino 27/07 e superato"
     },
     {
       "id": "str-liquid",
