@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>THT — Pagina demo</title>
+<!--
+  LA PAGINA DEMO — IL LABORATORIO. Chiesta da Stefano il 3/08/2026, con le sue parole:
+
+    «Su quella pagina decidiamo il layer uno, che e' la fotografia di fondo, e layer due,
+     che sono i comandi, le scritte che facciamo, cliccabili o non cliccabili.»
+    «Dopo la landing, dopo l'ingresso con le quattro cifre, deve essere possibile
+     esattamente come esiste accesso riservato.»
+    «Poi magari un giorno trasformeremo la pagina demo in un modello che potra' essere
+     utilizzato in sostituzione di altre pagine.»
+
+  QUINDI QUESTA PAGINA E' DUE COSE INSIEME, e va letta cosi':
+   1. una PAGINA vera, raggiungibile dalla landing (voce «pagina demo», accanto ad «accesso
+      riservato»), dove si prova la composizione prima di toccare le pagine di produzione;
+   2. il MODELLO: la sua struttura e' quella che un giorno prende il posto delle altre. Per
+      questo dentro non c'e' niente di specifico alla demo — c'e' solo il meccanismo.
+
+  LA REGOLA DEI DUE STRATI, che e' tutta l'architettura:
+      LAYER 1  la fotografia di fondo .......... <img id="layer1">
+      LAYER 2  i comandi e le scritte .......... <div id="layer2">, riempito da PAGINA.zone
+  I due strati non si toccano mai fra loro. Cambiare la fotografia non sposta un comando;
+  cambiare un comando non tocca la fotografia. Le zone stanno in PERCENTUALE sulla foto, non
+  in pixel: cosi' la composizione regge su un telefono, su un iPad e su un desktop senza
+  ricalcolare niente — ed e' la stessa tecnica con cui sono gia' fatti i due cancelli.
+
+  DOVE SI CAMBIA: in PAGINA, qui sotto, in un punto solo. Non c'e' un secondo posto.
+-->
+<style>
+  :root{
+    --ink:#f0f2f4; --gold:#e7b24e; --mut:#b7bbc2; --dim:#6b7079;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:#050404;color:var(--ink);overflow:hidden;
+       font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+       -webkit-font-smoothing:antialiased}
+
+  /* ---------- LAYER 1 — la fotografia di fondo ----------
+     object-fit:contain = la foto si vede SEMPRE INTERA, con le bande ai lati o sopra/sotto se
+     le proporzioni dello schermo non combaciano (come un film in 16:9 su uno schermo 4:3).
+     E' quello che tiene valide le percentuali del layer 2: se la foto venisse tagliata, i
+     comandi finirebbero fuori posto. Stessa scelta gia' fatta sui due cancelli. */
+  #palco{position:fixed;inset:0;overflow:hidden}
+  #layer1{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain;
+          user-select:none;-webkit-user-drag:none}
+
+  /* ---------- LAYER 2 — i comandi e le scritte ----------
+     Il riquadro si allinea DA SOLO al rettangolo occupato dalla fotografia (lo calcola
+     allinea(), sotto): dentro di lui, left/top/width/height in % sono percentuali SULLA FOTO,
+     non sullo schermo. E' questo che rende i due strati indipendenti davvero. */
+  #layer2{position:absolute}
+  .zona{position:absolute;display:flex;align-items:center;justify-content:center;
+        color:var(--ink);text-decoration:none;text-align:center;line-height:1.25;
+        -webkit-tap-highlight-color:transparent}
+  /* una zona CLICCABILE si comporta da comando: reagisce, e si vede che reagisce */
+  .zona.click{cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+  .zona.click:hover,.zona.click:focus-visible{color:var(--gold);outline:none}
+  /* una zona NON cliccabile e' solo una scritta posata sulla foto: non intercetta il dito */
+  .zona.muta{pointer-events:none}
+  /* il riquadro attorno al comando: si accende, non e' mai un bottone grigio da modulo */
+  .zona.bordo{border:1px solid #ffffff30;border-radius:10px}
+  .zona.bordo.click:hover{border-color:var(--gold);background:#e7b24e12}
+
+  /* MISURA DEL TESTO: in vmin, cosi' cresce e cala INSIEME alla fotografia. In px il testo
+     resterebbe fermo mentre la foto si rimpicciolisce, e la composizione si sfascerebbe. */
+  .zona{font-size:clamp(9px,var(--sz,1.6)*1vmin,34px);letter-spacing:.14em}
+  .zona.tit{letter-spacing:.05em;font-weight:600}
+
+  /* ---------- il telaio di servizio (non fa parte della composizione) ---------- */
+  .servizio{position:fixed;z-index:5;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+            color:#8b9098;text-decoration:none}
+  .servizio:hover{color:var(--gold)}
+  #torna{left:clamp(12px,3vw,26px);top:clamp(12px,2.6vh,24px)}
+  #targa{right:clamp(12px,3vw,26px);bottom:clamp(10px,2vh,18px);font-family:var(--mono);
+         letter-spacing:.06em;text-transform:none;color:#6b7079;pointer-events:none}
+  /* il righello: si accende con la barra spaziatrice o dal tasto, e serve a leggere le
+     percentuali a occhio mentre si compone. Spento, non esiste. */
+  #righello{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .18s;
+     background-image:linear-gradient(#ffffff12 1px,transparent 1px),
+                      linear-gradient(90deg,#ffffff12 1px,transparent 1px);
+     background-size:10% 10%,10% 10%}
+  #righello.on{opacity:1}
+  #bt-righello{position:fixed;right:clamp(12px,3vw,26px);top:clamp(12px,2.6vh,24px);z-index:5;
+     background:#0d0f12b0;border:1px solid #23272e;border-radius:8px;color:#8b9098;
+     padding:7px 11px;font:inherit;font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  #bt-righello:hover{border-color:var(--gold);color:var(--gold)}
+</style>
+</head>
+<body>
+
+<div id="palco">
+  <!-- LAYER 1 -->
+  <img id="layer1" alt="">
+  <!-- LAYER 2 -->
+  <div id="layer2">
+    <div id="righello"></div>
+  </div>
+</div>
+
+<a class="servizio" id="torna" href="../">◂ landing</a>
+<button id="bt-righello" type="button">▦ righello</button>
+<div class="servizio" id="targa">v2026.1690 · 7c2a758 · pagina demo · laboratorio</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════════
+   LA COMPOSIZIONE — SI CAMBIA SOLO QUI DENTRO.
+
+   foto  = LAYER 1. Il fondo. Una riga.
+   zone  = LAYER 2. Ogni voce e' un comando o una scritta, posata sulla foto in percentuale.
+
+   Ogni zona:
+     testo    cosa c'e' scritto
+     verso    dove porta il clic. Vuoto o assente = scritta muta, non cliccabile.
+     x y w h  posizione e misura, in % SULLA FOTOGRAFIA (non sullo schermo)
+     sz       corpo del testo in vmin (1.6 = normale, 3 = titolo). Facoltativo.
+     stile    "tit" titolo · "bordo" riquadro attorno · si possono combinare: "tit bordo"
+
+   Le percentuali si possono scrivere a mano, oppure prenderle dal Quartier Generale
+   (cockpit → 🗺️) trascinando le zone sulla foto invece di misurare i pixel.
+   ══════════════════════════════════════════════════════════════════════════════ */
+var PAGINA = {
+  foto: "../assets/gate-coming-soon.png",
+  zone: [
+    { testo:"PAGINA DEMO",            x:30, y:20, w:40, h:8,  sz:3,   stile:"tit" },
+    { testo:"il laboratorio dei due strati", x:25, y:29, w:50, h:6, sz:1.4 },
+
+    { testo:"Layer 1 — la fotografia", x:10, y:46, w:34, h:9, sz:1.5, stile:"bordo" },
+    { testo:"Layer 2 — i comandi",     x:56, y:46, w:34, h:9, sz:1.5, stile:"bordo" },
+
+    { testo:"I PRODOTTI",     verso:"../prodotti/",  x:20, y:66, w:26, h:8, sz:1.5, stile:"bordo" },
+    { testo:"ACCESSO RISERVATO", verso:"../riservato/", x:54, y:66, w:26, h:8, sz:1.5, stile:"bordo" }
+  ]
+};
+
+/* ---------------------------------------------------------------- il montaggio
+   Trenta righe, e non una in piu': la pagina deve restare leggibile fra sei mesi. */
+(function(){
+  var img = document.getElementById('layer1');
+  var l2  = document.getElementById('layer2');
+
+  img.src = PAGINA.foto;
+
+  /* LAYER 2 costruito da PAGINA.zone. Una zona con «verso» diventa un link vero (<a>): si
+     apre col dito, con la tastiera, e col tasto destro «apri in un'altra scheda» — cose che
+     un <div> con un addEventListener non sa fare. Senza «verso» resta una scritta muta. */
+  PAGINA.zone.forEach(function(z){
+    var n = document.createElement(z.verso ? 'a' : 'div');
+    n.className = 'zona ' + (z.verso ? 'click' : 'muta') + (z.stile ? ' ' + z.stile : '');
+    if (z.verso) n.href = z.verso;
+    n.textContent = z.testo;
+    n.style.left = z.x + '%'; n.style.top = z.y + '%';
+    n.style.width = z.w + '%'; n.style.height = z.h + '%';
+    if (z.sz) n.style.setProperty('--sz', z.sz);
+    l2.appendChild(n);
+  });
+
+  /* ALLINEAMENTO DEI DUE STRATI — il pezzo che li tiene insieme.
+     object-fit:contain lascia delle bande: il rettangolo VERO della foto non e' lo schermo.
+     Qui lo si calcola e ci si posa sopra il layer 2. Senza questo, ogni percentuale sarebbe
+     riferita allo schermo e i comandi scivolerebbero via dalla foto a ogni rotazione. */
+  function allinea(){
+    var iw = img.naturalWidth, ih = img.naturalHeight;
+    if (!iw || !ih) return;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var s = Math.min(vw / iw, vh / ih);          // contain = il lato piu' stretto comanda
+    var dw = iw * s, dh = ih * s;
+    l2.style.width = dw + 'px';  l2.style.height = dh + 'px';
+    l2.style.left = ((vw - dw) / 2) + 'px';
+    l2.style.top  = ((vh - dh) / 2) + 'px';
+  }
+  if (img.complete) allinea(); else img.addEventListener('load', allinea);
+  window.addEventListener('resize', allinea);
+  window.addEventListener('orientationchange', allinea);
+
+  /* il righello: barra spaziatrice o tasto. Serve a comporre, non fa parte della pagina. */
+  var r = document.getElementById('righello');
+  function ruota(){ r.classList.toggle('on'); }
+  document.getElementById('bt-righello').addEventListener('click', ruota);
+  document.addEventListener('keydown', function(e){
+    if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); ruota(); }
+  });
+})();
+</script>
+</body>
+</html>
