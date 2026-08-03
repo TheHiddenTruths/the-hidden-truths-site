@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>THT — Quartier Generale</title>
+<!--
+  IL QUARTIER GENERALE — chiesto da Stefano il 3/08/2026.
+  Sue parole: «quelle immagini sono state rese cliccabili, dinamiche... collegando le aree di
+  una fotografia al click». E: «immagini e scritte devono essere sovrapponibili, ma distinte.
+  Quindi la possibilita' di poter cambiare da un lato le scritte, dinamiche, dove si clicca e
+  si va su altre pagine, oppure cambiare le immagini.»
+
+  E' esattamente la tecnica con cui sono gia' fatte la landing e il cancello del cockpit: UNA
+  FOTOGRAFIA, e sopra delle ZONE posizionate in percentuale (le sei caselle del PIN a
+  left:34.32%, il tasto invisibile a left:41% top:76%, il campo della landing a left:39%).
+  Due strati distinti: la foto sotto, i punti cliccabili sopra.
+
+  IL LAVORO CHE TOGLIE DI MEZZO: finora quelle percentuali si calcolavano A MANO misurando i
+  pixel sull'immagine — nel CSS del cockpit c'e' scritto testualmente «52.5/1448=3.63% di
+  larghezza». Un conto a mano per ogni zona, per ogni immagine nuova. Qui si trascina la zona
+  con un dito e la percentuale la scrive la macchina.
+
+  NIENTE ROBOT, NIENTE SOVRASTRUTTURE: una pagina sola, che gira nel browser. Cambi la foto o
+  sposti una zona, vedi subito il risultato vero, e ti porti via il codice gia' scritto.
+-->
+<style>
+  :root{
+    --bg:#07090c; --panel:#0d0f12; --line:#23272e; --ink:#f0f2f4; --mut:#b7bbc2;
+    --dim:#6b7079; --gold:#e7b24e; --green:#3fb765; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+  .top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+       padding:14px clamp(14px,3vw,28px);border-bottom:1px solid var(--line);background:#0a0c0f}
+  .back{color:var(--mut);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .back:hover{color:var(--gold)}
+  .top h1{margin:0;font-size:15px;font-weight:600;letter-spacing:.05em}
+  .top .sub{font-size:11px;color:var(--dim);letter-spacing:.06em}
+  .grow{margin-left:auto}
+
+  .lay{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:0;height:calc(100% - 56px)}
+  @media (max-width:980px){.lay{grid-template-columns:1fr;height:auto}}
+
+  /* ---- lo strato FOTOGRAFIA + lo strato ZONE, sovrapposti ma distinti ---- */
+  .scena{position:relative;background:#050607;display:flex;align-items:center;justify-content:center;
+         padding:18px;overflow:auto}
+  .telaio{position:relative;max-width:100%;max-height:100%;line-height:0;box-shadow:0 0 0 1px var(--line)}
+  .telaio img{display:block;max-width:100%;max-height:calc(100vh - 140px);width:auto;height:auto}
+  .zona{position:absolute;border:1px dashed #e7b24ecc;background:#e7b24e1f;cursor:move;
+        display:flex;align-items:center;justify-content:center;overflow:hidden;
+        font-size:10px;letter-spacing:.06em;color:#fff3d8;text-shadow:0 1px 2px #000;
+        font-family:var(--mono);-webkit-tap-highlight-color:transparent;touch-action:none}
+  .zona.sel{border:1px solid var(--gold);background:#e7b24e33;box-shadow:0 0 0 1px #000,0 0 12px #e7b24e66}
+  .zona .maniglia{position:absolute;right:-6px;bottom:-6px;width:14px;height:14px;border-radius:3px;
+        background:var(--gold);border:1px solid #000;cursor:nwse-resize;touch-action:none}
+  .zona .et{pointer-events:none;padding:0 3px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+  .griglia{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .2s;
+        background-image:linear-gradient(#ffffff14 1px,transparent 1px),linear-gradient(90deg,#ffffff14 1px,transparent 1px);
+        background-size:10% 10%,10% 10%}
+  .griglia.on{opacity:1}
+
+  /* ---- il pannello di comando ---- */
+  .pan{border-left:1px solid var(--line);background:var(--panel);padding:16px;overflow:auto}
+  @media (max-width:980px){.pan{border-left:0;border-top:1px solid var(--line)}}
+  .sez{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+       margin:18px 0 9px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .sez:first-child{margin-top:0}
+  label{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:10px 0 4px}
+  input[type=text],select,textarea{width:100%;background:#0a0c0f;border:1px solid var(--line);border-radius:8px;
+       color:var(--ink);padding:8px 10px;font-family:inherit;font-size:13px;outline:none}
+  input[type=text]:focus,select:focus,textarea:focus{border-color:var(--gold)}
+  textarea{font-family:var(--mono);font-size:11px;line-height:1.5;resize:vertical;min-height:120px}
+  .quattro{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .quattro input{font-family:var(--mono);font-size:12px;text-align:center;padding:7px 2px}
+  .bt{display:inline-flex;align-items:center;gap:7px;background:#0a0c0f;border:1px solid var(--line);
+      border-radius:9px;color:var(--ink);padding:9px 12px;font-size:12.5px;font-weight:600;
+      cursor:pointer;font-family:inherit;transition:.16s}
+  .bt:hover{border-color:var(--gold);color:var(--gold)}
+  .bt.pieno{background:var(--gold);border-color:var(--gold);color:#141414}
+  .bt.pieno:hover{color:#141414;filter:brightness(1.08)}
+  .fila{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .elenco{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+  .riga{display:flex;align-items:center;gap:9px;background:#0a0c0f;border:1px solid var(--line);
+        border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12.5px}
+  .riga:hover{border-color:#3a4049}
+  .riga.sel{border-color:var(--gold);background:#12100a}
+  .riga .pal{width:8px;height:8px;border-radius:2px;background:var(--gold);flex:0 0 auto}
+  .riga .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .riga .co{font-family:var(--mono);font-size:10px;color:var(--dim);flex:0 0 auto}
+  .nota{font-size:11px;color:var(--dim);line-height:1.55;margin:9px 0 0}
+  .nota b{color:var(--mut)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="back" href="../">◂ cockpit</a>
+  <div>
+    <h1>Quartier Generale</h1>
+    <div class="sub">la fotografia e le sue zone — due strati, uno per volta</div>
+  </div>
+  <div class="grow"></div>
+  <button class="bt" id="bt-griglia">▦ griglia</button>
+</div>
+
+<div class="lay">
+
+  <!-- STRATO 1: la fotografia · STRATO 2: le zone, sopra, in percentuale -->
+  <div class="scena">
+    <div class="telaio" id="telaio">
+      <img id="foto" alt="">
+      <div class="griglia" id="griglia"></div>
+    </div>
+  </div>
+
+  <div class="pan">
+
+    <div class="sez">La pagina</div>
+    <select id="sel-pagina"></select>
+
+    <div class="sez">Strato 1 — la fotografia</div>
+    <select id="sel-foto"></select>
+    <p class="nota">Cambiare la foto <b>non sposta le zone</b>: restano dove sono, in percentuale.
+       È il senso dei due strati distinti.</p>
+
+    <div class="sez">Strato 2 — le zone</div>
+    <div class="elenco" id="elenco"></div>
+    <div class="fila">
+      <button class="bt" id="bt-nuova">＋ zona</button>
+      <button class="bt" id="bt-togli">− togli</button>
+    </div>
+
+    <div id="dettaglio" style="display:none">
+      <label>Cosa fa</label>
+      <select id="f-tipo">
+        <option value="link">Link — si clicca e si va su un'altra pagina</option>
+        <option value="testo">Scritta — si legge e basta</option>
+        <option value="campo">Campo — ci si scrive dentro (es. il codice)</option>
+        <option value="tasto">Tasto invisibile — zona cliccabile senza grafica</option>
+      </select>
+
+      <label>Scritta</label>
+      <input type="text" id="f-testo" placeholder="es. Controllo aziendale">
+
+      <label>Dove porta</label>
+      <input type="text" id="f-verso" placeholder="es. prodotti/">
+
+      <label>Posizione e misura — in percentuale sulla foto</label>
+      <div class="quattro">
+        <input type="text" id="f-x" title="sinistra %"><input type="text" id="f-y" title="alto %">
+        <input type="text" id="f-w" title="larghezza %"><input type="text" id="f-h" title="altezza %">
+      </div>
+      <p class="nota">Trascina la zona sulla foto col dito: questi numeri si scrivono da soli.
+         Prima si misuravano a mano sui pixel — nel codice del cockpit c'è ancora scritto
+         «52.5/1448=3.63%».</p>
+    </div>
+
+    <div class="sez">Portati via il lavoro</div>
+    <div class="fila">
+      <button class="bt pieno" id="bt-css">Copia il CSS</button>
+      <button class="bt" id="bt-json">Copia il manifesto</button>
+      <button class="bt" id="bt-scarica">Scarica</button>
+    </div>
+    <textarea id="uscita" readonly placeholder="Qui compare il codice pronto da incollare."></textarea>
+    <p class="nota">Nessun robot e nessun automatismo: questa pagina lavora nel browser e ti
+       restituisce il codice. Come si pubblica lo decidi tu.</p>
+
+  </div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------ i dati
+   Le pagine a fotografia che esistono oggi, con le loro zone VERE — copiate dal CSS
+   delle pagine, non inventate. Sono il punto di partenza: si aprono, si spostano,
+   si riscrive il codice. */
+var PAGINE = {
+  "cancello-landing": {
+    nome: "Landing — il cancello «Coming Soon»",
+    foto: "../../assets/gate-coming-soon.png",
+    zone: [
+      {id:"gl-pw",    tipo:"campo", testo:"codice del sito", verso:"", x:39,   y:79.7, w:15.8, h:6},
+      {id:"gl-enter", tipo:"tasto", testo:"entra",           verso:"", x:55,   y:79.7, w:6.6,  h:6}
+    ]
+  },
+  "cancello-cockpit": {
+    nome: "Cockpit — il cancello a sei cifre",
+    foto: "../assets/gate-cockpit-design-riferimento.png",
+    zone: [
+      {id:"pin1", tipo:"campo", testo:"cifra 1", verso:"", x:32.5,  y:66.55, w:3.63, h:4.83},
+      {id:"pin2", tipo:"campo", testo:"cifra 2", verso:"", x:38.72, y:66.55, w:3.63, h:4.83},
+      {id:"pin3", tipo:"campo", testo:"cifra 3", verso:"", x:44.87, y:66.55, w:3.63, h:4.83},
+      {id:"pin4", tipo:"campo", testo:"cifra 4", verso:"", x:50.87, y:66.55, w:3.63, h:4.83},
+      {id:"pin5", tipo:"campo", testo:"cifra 5", verso:"", x:56.95, y:66.55, w:3.63, h:4.83},
+      {id:"pin6", tipo:"campo", testo:"cifra 6", verso:"", x:63.03, y:66.55, w:3.63, h:4.83},
+      {id:"eye",  tipo:"tasto", testo:"occhio",  verso:"", x:68.8,  y:66,    w:3,    h:5.6},
+      {id:"enter-hot", tipo:"tasto", testo:"entra", verso:"", x:41, y:76,    w:18,   h:6.5}
+    ]
+  }
+};
+/* le foto disponibili in cassa (site/assets e site/riservato/assets) */
+var FOTO = [
+  ["../../assets/gate-coming-soon.png",       "gate-coming-soon.png (landing)"],
+  ["../../assets/hero-lampada.png",           "hero-lampada.png"],
+  ["../../assets/sfondo-lampada.png",         "sfondo-lampada.png"],
+  ["../../assets/marchio-tht-verita-nascoste.jpg","marchio-tht-verita-nascoste.jpg"],
+  ["../../assets/ecosistema.png",             "ecosistema.png"],
+  ["../assets/gate-cockpit-design-riferimento.png","gate-cockpit-design-riferimento.png (cockpit)"],
+  ["../assets/gate-cockpit-top.png",          "gate-cockpit-top.png"],
+  ["../assets/cockpit-sfondo.png",            "cockpit-sfondo.png"]
+];
+
+var pagina = null, sel = -1;
+var $ = function(id){ return document.getElementById(id); };
+
+/* ------------------------------------------------------------------ disegno */
+function disegnaZone(){
+  var t = $('telaio');
+  Array.prototype.slice.call(t.querySelectorAll('.zona')).forEach(function(n){ n.remove(); });
+  pagina.zone.forEach(function(z, i){
+    var d = document.createElement('div');
+    d.className = 'zona' + (i === sel ? ' sel' : '');
+    d.style.left = z.x + '%'; d.style.top = z.y + '%';
+    d.style.width = z.w + '%'; d.style.height = z.h + '%';
+    d.innerHTML = '<span class="et">' + (z.testo || z.id) + '</span>'
+                + (i === sel ? '<span class="maniglia"></span>' : '');
+    d.addEventListener('pointerdown', function(ev){ prendi(ev, i, d); });
+    t.appendChild(d);
+  });
+}
+
+function disegnaElenco(){
+  $('elenco').innerHTML = pagina.zone.map(function(z, i){
+    return '<div class="riga' + (i === sel ? ' sel' : '') + '" data-i="' + i + '">'
+         + '<span class="pal"></span><span class="nm">' + (z.testo || z.id) + '</span>'
+         + '<span class="co">' + z.x.toFixed(1) + ' · ' + z.y.toFixed(1) + '</span></div>';
+  }).join('');
+  Array.prototype.slice.call($('elenco').children).forEach(function(r){
+    r.addEventListener('click', function(){ sel = +r.dataset.i; tutto(); });
+  });
+}
+
+function disegnaDettaglio(){
+  var d = $('dettaglio');
+  if (sel < 0 || !pagina.zone[sel]) { d.style.display = 'none'; return; }
+  d.style.display = '';
+  var z = pagina.zone[sel];
+  $('f-tipo').value = z.tipo; $('f-testo').value = z.testo || ''; $('f-verso').value = z.verso || '';
+  ['x','y','w','h'].forEach(function(k){ $('f-' + k).value = (+z[k]).toFixed(2); });
+}
+
+function tutto(){ disegnaZone(); disegnaElenco(); disegnaDettaglio(); }
+
+/* --------------------------------------------- trascinare = misurare da soli */
+function prendi(ev, i, nodo){
+  ev.preventDefault();
+  sel = i; tutto();
+  nodo = $('telaio').querySelectorAll('.zona')[i];
+  var z = pagina.zone[i];
+  var box = $('telaio').getBoundingClientRect();
+  var ridimensiona = ev.target.classList.contains('maniglia');
+  var px0 = ev.clientX, py0 = ev.clientY, x0 = z.x, y0 = z.y, w0 = z.w, h0 = z.h;
+
+  function muovi(e){
+    var dx = (e.clientX - px0) / box.width * 100, dy = (e.clientY - py0) / box.height * 100;
+    if (ridimensiona) {
+      z.w = Math.max(0.5, w0 + dx); z.h = Math.max(0.5, h0 + dy);
+    } else {
+      z.x = Math.max(0, Math.min(100 - z.w, x0 + dx));
+      z.y = Math.max(0, Math.min(100 - z.h, y0 + dy));
+    }
+    nodo.style.left = z.x + '%'; nodo.style.top = z.y + '%';
+    nodo.style.width = z.w + '%'; nodo.style.height = z.h + '%';
+    disegnaDettaglio();
+  }
+  function molla(){
+    window.removeEventListener('pointermove', muovi);
+    window.removeEventListener('pointerup', molla);
+    disegnaElenco();
+  }
+  window.addEventListener('pointermove', muovi);
+  window.addEventListener('pointerup', molla);
+}
+
+/* ------------------------------------------------------------------ uscite */
+function comeCss(){
+  var r = ['/* ' + pagina.nome + ' — generato dal Quartier Generale */',
+           '/* strato 1: la fotografia */',
+           '.gimg{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain}',
+           '  /* src="' + pagina.foto.replace(/^(\.\.\/)+/, '') + '" */',
+           '',
+           '/* strato 2: le zone, in percentuale sulla fotografia */'];
+  pagina.zone.forEach(function(z){
+    r.push('#' + z.id + '{position:absolute;left:' + (+z.x).toFixed(2) + '%;top:' + (+z.y).toFixed(2)
+         + '%;width:' + (+z.w).toFixed(2) + '%;height:' + (+z.h).toFixed(2) + '%}'
+         + (z.verso ? '   /* -> ' + z.verso + ' */' : ''));
+  });
+  return r.join('\n');
+}
+function comeJson(){ return JSON.stringify(pagina, null, 2); }
+
+function copia(testo){
+  $('uscita').value = testo;
+  if (navigator.clipboard) navigator.clipboard.writeText(testo).catch(function(){});
+}
+
+/* ------------------------------------------------------------------ avvio */
+(function(){
+  Object.keys(PAGINE).forEach(function(k){
+    var o = document.createElement('option'); o.value = k; o.textContent = PAGINE[k].nome;
+    $('sel-pagina').appendChild(o);
+  });
+  FOTO.forEach(function(f){
+    var o = document.createElement('option'); o.value = f[0]; o.textContent = f[1];
+    $('sel-foto').appendChild(o);
+  });
+
+  function apri(k){
+    pagina = JSON.parse(JSON.stringify(PAGINE[k]));   /* copia: non si sporca l'originale */
+    sel = -1;
+    $('foto').src = pagina.foto;
+    $('sel-foto').value = pagina.foto;
+    $('uscita').value = '';
+    tutto();
+  }
+
+  $('sel-pagina').addEventListener('change', function(){ apri(this.value); });
+  $('sel-foto').addEventListener('change', function(){
+    pagina.foto = this.value; $('foto').src = this.value;   /* le zone NON si spostano */
+  });
+
+  $('bt-griglia').addEventListener('click', function(){ $('griglia').classList.toggle('on'); });
+
+  $('bt-nuova').addEventListener('click', function(){
+    pagina.zone.push({id:'zona' + (pagina.zone.length + 1), tipo:'link', testo:'nuova zona',
+                      verso:'', x:40, y:45, w:20, h:8});
+    sel = pagina.zone.length - 1; tutto();
+  });
+  $('bt-togli').addEventListener('click', function(){
+    if (sel < 0) return;
+    pagina.zone.splice(sel, 1); sel = -1; tutto();
+  });
+
+  ['tipo','testo','verso'].forEach(function(k){
+    $('f-' + k).addEventListener('input', function(){
+      if (sel < 0) return;
+      pagina.zone[sel][k] = this.value; disegnaZone(); disegnaElenco();
+    });
+  });
+  ['x','y','w','h'].forEach(function(k){
+    $('f-' + k).addEventListener('input', function(){
+      if (sel < 0) return;
+      var v = parseFloat(this.value.replace(',', '.'));
+      if (!isFinite(v)) return;
+      pagina.zone[sel][k] = v; disegnaZone(); disegnaElenco();
+    });
+  });
+
+  $('bt-css').addEventListener('click', function(){ copia(comeCss()); });
+  $('bt-json').addEventListener('click', function(){ copia(comeJson()); });
+  $('bt-scarica').addEventListener('click', function(){
+    var b = new Blob([comeJson()], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.download = $('sel-pagina').value + '.json';
+    a.click();
+  });
+
+  apri(Object.keys(PAGINE)[0]);
+})();
+</script>
+</body>
+</html>
