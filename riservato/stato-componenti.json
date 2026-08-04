@@ -325,6 +325,13 @@
       "nota": "la sveglia: dice da quanto non si aggiorna chi e' Stefano"
     },
     {
+      "id": "robot-livella",
+      "nome": "Livella",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "misura le tre isole gemelle (tools/geometria.py): blocca il commit se una cella diverge"
+    },
+    {
       "id": "robot-adunata",
       "nome": "Adunata",
       "strato": "robot",
