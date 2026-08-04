@@ -311,6 +311,20 @@
       "nota": "nega la modifica se Aquila non ha guardato chi dipende"
     },
     {
+      "id": "robot-orologio",
+      "nome": "Orologio",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "prova la fascia da quattro posti del mondo, prima di ogni commit"
+    },
+    {
+      "id": "robot-ritratto",
+      "nome": "Ritratto",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "la sveglia: dice da quanto non si aggiorna chi e' Stefano"
+    },
+    {
       "id": "robot-adunata",
       "nome": "Adunata",
       "strato": "robot",
