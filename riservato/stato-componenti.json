@@ -31,18 +31,18 @@
       "nota": "conta non inferire, riproduci fedele"
     },
     {
-      "id": "mem-registro",
-      "nome": "Registro attivita'",
-      "strato": "memoria",
-      "stato": "verde",
-      "nota": "cosa e' stato fatto, con il git log"
-    },
-    {
       "id": "mem-agenda",
       "nome": "Agenda (due code)",
       "strato": "memoria",
       "stato": "verde",
       "nota": "proposte in attesa + backlog"
+    },
+    {
+      "id": "mem-registro",
+      "nome": "Registro attivita'",
+      "strato": "memoria",
+      "stato": "verde",
+      "nota": "cosa e' stato fatto, con il git log"
     },
     {
       "id": "mem-diario",
@@ -66,11 +66,60 @@
       "nota": "albero rigenerato dal disco a ogni deploy"
     },
     {
+      "id": "str-risveglio",
+      "nome": "Risveglio (installazione)",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "il file per un'Aquila senza memoria"
+    },
+    {
       "id": "str-promemoria",
       "nome": "Promemoria (agenda)",
       "strato": "strumenti",
       "stato": "verde",
       "nota": "appunti e code — promemoria.py"
+    },
+    {
+      "id": "str-mask-instant",
+      "nome": "Costruttore Mask Instant",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "genera instant-mask.html"
+    },
+    {
+      "id": "str-mask-fast",
+      "nome": "Costruttore Mask Fast",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "genera mask-completa.html"
+    },
+    {
+      "id": "str-dossier-fast",
+      "nome": "Costruttore dossier Fast",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "genera il PDF e il DOCX"
+    },
+    {
+      "id": "str-md2pdf",
+      "nome": "Markdown → PDF",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "stile THT, senza LibreOffice"
+    },
+    {
+      "id": "str-sito",
+      "nome": "Sterilizzatore del sito",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "il motore non va mai online"
+    },
+    {
+      "id": "str-skill",
+      "nome": "Skill «tht-pubblica»",
+      "strato": "strumenti",
+      "stato": "verde",
+      "nota": "verifica, poi commit e push"
     },
     {
       "id": "str-consumi",
@@ -94,55 +143,6 @@
       "nota": "albero rigenerato dal disco"
     },
     {
-      "id": "str-skill",
-      "nome": "Skill «tht-pubblica»",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "verifica, poi commit e push"
-    },
-    {
-      "id": "str-mask-fast",
-      "nome": "Costruttore Mask Fast",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "genera mask-completa.html"
-    },
-    {
-      "id": "str-mask-instant",
-      "nome": "Costruttore Mask Instant",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "genera instant-mask.html"
-    },
-    {
-      "id": "str-dossier-fast",
-      "nome": "Costruttore dossier Fast",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "genera il PDF e il DOCX"
-    },
-    {
-      "id": "str-sito",
-      "nome": "Sterilizzatore del sito",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "il motore non va mai online"
-    },
-    {
-      "id": "str-risveglio",
-      "nome": "Risveglio (installazione)",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "il file per un'Aquila senza memoria"
-    },
-    {
-      "id": "str-come-funziona",
-      "nome": "Come funziona (tecnico)",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "la macchina per discendenza dei flussi"
-    },
-    {
       "id": "str-riscontri",
       "nome": "Registro dei riscontri",
       "strato": "strumenti",
@@ -150,18 +150,11 @@
       "nota": "chi aveva ragione, a due colonne"
     },
     {
-      "id": "str-md2pdf",
-      "nome": "Markdown → PDF",
+      "id": "str-come-funziona",
+      "nome": "Come funziona (tecnico)",
       "strato": "strumenti",
       "stato": "verde",
-      "nota": "stile THT, senza LibreOffice"
-    },
-    {
-      "id": "str-preview",
-      "nome": "Anteprima a screenshot",
-      "strato": "strumenti",
-      "stato": "rosso",
-      "nota": "rotto dal riordino 27/07, lo fa il robot Visual"
+      "nota": "la macchina per discendenza dei flussi"
     },
     {
       "id": "str-plancia",
@@ -178,6 +171,13 @@
       "nota": "superato dal cockpit riservato"
     },
     {
+      "id": "str-preview",
+      "nome": "Anteprima a screenshot",
+      "strato": "strumenti",
+      "stato": "rosso",
+      "nota": "rotto dal riordino 27/07, lo fa il robot Visual"
+    },
+    {
       "id": "str-onefile",
       "nome": "HTML unico (one-file)",
       "strato": "strumenti",
@@ -192,81 +192,11 @@
       "nota": "codice morto, da rimuovere (#27)"
     },
     {
-      "id": "robot-deploy",
-      "nome": "Deploy GitHub",
+      "id": "robot-coscienza",
+      "nome": "Coscienza",
       "strato": "robot",
       "stato": "verde",
-      "nota": "pubblica il sito a ogni push"
-    },
-    {
-      "id": "robot-scriba",
-      "nome": "Reporter",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "scrive il diario dal git log, a ogni push"
-    },
-    {
-      "id": "robot-giornata",
-      "nome": "Daily Report",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "la relazione del giorno, dopo la mezzanotte italiana"
-    },
-    {
-      "id": "robot-censimento",
-      "nome": "Census",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "rileva i programmi dei collaboratori dai file"
-    },
-    {
-      "id": "robot-test-motore",
-      "nome": "Engine Test",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "161/161, blocca regressioni"
-    },
-    {
-      "id": "robot-validator",
-      "nome": "Validator",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "sintassi + compatibilita' browser, a ogni push"
-    },
-    {
-      "id": "robot-visual",
-      "nome": "Visual",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "screenshot + confronto pixel, su 3 motori veri"
-    },
-    {
-      "id": "robot-grafo",
-      "nome": "Graph",
-      "strato": "robot",
-      "stato": "giallo",
-      "nota": "chi usa i file condivisi (4 tracciati)"
-    },
-    {
-      "id": "robot-health",
-      "nome": "System Health",
-      "strato": "robot",
-      "stato": "giallo",
-      "nota": "una percentuale, dai risultati degli altri robot"
-    },
-    {
-      "id": "robot-interazione",
-      "nome": "Interaction",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "clic reali + errori di console, su 3 motori veri"
-    },
-    {
-      "id": "robot-impatto",
-      "nome": "Impact Analysis",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "dice quali pagine impatta un cambiamento"
+      "nota": "nega la modifica se Aquila non ha guardato chi dipende"
     },
     {
       "id": "robot-guardiano",
@@ -276,6 +206,13 @@
       "nota": "blocca il commit se trova un critico"
     },
     {
+      "id": "robot-impatto",
+      "nome": "Impact Analysis",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "dice quali pagine impatta un cambiamento"
+    },
+    {
       "id": "robot-collaudatore",
       "nome": "Machine Test",
       "strato": "robot",
@@ -283,32 +220,11 @@
       "nota": "collauda la macchina che pubblica, prima del commit"
     },
     {
-      "id": "robot-sorvegliante",
-      "nome": "Coverage Audit",
+      "id": "robot-validator",
+      "nome": "Validator",
       "strato": "robot",
       "stato": "verde",
-      "nota": "controlla il controllore: cosa e' scoperto, e se i controlli sanno fallire"
-    },
-    {
-      "id": "robot-copilot",
-      "nome": "Copilot Review",
-      "strato": "robot",
-      "stato": "rosso",
-      "nota": "solo diff dentro GitHub, non esegue e non vede il sito"
-    },
-    {
-      "id": "robot-codex",
-      "nome": "Codex Verified",
-      "strato": "robot",
-      "stato": "rosso",
-      "nota": "terza via: il verdetto di un autore diverso da Aquila"
-    },
-    {
-      "id": "robot-coscienza",
-      "nome": "Coscienza",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "nega la modifica se Aquila non ha guardato chi dipende"
+      "nota": "sintassi + compatibilita' browser, a ogni push"
     },
     {
       "id": "robot-orologio",
@@ -318,18 +234,88 @@
       "nota": "prova la fascia da quattro posti del mondo, prima di ogni commit"
     },
     {
-      "id": "robot-ritratto",
-      "nome": "Ritratto",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "la sveglia: dice da quanto non si aggiorna chi e' Stefano"
-    },
-    {
       "id": "robot-livella",
       "nome": "Livella",
       "strato": "robot",
       "stato": "verde",
       "nota": "misura le tre isole gemelle (tools/geometria.py): blocca il commit se una cella diverge"
+    },
+    {
+      "id": "robot-deploy",
+      "nome": "Deploy GitHub",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "pubblica il sito a ogni push"
+    },
+    {
+      "id": "robot-test-motore",
+      "nome": "Engine Test",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "161/161, blocca regressioni"
+    },
+    {
+      "id": "robot-visual",
+      "nome": "Visual",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "screenshot + confronto pixel, su 3 motori veri"
+    },
+    {
+      "id": "robot-interazione",
+      "nome": "Interaction",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "clic reali + errori di console, su 3 motori veri"
+    },
+    {
+      "id": "robot-grafo",
+      "nome": "Graph",
+      "strato": "robot",
+      "stato": "giallo",
+      "nota": "chi usa i file condivisi (4 tracciati)"
+    },
+    {
+      "id": "robot-scriba",
+      "nome": "Reporter",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "scrive il diario dal git log, a ogni push"
+    },
+    {
+      "id": "robot-censimento",
+      "nome": "Census",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "rileva i programmi dei collaboratori dai file"
+    },
+    {
+      "id": "robot-giornata",
+      "nome": "Daily Report",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "la relazione del giorno, dopo la mezzanotte italiana"
+    },
+    {
+      "id": "robot-health",
+      "nome": "System Health",
+      "strato": "robot",
+      "stato": "giallo",
+      "nota": "una percentuale, dai risultati degli altri robot"
+    },
+    {
+      "id": "robot-sorvegliante",
+      "nome": "Coverage Audit",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "controlla il controllore: cosa e' scoperto, e se i controlli sanno fallire"
+    },
+    {
+      "id": "robot-ritratto",
+      "nome": "Ritratto",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "la sveglia: dice da quanto non si aggiorna chi e' Stefano"
     },
     {
       "id": "robot-adunata",
@@ -344,6 +330,20 @@
       "strato": "robot",
       "stato": "verde",
       "nota": "corsia rapida provata: cambio → sito in 34s, pagina viva ogni 30s"
+    },
+    {
+      "id": "robot-copilot",
+      "nome": "Copilot Review",
+      "strato": "robot",
+      "stato": "rosso",
+      "nota": "solo diff dentro GitHub, non esegue e non vede il sito"
+    },
+    {
+      "id": "robot-codex",
+      "nome": "Codex Verified",
+      "strato": "robot",
+      "stato": "rosso",
+      "nota": "terza via: il verdetto di un autore diverso da Aquila"
     },
     {
       "id": "motori-libreria",
@@ -527,5 +527,6 @@
       "stato": "grigio",
       "nota": "no dati personali alle LLM"
     }
-  ]
+  ],
+  "_ordine_lettura": "Si legge come un LIBRO (deciso da Stefano 5/08, notte): dentro ogni strato le card stanno in sequenza temporale-logica di azione, non in ordine di nascita. ROBOT = il viaggio di una modifica: mentre si lavora (Coscienza); al commit la catena del Guardiano nell'ordine esatto dell'hook (Navigatore/Impact, Collaudatore/Machine Test, Setaccio/Validator, Orologio, Livella); al push (Deploy, Engine, Visual, Interaction, Graph); i registri (Reporter, Census); i giornalieri e sorveglianti (Daily Report, System Health, Coverage Audit, Ritratto, Adunata, AI attiva); in coda i revisori esterni non attivi. STRUMENTI = il ciclo della giornata: risveglio, agenda, costruttori (Instant, Fast, Full: ordine canonico), generazione, sterilizzazione, pubblicazione, misure e registri, documentazione; i superati/rotti in fondo. MEMORIA = intake (Agenda), poi Registro, poi la prova (Diario)."
 }
