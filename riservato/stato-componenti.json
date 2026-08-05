@@ -66,6 +66,20 @@
       "nota": "rigenerata a ogni deploy"
     },
     {
+      "id": "manuale-operativo",
+      "nome": "Manuale operativo",
+      "strato": "cockpit",
+      "stato": "rosso",
+      "nota": "la guida di ogni comando"
+    },
+    {
+      "id": "spia-risparmio",
+      "nome": "Risparmio deploy",
+      "strato": "cockpit",
+      "stato": "verde",
+      "nota": "si inserisce da solo"
+    },
+    {
       "id": "str-risveglio",
       "nome": "Risveglio (installazione)",
       "strato": "strumenti",
