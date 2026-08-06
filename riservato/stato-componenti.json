@@ -295,6 +295,14 @@
    "file": "tools/timemacchina.py"
   },
   {
+   "id": "robot-portiere",
+   "nome": "Portiere",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "un giro alla volta, come al panificio",
+   "file": "tools/portiere.py"
+  },
+  {
    "id": "robot-test-motore",
    "nome": "Engine Test",
    "strato": "robot",
