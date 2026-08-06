@@ -287,6 +287,14 @@
    "file": "tools/spedisci.py"
   },
   {
+   "id": "robot-timemacchina",
+   "nome": "Time Machine",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "riporta indietro qualunque file",
+   "file": "tools/timemacchina.py"
+  },
+  {
    "id": "robot-test-motore",
    "nome": "Engine Test",
    "strato": "robot",
