@@ -260,14 +260,14 @@
    "nome": "Deploy GitHub",
    "strato": "robot",
    "stato": "verde",
-   "nota": "pubblica il sito a ogni push"
+   "nota": "si pubblica quando lo decidiamo"
   },
   {
    "id": "robot-fattura",
    "nome": "Fattura GitHub",
    "strato": "robot",
-   "stato": "giallo",
-   "nota": "legge la spesa dall'API; attende il token",
+   "stato": "verde",
+   "nota": "legge la fattura vera da sola",
    "file": ".github/workflows/fattura.yml"
   },
   {
