@@ -230,6 +230,22 @@
    "file": "tools/sveglia.py"
   },
   {
+   "id": "robot-schema",
+   "nome": "Schema",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "ridisegna l'impianto leggendo il sistema vero",
+   "file": "tools/schema.py"
+  },
+  {
+   "id": "robot-andamento",
+   "nome": "Andamento",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "misura errori per commit, ora per ora",
+   "file": "tools/andamento.py"
+  },
+  {
    "id": "robot-guardiano",
    "nome": "Guardian",
    "strato": "robot",
@@ -393,8 +409,8 @@
    "id": "robot-adunata",
    "nome": "Adunata",
    "strato": "robot",
-   "stato": "giallo",
-   "nota": "pulsante pronto, mai lanciato"
+   "stato": "verde",
+   "nota": "girata: tutti presenti"
   },
   {
    "id": "robot-modello-vivo",
