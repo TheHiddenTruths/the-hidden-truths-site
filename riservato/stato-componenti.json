@@ -6,7 +6,7 @@
   "rosso": "non funzionante / non costruito",
   "grigio": "non applicabile / in attesa"
  },
- "_aggiornato": "2026-08-02",
+ "_aggiornato": "2026-08-08",
  "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
  "componenti": [
   {
@@ -220,6 +220,14 @@
    "stato": "verde",
    "nota": "alla parola «bentornato» fa partire l'adunata",
    "file": ".claude/hooks/bentornato.sh"
+  },
+  {
+   "id": "robot-sveglia",
+   "nome": "Sveglia",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "registra ogni richiesta e la rinfaccia finche' e' aperta",
+   "file": "tools/sveglia.py"
   },
   {
    "id": "robot-guardiano",
