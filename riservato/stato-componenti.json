@@ -1,741 +1,757 @@
 {
-  "_nota": "REGISTRO STATI — la fonte VIVA che alimenta i LED del cockpit. Regola: quando Aquila costruisce o cambia un componente, aggiorna qui il suo stato. Il LED non deve mai mentire (niente 'tutto verde' aspirazionale). Dati NON sensibili -> puo' stare nel repo pubblico.",
-  "_legenda": {
-    "verde": "attivo / funzionante / verificato",
-    "giallo": "dormiente / parziale / c'e' ma incompleto",
-    "rosso": "non funzionante / non costruito",
-    "grigio": "non applicabile / in attesa"
+ "_nota": "REGISTRO STATI — la fonte VIVA che alimenta i LED del cockpit. Regola: quando Aquila costruisce o cambia un componente, aggiorna qui il suo stato. Il LED non deve mai mentire (niente 'tutto verde' aspirazionale). Dati NON sensibili -> puo' stare nel repo pubblico.",
+ "_legenda": {
+  "verde": "attivo / funzionante / verificato",
+  "giallo": "dormiente / parziale / c'e' ma incompleto",
+  "rosso": "non funzionante / non costruito",
+  "grigio": "non applicabile / in attesa"
+ },
+ "_aggiornato": "2026-08-09",
+ "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
+ "componenti": [
+  {
+   "id": "prin-missione",
+   "nome": "Missione etica",
+   "strato": "principi",
+   "stato": "verde",
+   "nota": "per chi e' THT, per chi no"
   },
-  "_aggiornato": "2026-08-09",
-  "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
-  "componenti": [
-    {
-      "id": "prin-missione",
-      "nome": "Missione etica",
-      "strato": "principi",
-      "stato": "verde",
-      "nota": "per chi e' THT, per chi no"
-    },
-    {
-      "id": "prin-tutela",
-      "nome": "Tutela legale",
-      "strato": "principi",
-      "stato": "verde",
-      "nota": "prova datata di paternita'"
-    },
-    {
-      "id": "prin-regole",
-      "nome": "Regole di collaborazione",
-      "strato": "principi",
-      "stato": "verde",
-      "nota": "conta, non inferire"
-    },
-    {
-      "id": "mem-agenda",
-      "nome": "Agenda (due code)",
-      "strato": "memoria",
-      "stato": "verde",
-      "nota": "proposte + backlog"
-    },
-    {
-      "id": "mem-registro",
-      "nome": "Registro attivita'",
-      "strato": "memoria",
-      "stato": "verde",
-      "nota": "cosa e' stato fatto"
-    },
-    {
-      "id": "mem-diario",
-      "nome": "Diario cronologico",
-      "strato": "memoria",
-      "stato": "verde",
-      "nota": "una riga per ogni commit"
-    },
-    {
-      "id": "cockpit-riservato",
-      "nome": "Cockpit riservato",
-      "strato": "cockpit",
-      "stato": "giallo",
-      "nota": "v1 operativo"
-    },
-    {
-      "id": "architettura-repo",
-      "nome": "Architettura repo (presa CAN-bus)",
-      "strato": "cockpit",
-      "stato": "verde",
-      "nota": "rigenerata a ogni deploy"
-    },
-    {
-      "id": "manuale-operativo",
-      "nome": "Manuale operativo",
-      "strato": "cockpit",
-      "stato": "rosso",
-      "nota": "la guida di ogni comando"
-    },
-    {
-      "id": "spia-risparmio",
-      "nome": "Risparmio deploy",
-      "strato": "cockpit",
-      "stato": "verde",
-      "nota": "si inserisce da solo"
-    },
-    {
-      "id": "str-risveglio",
-      "nome": "Risveglio (installazione)",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "ricarica la memoria"
-    },
-    {
-      "id": "str-promemoria",
-      "nome": "Promemoria (agenda)",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "ordini e proposte"
-    },
-    {
-      "id": "str-mask-instant",
-      "nome": "Costruttore Mask Instant",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "genera la mask Instant"
-    },
-    {
-      "id": "str-mask-fast",
-      "nome": "Costruttore Mask Fast",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "genera la mask Fast"
-    },
-    {
-      "id": "str-dossier-fast",
-      "nome": "Costruttore dossier Fast",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "genera il PDF e il DOCX"
-    },
-    {
-      "id": "str-md2pdf",
-      "nome": "Markdown → PDF",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "impagina in stile THT"
-    },
-    {
-      "id": "str-sito",
-      "nome": "Sterilizzatore del sito",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "il motore non va mai online"
-    },
-    {
-      "id": "str-skill",
-      "nome": "Skill «tht-pubblica»",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "verifica, poi commit e push"
-    },
-    {
-      "id": "str-consumi",
-      "nome": "Consumi (token)",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "misura i token di ogni turno"
-    },
-    {
-      "id": "str-cockpit-data",
-      "nome": "Dati del cockpit",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "i numeri del cockpit"
-    },
-    {
-      "id": "str-architettura",
-      "nome": "Albero del repo",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "fotografa il repo com'e'"
-    },
-    {
-      "id": "str-riscontri",
-      "nome": "Registro dei riscontri",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "chi aveva ragione"
-    },
-    {
-      "id": "str-come-funziona",
-      "nome": "Come funziona (tecnico)",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "i flussi della macchina"
-    },
-    {
-      "id": "str-plancia",
-      "nome": "Plancia di comando (v1)",
-      "strato": "strumenti",
-      "stato": "giallo",
-      "nota": "superata dal cockpit"
-    },
-    {
-      "id": "str-cockpit-v2",
-      "nome": "Cockpit v2 (prototipo)",
-      "strato": "strumenti",
-      "stato": "giallo",
-      "nota": "superato dal cockpit"
-    },
-    {
-      "id": "str-preview",
-      "nome": "Anteprima a screenshot",
-      "strato": "strumenti",
-      "stato": "rosso",
-      "nota": "rotto: lo fa il robot Visual"
-    },
-    {
-      "id": "str-onefile",
-      "nome": "HTML unico (one-file)",
-      "strato": "strumenti",
-      "stato": "rosso",
-      "nota": "rotto e superato"
-    },
-    {
-      "id": "str-liquid",
-      "nome": "Prototipo Instant legacy",
-      "strato": "strumenti",
-      "stato": "rosso",
-      "nota": "codice morto, da rimuovere"
-    },
-    {
-      "id": "robot-coscienza",
-      "nome": "Coscienza",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "conta gli errori e li porta in testa a ogni turno",
-      "file": "tools/coscienza.py"
-    },
-    {
-      "id": "robot-registro-errori",
-      "nome": "Registro errori",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "ogni errore con fonte, tipo, causa e dove: la porta unica",
-      "file": "tools/errore.py"
-    },
-    {
-      "id": "robot-risveglio",
-      "nome": "Risveglio",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "alla parola «bentornato» fa partire l'adunata",
-      "file": ".claude/hooks/bentornato.sh"
-    },
-    {
-      "id": "robot-sveglia",
-      "nome": "Sveglia",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "registra ogni richiesta e la rinfaccia finche' e' aperta",
-      "file": "tools/sveglia.py"
-    },
-    {
-      "id": "robot-schema",
-      "nome": "Schema",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "ridisegna l'impianto leggendo il sistema vero",
-      "file": "tools/schema.py"
-    },
-    {
-      "id": "robot-andamento",
-      "nome": "Andamento",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "misura errori per commit, ora per ora",
-      "file": "tools/andamento.py"
-    },
-    {
-      "id": "robot-guardiano",
-      "nome": "Guardian",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "blocca il commit se trova un critico"
-    },
-    {
-      "id": "robot-impatto",
-      "nome": "Impact Analysis",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "dice quali pagine impatta un cambiamento"
-    },
-    {
-      "id": "robot-collaudatore",
-      "nome": "Machine Test",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "collauda la macchina prima di ogni commit"
-    },
-    {
-      "id": "robot-validator",
-      "nome": "Validator",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "sintassi e compatibilita', a ogni commit e push"
-    },
-    {
-      "id": "robot-orologio",
-      "nome": "Orologio",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "prova l'ora da quattro posti del mondo"
-    },
-    {
-      "id": "robot-livella",
-      "nome": "Livella",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "misura isole e bordi: blocca se divergono",
-      "file": "tools/geometria.py"
-    },
-    {
-      "id": "robot-deploy",
-      "nome": "Deploy GitHub",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "si pubblica quando lo decidiamo"
-    },
-    {
-      "id": "robot-fattura",
-      "nome": "Fattura GitHub",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "legge la fattura vera da sola",
-      "file": ".github/workflows/fattura.yml"
-    },
-    {
-      "id": "robot-eject",
-      "nome": "Auto-eject",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "manda il TXT che ricostruisce, piu' il PDF da guardare",
-      "file": ".github/workflows/autoeject.yml"
-    },
-    {
-      "id": "robot-postino",
-      "nome": "Postino",
-      "strato": "robot",
-      "stato": "giallo",
-      "nota": "spedisce l'eject; attende i segreti",
-      "file": "tools/spedisci.py"
-    },
-    {
-      "id": "robot-timemacchina",
-      "nome": "Time Machine",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "riporta indietro qualunque file",
-      "file": "tools/timemacchina.py"
-    },
-    {
-      "id": "robot-portiere",
-      "nome": "Portiere",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "un giro alla volta, come al panificio",
-      "file": "tools/portiere.py"
-    },
-    {
-      "id": "robot-test-motore",
-      "nome": "Engine Test",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "161/161, blocca regressioni"
-    },
-    {
-      "id": "robot-visual",
-      "nome": "Visual",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "screenshot e confronto pixel, a ogni push"
-    },
-    {
-      "id": "robot-interazione",
-      "nome": "Interaction",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "clic reali e console, a ogni push"
-    },
-    {
-      "id": "robot-grafo",
-      "nome": "Graph",
-      "strato": "robot",
-      "stato": "giallo",
-      "nota": "chi usa i file condivisi"
-    },
-    {
-      "id": "robot-scriba",
-      "nome": "Reporter",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "scrive il diario dal git log"
-    },
-    {
-      "id": "robot-censimento",
-      "nome": "Census",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "censisce i programmi dei collaboratori"
-    },
-    {
-      "id": "robot-giornata",
-      "nome": "Daily Report",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "la relazione del giorno, dopo mezzanotte"
-    },
-    {
-      "id": "robot-health",
-      "nome": "System Health",
-      "strato": "robot",
-      "stato": "giallo",
-      "nota": "una percentuale dai risultati degli altri"
-    },
-    {
-      "id": "robot-sorvegliante",
-      "nome": "Coverage Audit",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "controlla che i controlli sappiano fallire"
-    },
-    {
-      "id": "robot-ritratto",
-      "nome": "Ritratto",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "sveglia periodica sul ritratto di Stefano"
-    },
-    {
-      "id": "robot-adunata",
-      "nome": "Adunata",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "girata: tutti presenti"
-    },
-    {
-      "id": "robot-modello-vivo",
-      "nome": "AI attiva",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "rileva il cambio di modello e lo mostra"
-    },
-    {
-      "id": "robot-copilot",
-      "nome": "Copilot Review",
-      "strato": "robot",
-      "stato": "rosso",
-      "nota": "revisore esterno, non attivo"
-    },
-    {
-      "id": "robot-codex",
-      "nome": "Codex Verified",
-      "strato": "robot",
-      "stato": "rosso",
-      "nota": "verdetto di un autore diverso, non attivo"
-    },
-    {
-      "id": "motori-libreria",
-      "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
-      "strato": "libreria",
-      "stato": "rosso",
-      "nota": "solo design"
-    },
-    {
-      "id": "cond-anagrafica",
-      "nome": "Anagrafica comune",
-      "strato": "condiviso",
-      "stato": "verde",
-      "nota": "tronco comune Instant + Fast"
-    },
-    {
-      "id": "cond-privacy",
-      "nome": "Testo privacy",
-      "strato": "condiviso",
-      "stato": "verde",
-      "nota": "tronco comune Instant + Fast"
-    },
-    {
-      "id": "infra-github",
-      "nome": "GitHub Repository",
-      "strato": "infra",
-      "stato": "verde",
-      "nota": "attivo"
-    },
-    {
-      "id": "infra-squarespace",
-      "nome": "Squarespace (registrar dominio)",
-      "strato": "infra",
-      "stato": "verde",
-      "nota": "dns su Cloudflare"
-    },
-    {
-      "id": "infra-cloudflare",
-      "nome": "Cloudflare (DNS + sicurezza)",
-      "strato": "infra",
-      "stato": "giallo",
-      "nota": "attivo, manca l'OTP"
-    },
-    {
-      "id": "infra-backend",
-      "nome": "Docker / VPS / Backend",
-      "strato": "infra",
-      "stato": "rosso",
-      "nota": "non esistono"
-    },
-    {
-      "id": "sito-landing",
-      "nome": "Sito landing",
-      "strato": "ingresso",
-      "stato": "giallo",
-      "nota": "parziale"
-    },
-    {
-      "id": "sito-scroll",
-      "nome": "Sito a 3 layer (scroll)",
-      "strato": "ingresso",
-      "stato": "rosso",
-      "nota": "da progettare"
-    },
-    {
-      "id": "registrazione",
-      "nome": "Registrazione utente",
-      "strato": "ingresso",
-      "stato": "rosso",
-      "nota": "prerequisito per ordinare"
-    },
-    {
-      "id": "acq-instant",
-      "nome": "Master acquisito",
-      "strato": "p-instant",
-      "stato": "verde",
-      "nota": "regole dettate a voce"
-    },
-    {
-      "id": "mask-instant",
-      "nome": "Mask Instant",
-      "strato": "p-instant",
-      "stato": "giallo",
-      "nota": "senza motore collegato"
-    },
-    {
-      "id": "motore-instant",
-      "nome": "Motore Instant",
-      "strato": "p-instant",
-      "stato": "rosso",
-      "nota": "manca il motore"
-    },
-    {
-      "id": "dossier-instant",
-      "nome": "Dossier Instant",
-      "strato": "p-instant",
-      "stato": "rosso",
-      "nota": "placeholder"
-    },
-    {
-      "id": "acq-fast",
-      "nome": "Master acquisito",
-      "strato": "p-fast",
-      "stato": "verde",
-      "nota": "il metro dei 161/161"
-    },
-    {
-      "id": "mask-fast",
-      "nome": "Mask Fast",
-      "strato": "p-fast",
-      "stato": "giallo",
-      "nota": "«Costi» non definito"
-    },
-    {
-      "id": "motore-fast",
-      "nome": "Motore Fast (engine.js)",
-      "strato": "p-fast",
-      "stato": "giallo",
-      "nota": "161/161 sull'Excel · 2 difetti aperti"
-    },
-    {
-      "id": "dossier-fast",
-      "nome": "Dossier Fast (relazione)",
-      "strato": "p-fast",
-      "stato": "verde",
-      "nota": "beta, pubblicato"
-    },
-    {
-      "id": "acq-full",
-      "nome": "Master acquisito",
-      "strato": "p-full",
-      "stato": "giallo",
-      "nota": "si rompe sotto 4 esercizi"
-    },
-    {
-      "id": "mask-full",
-      "nome": "Mask Full",
-      "strato": "p-full",
-      "stato": "rosso",
-      "nota": "non costruita"
-    },
-    {
-      "id": "motore-full",
-      "nome": "Motore Full",
-      "strato": "p-full",
-      "stato": "rosso",
-      "nota": "solo sorgenti Excel"
-    },
-    {
-      "id": "dossier-full",
-      "nome": "Dossier Full",
-      "strato": "p-full",
-      "stato": "rosso",
-      "nota": "placeholder"
-    },
-    {
-      "id": "dati-json",
-      "nome": "JSON scaricabili",
-      "strato": "fondo",
-      "stato": "verde",
-      "nota": "nessun backend"
-    },
-    {
-      "id": "dati-db",
-      "nome": "Database (PostgreSQL)",
-      "strato": "fondo",
-      "stato": "rosso",
-      "nota": "il ponte, da fare"
-    },
-    {
-      "id": "serv-stripe",
-      "nome": "Stripe (pagamenti)",
-      "strato": "fondo",
-      "stato": "rosso",
-      "nota": "non collegato"
-    },
-    {
-      "id": "serv-llm",
-      "nome": "LLM API (OpenAI, Claude)",
-      "strato": "fondo",
-      "stato": "grigio",
-      "nota": "niente dati personali"
-    },
-    {
-      "id": "str-rinascita",
-      "nome": "Rinascita",
-      "strato": "strumenti",
-      "stato": "verde",
-      "nota": "rifa' il programma",
-      "file": "tools/rinascita.py"
-    },
-    {
-      "id": "robot-budget",
-      "nome": "GitHub $",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "legge il tetto dagli avvisi",
-      "file": "tools/tetto_dalla_posta.py"
-    },
-    {
-      "id": "robot-saldo",
-      "nome": "Saldo",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "conta quante ne apro e quante ne chiudo",
-      "file": "tools/saldo.py"
-    },
-    {
-      "id": "robot-overview",
-      "nome": "Overview",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "dice cosa e' rimasto aperto e in che ordine",
-      "file": "tools/overview.py"
-    },
-    {
-      "id": "robot-esito",
-      "nome": "Esito",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "«fatto» solo se un comando lo dimostra",
-      "file": "tools/esito.py"
-    },
-    {
-      "id": "robot-consegna",
-      "nome": "Consegna",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "l'ordine diventa criteri, «fatto» diventa referto",
-      "file": "tools/consegna.py"
-    },
-    {
-      "id": "strum-completezza",
-      "nome": "Completezza",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "nessun documento consegnato monco",
-      "file": "tools/completezza.py"
-    },
-    {
-      "id": "robot-autocontrol",
-      "nome": "Autocontrol",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "il conto degli errori, dal git",
-      "file": "tools/autocontrol.py"
-    },
-    {
-      "id": "robot-perito",
-      "nome": "Perito",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "blocca il documento che descrive un prodotto senza aprirlo",
-      "file": "tools/perito.py"
-    },
-    {
-      "id": "robot-secondo",
-      "nome": "Secondo",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "nessuna consegna esce senza doppio controllo",
-      "file": "tools/secondo.py"
-    },
-    {
-      "id": "robot-sigillo",
-      "nome": "Sigillo",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "nessun commit senza un responsabile che lo firma",
-      "file": "tools/sigillo.py"
-    },
-    {
-      "id": "robot-proporzioni",
-      "nome": "Proporzioni",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "il cockpit regge da 768 in su, entrando col PIN",
-      "file": "tools/qa-engine/proporzioni.js"
-    },
-    {
-      "id": "robot-stazione",
-      "nome": "Stazione",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "il check-in prima del push: biglietto o non si sale",
-      "file": ".githooks/pre-push"
-    },
-    {
-      "id": "robot-minuti",
-      "nome": "Minuti",
-      "strato": "robot",
-      "stato": "verde",
-      "nota": "misura i minuti dai run",
-      "file": "tools/minuti_github.py"
-    }
-  ],
-  "_ordine_lettura": "Si legge come un LIBRO (deciso da Stefano 5/08, notte): dentro ogni strato le card stanno in sequenza temporale-logica di azione, non in ordine di nascita. ROBOT = il viaggio di una modifica: mentre si lavora (Coscienza); al commit la catena del Guardiano nell'ordine esatto dell'hook (Navigatore/Impact, Collaudatore/Machine Test, Setaccio/Validator, Orologio, Livella); al push (Deploy, Engine, Visual, Interaction, Graph); i registri (Reporter, Census); i giornalieri e sorveglianti (Daily Report, System Health, Coverage Audit, Ritratto, Adunata, AI attiva); in coda i revisori esterni non attivi. STRUMENTI = il ciclo della giornata: risveglio, agenda, costruttori (Instant, Fast, Full: ordine canonico), generazione, sterilizzazione, pubblicazione, misure e registri, documentazione; i superati/rotti in fondo. MEMORIA = intake (Agenda), poi Registro, poi la prova (Diario).",
-  "_regola_note": "Le note (grigetto) seguono la formula validata da Stefano il 5/08 (#250): cosa fa + quando agisce, essenziali, max due righe (~30 caratteri sulle card mostrate), niente nomi di file sull'etichetta. Le note dei robot vivono nel dettaglio: una riga piana."
+  {
+   "id": "prin-tutela",
+   "nome": "Tutela legale",
+   "strato": "principi",
+   "stato": "verde",
+   "nota": "prova datata di paternita'"
+  },
+  {
+   "id": "prin-regole",
+   "nome": "Regole di collaborazione",
+   "strato": "principi",
+   "stato": "verde",
+   "nota": "conta, non inferire"
+  },
+  {
+   "id": "mem-agenda",
+   "nome": "Agenda (due code)",
+   "strato": "memoria",
+   "stato": "verde",
+   "nota": "proposte + backlog"
+  },
+  {
+   "id": "mem-registro",
+   "nome": "Registro attivita'",
+   "strato": "memoria",
+   "stato": "verde",
+   "nota": "cosa e' stato fatto"
+  },
+  {
+   "id": "mem-diario",
+   "nome": "Diario cronologico",
+   "strato": "memoria",
+   "stato": "verde",
+   "nota": "una riga per ogni commit"
+  },
+  {
+   "id": "cockpit-riservato",
+   "nome": "Cockpit riservato",
+   "strato": "cockpit",
+   "stato": "giallo",
+   "nota": "v1 operativo"
+  },
+  {
+   "id": "architettura-repo",
+   "nome": "Architettura repo (presa CAN-bus)",
+   "strato": "cockpit",
+   "stato": "verde",
+   "nota": "rigenerata a ogni deploy"
+  },
+  {
+   "id": "manuale-operativo",
+   "nome": "Manuale operativo",
+   "strato": "cockpit",
+   "stato": "rosso",
+   "nota": "la guida di ogni comando"
+  },
+  {
+   "id": "spia-risparmio",
+   "nome": "Risparmio deploy",
+   "strato": "cockpit",
+   "stato": "verde",
+   "nota": "si inserisce da solo"
+  },
+  {
+   "id": "str-risveglio",
+   "nome": "Risveglio (installazione)",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "ricarica la memoria"
+  },
+  {
+   "id": "str-promemoria",
+   "nome": "Promemoria (agenda)",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "ordini e proposte"
+  },
+  {
+   "id": "str-mask-instant",
+   "nome": "Costruttore Mask Instant",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "genera la mask Instant"
+  },
+  {
+   "id": "str-mask-fast",
+   "nome": "Costruttore Mask Fast",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "genera la mask Fast"
+  },
+  {
+   "id": "str-dossier-fast",
+   "nome": "Costruttore dossier Fast",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "genera il PDF e il DOCX"
+  },
+  {
+   "id": "str-md2pdf",
+   "nome": "Markdown → PDF",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "impagina in stile THT"
+  },
+  {
+   "id": "str-sito",
+   "nome": "Sterilizzatore del sito",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "il motore non va mai online"
+  },
+  {
+   "id": "str-skill",
+   "nome": "Skill «tht-pubblica»",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "verifica, poi commit e push"
+  },
+  {
+   "id": "str-consumi",
+   "nome": "Consumi (token)",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "misura i token di ogni turno"
+  },
+  {
+   "id": "str-cockpit-data",
+   "nome": "Dati del cockpit",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "i numeri del cockpit"
+  },
+  {
+   "id": "str-architettura",
+   "nome": "Albero del repo",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "fotografa il repo com'e'"
+  },
+  {
+   "id": "str-riscontri",
+   "nome": "Registro dei riscontri",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "chi aveva ragione"
+  },
+  {
+   "id": "str-come-funziona",
+   "nome": "Come funziona (tecnico)",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "i flussi della macchina"
+  },
+  {
+   "id": "str-plancia",
+   "nome": "Plancia di comando (v1)",
+   "strato": "strumenti",
+   "stato": "giallo",
+   "nota": "superata dal cockpit"
+  },
+  {
+   "id": "str-cockpit-v2",
+   "nome": "Cockpit v2 (prototipo)",
+   "strato": "strumenti",
+   "stato": "giallo",
+   "nota": "superato dal cockpit"
+  },
+  {
+   "id": "str-preview",
+   "nome": "Anteprima a screenshot",
+   "strato": "strumenti",
+   "stato": "rosso",
+   "nota": "rotto: lo fa il robot Visual"
+  },
+  {
+   "id": "str-onefile",
+   "nome": "HTML unico (one-file)",
+   "strato": "strumenti",
+   "stato": "rosso",
+   "nota": "rotto e superato"
+  },
+  {
+   "id": "str-liquid",
+   "nome": "Prototipo Instant legacy",
+   "strato": "strumenti",
+   "stato": "rosso",
+   "nota": "codice morto, da rimuovere"
+  },
+  {
+   "id": "robot-coscienza",
+   "nome": "Coscienza",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "conta gli errori e li porta in testa a ogni turno",
+   "file": "tools/coscienza.py"
+  },
+  {
+   "id": "robot-registro-errori",
+   "nome": "Registro errori",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "ogni errore con fonte, tipo, causa e dove: la porta unica",
+   "file": "tools/errore.py"
+  },
+  {
+   "id": "robot-risveglio",
+   "nome": "Risveglio",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "alla parola «bentornato» fa partire l'adunata",
+   "file": ".claude/hooks/bentornato.sh"
+  },
+  {
+   "id": "robot-sveglia",
+   "nome": "Sveglia",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "registra ogni richiesta e la rinfaccia finche' e' aperta",
+   "file": "tools/sveglia.py"
+  },
+  {
+   "id": "robot-schema",
+   "nome": "Schema",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "ridisegna l'impianto leggendo il sistema vero",
+   "file": "tools/schema.py"
+  },
+  {
+   "id": "robot-andamento",
+   "nome": "Andamento",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "misura errori per commit, ora per ora",
+   "file": "tools/andamento.py"
+  },
+  {
+   "id": "robot-guardiano",
+   "nome": "Guardian",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "blocca il commit se trova un critico"
+  },
+  {
+   "id": "robot-impatto",
+   "nome": "Impact Analysis",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "dice quali pagine impatta un cambiamento"
+  },
+  {
+   "id": "robot-collaudatore",
+   "nome": "Machine Test",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "collauda la macchina prima di ogni commit"
+  },
+  {
+   "id": "robot-validator",
+   "nome": "Validator",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "sintassi e compatibilita', a ogni commit e push"
+  },
+  {
+   "id": "robot-orologio",
+   "nome": "Orologio",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "prova l'ora da quattro posti del mondo"
+  },
+  {
+   "id": "robot-livella",
+   "nome": "Livella",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "misura isole e bordi: blocca se divergono",
+   "file": "tools/geometria.py"
+  },
+  {
+   "id": "robot-deploy",
+   "nome": "Deploy GitHub",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "si pubblica quando lo decidiamo"
+  },
+  {
+   "id": "robot-fattura",
+   "nome": "Fattura GitHub",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "legge la fattura vera da sola",
+   "file": ".github/workflows/fattura.yml"
+  },
+  {
+   "id": "robot-eject",
+   "nome": "Auto-eject",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "manda il TXT che ricostruisce, piu' il PDF da guardare",
+   "file": ".github/workflows/autoeject.yml"
+  },
+  {
+   "id": "robot-postino",
+   "nome": "Postino",
+   "strato": "robot",
+   "stato": "giallo",
+   "nota": "spedisce l'eject; attende i segreti",
+   "file": "tools/spedisci.py"
+  },
+  {
+   "id": "robot-timemacchina",
+   "nome": "Time Machine",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "riporta indietro qualunque file",
+   "file": "tools/timemacchina.py"
+  },
+  {
+   "id": "robot-portiere",
+   "nome": "Portiere",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "un giro alla volta, come al panificio",
+   "file": "tools/portiere.py"
+  },
+  {
+   "id": "robot-test-motore",
+   "nome": "Engine Test",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "161/161, blocca regressioni"
+  },
+  {
+   "id": "robot-visual",
+   "nome": "Visual",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "screenshot e confronto pixel, a ogni push"
+  },
+  {
+   "id": "robot-interazione",
+   "nome": "Interaction",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "clic reali e console, a ogni push"
+  },
+  {
+   "id": "robot-grafo",
+   "nome": "Graph",
+   "strato": "robot",
+   "stato": "giallo",
+   "nota": "chi usa i file condivisi"
+  },
+  {
+   "id": "robot-scriba",
+   "nome": "Reporter",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "scrive il diario dal git log"
+  },
+  {
+   "id": "robot-censimento",
+   "nome": "Census",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "censisce i programmi dei collaboratori"
+  },
+  {
+   "id": "robot-giornata",
+   "nome": "Daily Report",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "la relazione del giorno, dopo mezzanotte"
+  },
+  {
+   "id": "robot-health",
+   "nome": "System Health",
+   "strato": "robot",
+   "stato": "giallo",
+   "nota": "una percentuale dai risultati degli altri"
+  },
+  {
+   "id": "robot-sorvegliante",
+   "nome": "Coverage Audit",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "controlla che i controlli sappiano fallire"
+  },
+  {
+   "id": "robot-ritratto",
+   "nome": "Ritratto",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "sveglia periodica sul ritratto di Stefano"
+  },
+  {
+   "id": "robot-adunata",
+   "nome": "Adunata",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "girata: tutti presenti"
+  },
+  {
+   "id": "robot-modello-vivo",
+   "nome": "AI attiva",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "rileva il cambio di modello e lo mostra"
+  },
+  {
+   "id": "robot-copilot",
+   "nome": "Copilot Review",
+   "strato": "robot",
+   "stato": "rosso",
+   "nota": "revisore esterno, non attivo"
+  },
+  {
+   "id": "robot-codex",
+   "nome": "Codex Verified",
+   "strato": "robot",
+   "stato": "rosso",
+   "nota": "verdetto di un autore diverso, non attivo"
+  },
+  {
+   "id": "motori-libreria",
+   "nome": "Motori libreria (KPI, Diagnostic, Scoring...)",
+   "strato": "libreria",
+   "stato": "rosso",
+   "nota": "solo design"
+  },
+  {
+   "id": "cond-anagrafica",
+   "nome": "Anagrafica comune",
+   "strato": "condiviso",
+   "stato": "verde",
+   "nota": "tronco comune Instant + Fast"
+  },
+  {
+   "id": "cond-privacy",
+   "nome": "Testo privacy",
+   "strato": "condiviso",
+   "stato": "verde",
+   "nota": "tronco comune Instant + Fast"
+  },
+  {
+   "id": "infra-github",
+   "nome": "GitHub Repository",
+   "strato": "infra",
+   "stato": "verde",
+   "nota": "attivo"
+  },
+  {
+   "id": "infra-squarespace",
+   "nome": "Squarespace (registrar dominio)",
+   "strato": "infra",
+   "stato": "verde",
+   "nota": "dns su Cloudflare"
+  },
+  {
+   "id": "infra-cloudflare",
+   "nome": "Cloudflare (DNS + sicurezza)",
+   "strato": "infra",
+   "stato": "giallo",
+   "nota": "attivo, manca l'OTP"
+  },
+  {
+   "id": "infra-backend",
+   "nome": "Docker / VPS / Backend",
+   "strato": "infra",
+   "stato": "rosso",
+   "nota": "non esistono"
+  },
+  {
+   "id": "sito-landing",
+   "nome": "Sito landing",
+   "strato": "ingresso",
+   "stato": "giallo",
+   "nota": "parziale"
+  },
+  {
+   "id": "sito-scroll",
+   "nome": "Sito a 3 layer (scroll)",
+   "strato": "ingresso",
+   "stato": "rosso",
+   "nota": "da progettare"
+  },
+  {
+   "id": "registrazione",
+   "nome": "Registrazione utente",
+   "strato": "ingresso",
+   "stato": "rosso",
+   "nota": "prerequisito per ordinare"
+  },
+  {
+   "id": "acq-instant",
+   "nome": "Master acquisito",
+   "strato": "p-instant",
+   "stato": "verde",
+   "nota": "regole dettate a voce"
+  },
+  {
+   "id": "mask-instant",
+   "nome": "Mask Instant",
+   "strato": "p-instant",
+   "stato": "giallo",
+   "nota": "senza motore collegato"
+  },
+  {
+   "id": "motore-instant",
+   "nome": "Motore Instant",
+   "strato": "p-instant",
+   "stato": "rosso",
+   "nota": "manca il motore"
+  },
+  {
+   "id": "dossier-instant",
+   "nome": "Dossier Instant",
+   "strato": "p-instant",
+   "stato": "rosso",
+   "nota": "placeholder"
+  },
+  {
+   "id": "acq-fast",
+   "nome": "Master acquisito",
+   "strato": "p-fast",
+   "stato": "verde",
+   "nota": "il metro dei 161/161"
+  },
+  {
+   "id": "mask-fast",
+   "nome": "Mask Fast",
+   "strato": "p-fast",
+   "stato": "giallo",
+   "nota": "«Costi» non definito"
+  },
+  {
+   "id": "motore-fast",
+   "nome": "Motore Fast (engine.js)",
+   "strato": "p-fast",
+   "stato": "giallo",
+   "nota": "161/161 sull'Excel · 2 difetti aperti"
+  },
+  {
+   "id": "dossier-fast",
+   "nome": "Dossier Fast (relazione)",
+   "strato": "p-fast",
+   "stato": "verde",
+   "nota": "beta, pubblicato"
+  },
+  {
+   "id": "acq-full",
+   "nome": "Master acquisito",
+   "strato": "p-full",
+   "stato": "giallo",
+   "nota": "si rompe sotto 4 esercizi"
+  },
+  {
+   "id": "mask-full",
+   "nome": "Mask Full",
+   "strato": "p-full",
+   "stato": "rosso",
+   "nota": "non costruita"
+  },
+  {
+   "id": "motore-full",
+   "nome": "Motore Full",
+   "strato": "p-full",
+   "stato": "rosso",
+   "nota": "solo sorgenti Excel"
+  },
+  {
+   "id": "dossier-full",
+   "nome": "Dossier Full",
+   "strato": "p-full",
+   "stato": "rosso",
+   "nota": "placeholder"
+  },
+  {
+   "id": "dati-json",
+   "nome": "JSON scaricabili",
+   "strato": "fondo",
+   "stato": "verde",
+   "nota": "nessun backend"
+  },
+  {
+   "id": "dati-db",
+   "nome": "Database (PostgreSQL)",
+   "strato": "fondo",
+   "stato": "rosso",
+   "nota": "il ponte, da fare"
+  },
+  {
+   "id": "serv-stripe",
+   "nome": "Stripe (pagamenti)",
+   "strato": "fondo",
+   "stato": "rosso",
+   "nota": "non collegato"
+  },
+  {
+   "id": "serv-llm",
+   "nome": "LLM API (OpenAI, Claude)",
+   "strato": "fondo",
+   "stato": "grigio",
+   "nota": "niente dati personali"
+  },
+  {
+   "id": "str-rinascita",
+   "nome": "Rinascita",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "rifa' il programma",
+   "file": "tools/rinascita.py"
+  },
+  {
+   "id": "robot-budget",
+   "nome": "GitHub $",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "legge il tetto dagli avvisi",
+   "file": "tools/tetto_dalla_posta.py"
+  },
+  {
+   "id": "robot-saldo",
+   "nome": "Saldo",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "conta quante ne apro e quante ne chiudo",
+   "file": "tools/saldo.py"
+  },
+  {
+   "id": "robot-overview",
+   "nome": "Overview",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "dice cosa e' rimasto aperto e in che ordine",
+   "file": "tools/overview.py"
+  },
+  {
+   "id": "robot-esito",
+   "nome": "Esito",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "«fatto» solo se un comando lo dimostra",
+   "file": "tools/esito.py"
+  },
+  {
+   "id": "robot-consegna",
+   "nome": "Consegna",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "l'ordine diventa criteri, «fatto» diventa referto",
+   "file": "tools/consegna.py"
+  },
+  {
+   "id": "strum-completezza",
+   "nome": "Completezza",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "nessun documento consegnato monco",
+   "file": "tools/completezza.py"
+  },
+  {
+   "id": "robot-autocontrol",
+   "nome": "Autocontrol",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "il conto degli errori, dal git",
+   "file": "tools/autocontrol.py"
+  },
+  {
+   "id": "robot-perito",
+   "nome": "Perito",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "blocca il documento che descrive un prodotto senza aprirlo",
+   "file": "tools/perito.py"
+  },
+  {
+   "id": "robot-secondo",
+   "nome": "Secondo",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "nessuna consegna esce senza doppio controllo",
+   "file": "tools/secondo.py"
+  },
+  {
+   "id": "robot-sigillo",
+   "nome": "Sigillo",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "nessun commit senza un responsabile che lo firma",
+   "file": "tools/sigillo.py"
+  },
+  {
+   "id": "robot-proporzioni",
+   "nome": "Proporzioni",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "il cockpit regge da 768 in su, entrando col PIN",
+   "file": "tools/qa-engine/proporzioni.js"
+  },
+  {
+   "id": "robot-stazione",
+   "nome": "Stazione",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "il check-in prima del push: biglietto o non si sale",
+   "file": ".githooks/pre-push"
+  },
+  {
+   "id": "robot-minuti",
+   "nome": "Minuti",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "misura i minuti dai run",
+   "file": "tools/minuti_github.py"
+  },
+  {
+   "id": "robot-cartello",
+   "nome": "Cartello 768",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "sotto il low cut il cockpit si ferma invece di strizzarsi",
+   "file": "tools/qa-engine/cartello.js"
+  },
+  {
+   "id": "prova-javascript",
+   "nome": "JS compila",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "tutti i blocchi <script> delle pagine compilano",
+   "file": "prove/javascript_del_cockpit.py"
+  }
+ ],
+ "_ordine_lettura": "Si legge come un LIBRO (deciso da Stefano 5/08, notte): dentro ogni strato le card stanno in sequenza temporale-logica di azione, non in ordine di nascita. ROBOT = il viaggio di una modifica: mentre si lavora (Coscienza); al commit la catena del Guardiano nell'ordine esatto dell'hook (Navigatore/Impact, Collaudatore/Machine Test, Setaccio/Validator, Orologio, Livella); al push (Deploy, Engine, Visual, Interaction, Graph); i registri (Reporter, Census); i giornalieri e sorveglianti (Daily Report, System Health, Coverage Audit, Ritratto, Adunata, AI attiva); in coda i revisori esterni non attivi. STRUMENTI = il ciclo della giornata: risveglio, agenda, costruttori (Instant, Fast, Full: ordine canonico), generazione, sterilizzazione, pubblicazione, misure e registri, documentazione; i superati/rotti in fondo. MEMORIA = intake (Agenda), poi Registro, poi la prova (Diario).",
+ "_regola_note": "Le note (grigetto) seguono la formula validata da Stefano il 5/08 (#250): cosa fa + quando agisce, essenziali, max due righe (~30 caratteri sulle card mostrate), niente nomi di file sull'etichetta. Le note dei robot vivono nel dettaglio: una riga piana."
 }
