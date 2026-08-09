@@ -704,6 +704,14 @@
       "file": "tools/secondo.py"
     },
     {
+      "id": "robot-sigillo",
+      "nome": "Sigillo",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "nessun commit senza un responsabile che lo firma",
+      "file": "tools/sigillo.py"
+    },
+    {
       "id": "robot-minuti",
       "nome": "Minuti",
       "strato": "robot",
