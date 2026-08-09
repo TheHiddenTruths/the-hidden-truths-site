@@ -1,14 +1,14 @@
 {
- "versione": "v2026.2261 · 5580088",
- "quando": "2026-08-09T14:47:45+02:00",
+ "versione": "v2026.2270 · d95cf75e",
+ "quando": "2026-08-09T17:00:57+02:00",
  "gh": {
   "oggi": 47,
-  "budget": 86.7,
+  "budget": 57.7,
   "restano": 23,
   "tetto": 2000,
-  "comprati": 3333,
+  "comprati": 2667,
   "min_mese": 3340,
-  "min_restano": 1993,
+  "min_restano": 1327,
   "serie": [
    {
     "iso": "2026-07-19",
@@ -180,14 +180,16 @@
    }
   ],
   "oggi_e_oggi": false,
-  "oggi_d": "08/08"
+  "oggi_d": "08/08",
+  "quando_misura": null
  },
+ "gh_quando": "2026-08-08T17:09:40Z",
  "err": {
-  "totale": 106,
-  "fermati": 51,
-  "aperti": 55,
-  "vivi": 18,
-  "attesa": 1,
-  "attesa_scade": "2026-08-09T15:00:07+02:00"
+  "totale": 137,
+  "fermati": 83,
+  "aperti": 54,
+  "vivi": 17,
+  "attesa": 0,
+  "attesa_scade": null
  }
 }
