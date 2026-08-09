@@ -712,6 +712,22 @@
       "file": "tools/sigillo.py"
     },
     {
+      "id": "robot-proporzioni",
+      "nome": "Proporzioni",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "il cockpit regge da 768 in su, entrando col PIN",
+      "file": "tools/qa-engine/proporzioni.js"
+    },
+    {
+      "id": "robot-stazione",
+      "nome": "Stazione",
+      "strato": "robot",
+      "stato": "verde",
+      "nota": "il check-in prima del push: biglietto o non si sale",
+      "file": ".githooks/pre-push"
+    },
+    {
       "id": "robot-minuti",
       "nome": "Minuti",
       "strato": "robot",
