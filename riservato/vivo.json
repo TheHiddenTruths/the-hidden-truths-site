@@ -1,6 +1,6 @@
 {
- "versione": "v2026.2317 · 24735782",
- "quando": "2026-08-10T15:31:41+02:00",
+ "versione": "v2026.2318 · 4818f51d",
+ "quando": "2026-08-10T17:02:12+02:00",
  "gh": {
   "oggi": 1,
   "budget": 56.9,
@@ -201,10 +201,10 @@
  },
  "gh_quando": "2026-08-08T17:09:40Z",
  "err": {
-  "totale": 147,
+  "totale": 149,
   "fermati": 134,
-  "aperti": 13,
-  "vivi": 7,
+  "aperti": 15,
+  "vivi": 9,
   "attesa": 0,
   "attesa_scade": null
  }
