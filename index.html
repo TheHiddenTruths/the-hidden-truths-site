@@ -142,6 +142,9 @@
   .tr-entry a:hover{color:var(--gold)}
   .tr-entry a.riservato{border:1px solid #2b3038;padding:8px 13px;border-radius:22px;color:#c3c8cf}
   .tr-entry a.riservato:hover{border-color:var(--gold);color:var(--gold)}
+  /* la PILA: system lab con synopsis esattamente sotto, stessa larghezza (scelta di Stefano) */
+  .tr-entry .stack{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+  .tr-entry .stack a.riservato{text-align:center}
 </style>
 </head>
 <body>
@@ -153,7 +156,7 @@
     <input id="gl-pw" type="text" inputmode="numeric" autocomplete="off" aria-label="Codice">
     <button id="gl-enter" aria-label="Entra">&nbsp;</button>
   </div>
-  <div class="gl-ver">v2026.2363 · c7a66457 · Powered by THT Systems</div>
+  <div class="gl-ver">v2026.2364 · 9e20bb7e · Powered by THT Systems</div>
 </div>
 
 <div class="hero">
@@ -170,8 +173,11 @@
   <div class="tr-entry">
     <a href="prodotti/">▤ i prodotti</a>
     <a class="riservato" href="demo/">⚗ pagina demo</a>
-    <a class="riservato" href="riservato/">🔒 accesso riservato</a>
-    <a class="riservato" href="riservato/synopsis.html">⚙ system lab</a>
+    <a class="riservato" href="riservato/">🔒 cockpit</a>
+    <span class="stack">
+      <a class="riservato" href="riservato/synopsis.html">⚙ system lab</a>
+      <a class="riservato" href="riservato/synopsis.html">◈ synopsis</a>
+    </span>
   </div>
 
   <div class="stage">
@@ -199,7 +205,7 @@
       </div>
       <div class="legal">
         <span class="legal-txt">© 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a></span>
-        <span class="ver">v2026.2363 · c7a66457 · Powered by THT Systems</span>
+        <span class="ver">v2026.2364 · 9e20bb7e · Powered by THT Systems</span>
       </div>
     </div>
 
