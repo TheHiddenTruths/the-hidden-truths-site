@@ -54,32 +54,36 @@
     <span>THT Systems &#183; System Lab</span>
     <span class="r">Fase 4 &#183; attract-mode &#8212; la pallina corre, si divide, muore dove il flusso si ferma</span>
   </footer>
+  <script>window.RAILS={"tronco": [[170, 620], [470, 620], [770, 620], [1070, 620], [1370, 620], [1650, 620]], "strumenti": [[470, 620], [90, 530], [208, 530], [326, 530], [444, 530], [562, 530], [562, 434], [444, 434], [326, 434], [208, 434], [90, 434], [90, 338], [208, 338], [326, 338], [444, 338], [562, 338], [562, 242], [444, 242], [326, 242], [208, 242]], "robot": [[900, 620], [740, 530], [855, 530], [970, 530], [1085, 530], [1200, 530], [1315, 530], [1430, 530], [1545, 530], [1660, 530], [1660, 456], [1545, 456], [1430, 456], [1315, 456], [1200, 456], [1085, 456], [970, 456], [855, 456], [740, 456], [740, 382], [855, 382], [970, 382], [1085, 382], [1200, 382], [1315, 382], [1430, 382], [1545, 382], [1660, 382], [1660, 308], [1545, 308], [1430, 308], [1315, 308], [1200, 308], [1085, 308], [970, 308], [855, 308], [740, 308], [740, 234], [855, 234], [970, 234], [1085, 234], [1200, 234], [1315, 234], [1430, 234], [1545, 234], [1660, 234], [1660, 160], [1545, 160], [1430, 160], [1315, 160], [1200, 160], [1085, 160]], "morto": [[1200, 620], [980, 900], [1090, 900]]};</script>
   
 <script>
 (function(){
-  var svg = document.querySelector('.canvas svg'); if(!svg) return;
-  var NS='http://www.w3.org/2000/svg';
+  var svg = document.querySelector('.canvas svg'); if(!svg||!window.RAILS) return;
+  var R=window.RAILS, NS='http://www.w3.org/2000/svg';
   var fx = document.createElementNS(NS,'g'); svg.appendChild(fx);
-  var tronco=[[170,620],[470,620],[770,620],[1070,620],[1370,620],[1650,620]];
-  var sensori=[[470,620],[470,470],[300,470]];
-  var robot=[[1070,620],[1070,380],[860,380]];
-  var morto=[[1070,620],[1230,620],[1230,780],[1300,780]];
-  var CICLO=9000;
+  var SPEED=0.23; // px/ms: la stessa velocita' per tutti i treni
   function lung(p){var L=[0];for(var i=1;i<p.length;i++){L.push(L[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]));}return L;}
   function punto(p,L,d){var tot=L[L.length-1];if(d<=0)return p[0];if(d>=tot)return p[p.length-1];
     for(var i=1;i<p.length;i++){if(d<=L[i]){var f=(d-L[i-1])/(L[i]-L[i-1]);return [p[i-1][0]+(p[i][0]-p[i-1][0])*f,p[i-1][1]+(p[i][1]-p[i-1][1])*f];}}return p[p.length-1];}
   function palla(main){var c=document.createElementNS(NS,'circle');c.setAttribute('r',main?9:7);
     c.setAttribute('fill','#c0392b');c.setAttribute('stroke','#1a3a7a');c.setAttribute('stroke-width','3');c.setAttribute('opacity','0');fx.appendChild(c);return c;}
-  var P=[{p:tronco,t0:0,dur:6000,main:true},{p:sensori,t0:1600,dur:1800},{p:robot,t0:4000,dur:1800},{p:morto,t0:4000,dur:1900,dead:true}];
-  P.forEach(function(x){x.L=lung(x.p);x.el=palla(x.main);});
+  // i treni: ognuno SCORRE sul suo binario REALE. t0 = quando il treno principale passa l'aggancio.
+  var trips=[{rail:R.tronco,main:true}];
+  ['strumenti','robot','morto'].forEach(function(k){ if(R[k]&&R[k].length>1) trips.push({rail:R[k],dead:(k==='morto')}); });
+  var CICLO=0;
+  trips.forEach(function(x){ x.L=lung(x.rail); x.len=x.L[x.L.length-1]; x.dur=x.len/SPEED;
+    x.t0=x.main?0:(x.rail[0][0]-170)/SPEED;  // aggancio sul tronco (tronco orizzontale y=620)
+    x.el=palla(x.main); CICLO=Math.max(CICLO,x.t0+x.dur); });
+  CICLO+=1600;
   var cross=document.createElementNS(NS,'text');cross.setAttribute('fill','#c0392b');cross.setAttribute('font-size','22');cross.setAttribute('font-weight','700');cross.setAttribute('text-anchor','middle');cross.setAttribute('opacity','0');cross.textContent='✕';fx.appendChild(cross);
-  var green=document.createElementNS(NS,'circle');green.setAttribute('r','17');green.setAttribute('fill','none');green.setAttribute('stroke','#3f8f3a');green.setAttribute('stroke-width','4');green.setAttribute('cx','1650');green.setAttribute('cy','620');green.setAttribute('opacity','0');fx.appendChild(green);
+  var end=R.tronco[R.tronco.length-1];
+  var green=document.createElementNS(NS,'circle');green.setAttribute('r','17');green.setAttribute('fill','none');green.setAttribute('stroke','#3f8f3a');green.setAttribute('stroke-width','4');green.setAttribute('cx',end[0]);green.setAttribute('cy',end[1]);green.setAttribute('opacity','0');fx.appendChild(green);
   var start=null;
   function frame(ts){if(start===null)start=ts;var t=(ts-start)%CICLO;green.setAttribute('opacity','0');cross.setAttribute('opacity','0');
-    P.forEach(function(x){var dt=t-x.t0;if(dt<0||dt>x.dur+500){x.el.setAttribute('opacity','0');return;}
-      var f=Math.min(1,dt/x.dur);var pt=punto(x.p,x.L,f*x.L[x.L.length-1]);
+    trips.forEach(function(x){var dt=t-x.t0;if(dt<0||dt>x.dur+500){x.el.setAttribute('opacity','0');return;}
+      var f=Math.min(1,dt/x.dur);var pt=punto(x.rail,x.L,f*x.len);
       x.el.setAttribute('cx',pt[0]);x.el.setAttribute('cy',pt[1]);x.el.setAttribute('opacity','1');
-      if(f>=1){if(x.dead){var e=x.p[x.p.length-1];cross.setAttribute('x',e[0]);cross.setAttribute('y',e[1]+7);cross.setAttribute('opacity','1');x.el.setAttribute('opacity','0');}if(x.main){green.setAttribute('opacity','1');}}});
+      if(f>=1){if(x.dead){var e=x.rail[x.rail.length-1];cross.setAttribute('x',e[0]);cross.setAttribute('y',e[1]+7);cross.setAttribute('opacity','1');x.el.setAttribute('opacity','0');}if(x.main){green.setAttribute('opacity','1');}}});
     requestAnimationFrame(frame);}
   requestAnimationFrame(frame);
 })();
