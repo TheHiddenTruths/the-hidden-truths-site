@@ -142,9 +142,14 @@
   .tr-entry a:hover{color:var(--gold)}
   .tr-entry a.riservato{border:1px solid #2b3038;padding:8px 13px;border-radius:22px;color:#c3c8cf}
   .tr-entry a.riservato:hover{border-color:var(--gold);color:var(--gold)}
-  /* la PILA: system lab con synopsis esattamente sotto, stessa larghezza (scelta di Stefano) */
-  .tr-entry .stack{display:flex;flex-direction:column;gap:8px;align-items:stretch}
-  .tr-entry .stack a.riservato{text-align:center}
+  /* l'ICONA a sinistra: piu' grande ed evidente (come il lucchetto), stessa distanza dal bordo */
+  .tr-entry a .ico{font-size:1.35em;line-height:1;vertical-align:-.12em;margin-right:2px}
+  /* la PILA: System Lab resta in linea con Cockpit; Synopsis scende esattamente SOTTO,
+     stessa larghezza, equidistante (scelta di Stefano 11/08). Synopsis e' in posizione
+     assoluta cosi' NON sposta la riga: System Lab si allinea alle altre isole. */
+  .tr-entry .stack{position:relative;display:inline-flex}
+  .tr-entry .stack a.sub{position:absolute;top:100%;left:0;right:0;margin-top:14px;
+    text-align:center;justify-content:center}
 </style>
 </head>
 <body>
@@ -156,7 +161,7 @@
     <input id="gl-pw" type="text" inputmode="numeric" autocomplete="off" aria-label="Codice">
     <button id="gl-enter" aria-label="Entra">&nbsp;</button>
   </div>
-  <div class="gl-ver">v2026.2366 · 8873ac2f · Powered by THT Systems</div>
+  <div class="gl-ver">v2026.2367 · 6e68b50f · Powered by THT Systems</div>
 </div>
 
 <div class="hero">
@@ -171,11 +176,13 @@
   </defs></svg>
 
   <div class="tr-entry">
-    <a href="prodotti/">▤ i prodotti</a>
-    <a class="riservato" href="demo/">⚗ pagina demo</a>
-    <a class="riservato" href="riservato/">🔒 cockpit</a>
-    <a class="riservato" href="riservato/synopsis.html">⚙ system lab</a>
-    <a class="riservato" href="riservato/synopsis.html">◈ synopsis</a>
+    <a href="prodotti/"><span class="ico">▤</span> i prodotti</a>
+    <a class="riservato" href="demo/"><span class="ico">⚗</span> pagina demo</a>
+    <a class="riservato" href="riservato/"><span class="ico">🔒</span> cockpit</a>
+    <span class="stack">
+      <a class="riservato" href="riservato/synopsis.html"><span class="ico">⚙️</span> system lab</a>
+      <a class="riservato sub" href="riservato/synopsis.html"><span class="ico">👁️</span> synopsis</a>
+    </span>
   </div>
 
   <div class="stage">
@@ -203,7 +210,7 @@
       </div>
       <div class="legal">
         <span class="legal-txt">© 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a></span>
-        <span class="ver">v2026.2366 · 8873ac2f · Powered by THT Systems</span>
+        <span class="ver">v2026.2367 · 6e68b50f · Powered by THT Systems</span>
       </div>
     </div>
 
