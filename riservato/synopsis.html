@@ -33,47 +33,172 @@
 
   /* lo spazio del Synopsis */
   main{flex:1;display:flex;padding:22px;min-height:0}
-  /* IL CAMPO DEL DISEGNO: bianco, per progettare e vedere tutto chiaramente (scelta di Stefano).
-     La cornice resta nera. Sfondo definitivo (nero/bianco) da decidere dopo. */
-  /* grigio SABBIA caldo, come la colonna sinistra di Claude (scelta di Stefano): riposa l'occhio */
+  /* IL CAMPO DEL DISEGNO: grigio SABBIA caldo (scelta di Stefano), come carta da blueprint.
+     Sopra vive il circuito — l'impianto elettrico di THT Systems. */
   .canvas{flex:1;border:1px solid var(--line);border-radius:16px;
     background:#f1efe8;
-    position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    position:relative;display:flex;overflow:hidden}
   /* reticolo grigio caldo sottilissimo, come carta millimetrata */
-  .canvas::before{content:"";position:absolute;inset:0;
+  .canvas::before{content:"";position:absolute;inset:0;pointer-events:none;
     background-image:linear-gradient(rgba(48,42,32,.11) 1px,transparent 1px),
       linear-gradient(90deg,rgba(48,42,32,.11) 1px,transparent 1px);
     background-size:44px 44px}
-  .ph{position:relative;text-align:center;max-width:600px;padding:0 20px;transform:translateX(16%)}
-  .ph .big{font-family:var(--sans);font-weight:800;font-size:clamp(56px,9vw,104px);letter-spacing:.01em;
-    line-height:1;color:var(--ink)}
-  .ph .big b{color:var(--gold)}
-  .ph .line{color:var(--muted);font-size:14.5px;line-height:1.6;margin-top:14px}
-  .ph .phase{display:inline-block;margin-top:20px;font-family:var(--mono);font-size:11px;
-    letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);
-    border:1px dashed var(--line);border-radius:20px;padding:6px 14px}
+  .circuito{position:relative;flex:1;width:100%;height:100%}
 
   footer{padding:12px 20px;border-top:1px solid var(--line);color:var(--faint);
     font-family:var(--mono);font-size:11.5px;display:flex;gap:14px;flex-wrap:wrap}
   footer .r{margin-left:auto}
-  @media (max-width:640px){ .title .sub{display:none} main{padding:14px} .ph{transform:none} }
+  @media (max-width:640px){ .title .sub{display:none} main{padding:14px} }
 </style>
 </head>
 <body>
   <header>
     <span class="tag">System Lab</span>
-    <span class="title">Synopsis<span class="sub">il diagramma vivo dell'architettura</span></span>
+    <span class="title">Synopsis<span class="sub">l'impianto di funzionamento di THT Systems</span></span>
     <span class="spacer"></span>
     <a class="close" href="index.html" onclick="if(history.length>1){history.back();return false;}">Chiudi &#10005;</a>
   </header>
 
   <main>
-    <section class="canvas" aria-label="Il campo del disegno: qui verrà disegnato il circuito dell'architettura. Ancora libero."></section>
+    <section class="canvas" aria-label="Il circuito di THT Systems: da un ordine di Stefano a sistema aggiornato, con gli anelli di ritorno e i rami dove la corrente non arriva.">
+      <!-- IL CIRCUITO — bozza F4. Blueprint dell'impianto elettrico di THT Systems.
+           Fedele al grafo VERO (contato sui file: SCHEMA-DI-FUNZIONAMENTO.md + stato-componenti.json
+           + dipendenze.json). 6 stazioni in linea, 2 anelli di ritorno, i rami morti reali.
+           La pallina (la corrente che scorre) arriva in F6: qui c'e' il tracciato. -->
+      <svg class="circuito" viewBox="0 0 1220 640" preserveAspectRatio="xMidYMid meet"
+           xmlns="http://www.w3.org/2000/svg" role="img"
+           font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace">
+        <defs>
+          <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+                  orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b2622"/></marker>
+          <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8"
+                  orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b9831a"/></marker>
+        </defs>
+
+        <!-- ===== ANELLO 2: il sistema si aggiorna -> nuovo ordine (feedback, in alto) ===== -->
+        <path d="M1090,292 C 1090,58 700,34 244,86" fill="none" stroke="#2b2622" stroke-width="1.6"
+              stroke-dasharray="2 5" marker-end="url(#a)" opacity=".7"/>
+        <text x="648" y="30" text-anchor="middle" fill="#5c5344" font-size="12"
+              letter-spacing=".05em">il sistema si aggiorna &#8594; nuovo ordine</text>
+
+        <!-- ===== ANELLO 1: Tools &#8644; Memoria (i robot scrivono e rileggono) ===== -->
+        <path d="M910,292 C 850,188 590,188 530,292" fill="none" stroke="#2b2622" stroke-width="1.8"
+              marker-start="url(#a)" marker-end="url(#a)" opacity=".85"/>
+        <text x="720" y="180" text-anchor="middle" fill="#5c5344" font-size="12"
+              letter-spacing=".04em">anello &#183; i robot scrivono e rileggono la memoria</text>
+
+        <!-- ===== INPUT: STEFANO ===== -->
+        <g>
+          <rect x="60" y="56" width="180" height="58" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <text x="150" y="82" text-anchor="middle" fill="#2b2622" font-size="15" font-weight="700"
+                letter-spacing=".06em">STEFANO</text>
+          <text x="150" y="100" text-anchor="middle" fill="#6b6153" font-size="10.5">l'input &#183; un ordine = una modifica</text>
+        </g>
+        <!-- STEFANO -> stazione 1 -->
+        <line x1="150" y1="114" x2="150" y2="290" stroke="#b9831a" stroke-width="3" marker-end="url(#g)"/>
+
+        <!-- ===== LA SPINA: la corrente (oro) da stazione a stazione ===== -->
+        <g stroke="#b9831a" stroke-width="3.4" marker-end="url(#g)">
+          <line x1="225" y1="340" x2="263" y2="340"/>
+          <line x1="415" y1="340" x2="453" y2="340"/>
+          <line x1="605" y1="340" x2="643" y2="340"/>
+          <line x1="795" y1="340" x2="833" y2="340"/>
+          <line x1="985" y1="340" x2="1013" y2="340"/>
+        </g>
+
+        <!-- ===== LE 6 STAZIONI ===== -->
+        <!-- generatore di stazione: rect + badge oro + LED + nome + dettaglio -->
+        <!-- (1) ALIMENTAZIONE -->
+        <g>
+          <rect x="75" y="292" width="150" height="96" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <circle cx="97" cy="314" r="12" fill="#b9831a"/><text x="97" y="318" text-anchor="middle" fill="#faf8f3" font-size="12" font-weight="700">1</text>
+          <circle cx="207" cy="312" r="6" fill="#3f8f3a" stroke="#2b2622" stroke-width="1"/>
+          <text x="150" y="352" text-anchor="middle" fill="#2b2622" font-size="13.5" font-weight="700" letter-spacing=".04em">ALIMENTAZIONE</text>
+          <text x="150" y="370" text-anchor="middle" fill="#6b6153" font-size="10.5">2 interruttori</text>
+        </g>
+        <!-- (2) TURNO -->
+        <g>
+          <rect x="265" y="292" width="150" height="96" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <circle cx="287" cy="314" r="12" fill="#b9831a"/><text x="287" y="318" text-anchor="middle" fill="#faf8f3" font-size="12" font-weight="700">2</text>
+          <circle cx="397" cy="312" r="6" fill="#3f8f3a" stroke="#2b2622" stroke-width="1"/>
+          <text x="340" y="352" text-anchor="middle" fill="#2b2622" font-size="13.5" font-weight="700" letter-spacing=".04em">TURNO</text>
+          <text x="340" y="370" text-anchor="middle" fill="#6b6153" font-size="10.5">8 hook &#183; 1 Cancello</text>
+        </g>
+        <!-- (3) COMMIT -->
+        <g>
+          <rect x="455" y="292" width="150" height="96" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <circle cx="477" cy="314" r="12" fill="#b9831a"/><text x="477" y="318" text-anchor="middle" fill="#faf8f3" font-size="12" font-weight="700">3</text>
+          <circle cx="587" cy="312" r="6" fill="#3f8f3a" stroke="#2b2622" stroke-width="1"/>
+          <text x="530" y="352" text-anchor="middle" fill="#2b2622" font-size="13.5" font-weight="700" letter-spacing=".04em">COMMIT</text>
+          <text x="530" y="370" text-anchor="middle" fill="#6b6153" font-size="10.5">16 gate &#183; 9 bloccano</text>
+        </g>
+        <!-- (4) GITHUB -->
+        <g>
+          <rect x="645" y="292" width="150" height="96" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <circle cx="667" cy="314" r="12" fill="#b9831a"/><text x="667" y="318" text-anchor="middle" fill="#faf8f3" font-size="12" font-weight="700">4</text>
+          <circle cx="777" cy="312" r="6" fill="#cf9a1f" stroke="#2b2622" stroke-width="1"/>
+          <text x="720" y="352" text-anchor="middle" fill="#2b2622" font-size="13.5" font-weight="700" letter-spacing=".04em">GITHUB</text>
+          <text x="720" y="370" text-anchor="middle" fill="#6b6153" font-size="10.5">14 robot</text>
+        </g>
+        <!-- (5) MEMORIA -->
+        <g>
+          <rect x="835" y="292" width="150" height="96" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <circle cx="857" cy="314" r="12" fill="#b9831a"/><text x="857" y="318" text-anchor="middle" fill="#faf8f3" font-size="12" font-weight="700">5</text>
+          <circle cx="967" cy="312" r="6" fill="#3f8f3a" stroke="#2b2622" stroke-width="1"/>
+          <text x="910" y="352" text-anchor="middle" fill="#2b2622" font-size="13.5" font-weight="700" letter-spacing=".04em">MEMORIA</text>
+          <text x="910" y="370" text-anchor="middle" fill="#6b6153" font-size="10.5">53 file</text>
+        </g>
+        <!-- (6) COCKPIT / SITO -->
+        <g>
+          <rect x="1015" y="292" width="150" height="96" rx="12" fill="#faf8f3" stroke="#2b2622" stroke-width="2"/>
+          <circle cx="1037" cy="314" r="12" fill="#b9831a"/><text x="1037" y="318" text-anchor="middle" fill="#faf8f3" font-size="12" font-weight="700">6</text>
+          <circle cx="1147" cy="312" r="6" fill="#cf9a1f" stroke="#2b2622" stroke-width="1"/>
+          <text x="1090" y="349" text-anchor="middle" fill="#2b2622" font-size="13.5" font-weight="700" letter-spacing=".04em">COCKPIT</text>
+          <text x="1090" y="366" text-anchor="middle" fill="#2b2622" font-size="11">&#183; SITO</text>
+          <text x="1090" y="381" text-anchor="middle" fill="#6b6153" font-size="10">l'output &#183; ~90 LED</text>
+        </g>
+
+        <!-- ===== DOVE LA CORRENTE NON ARRIVA (i rami morti reali, sotto la stazione GITHUB) ===== -->
+        <text x="720" y="436" text-anchor="middle" fill="#c0392b" font-size="11.5" font-weight="700"
+              letter-spacing=".14em">DOVE LA CORRENTE NON ARRIVA</text>
+        <!-- trunk sceso da GITHUB, spezzato -->
+        <path d="M720,388 V452" fill="none" stroke="#a89f90" stroke-width="1.6" stroke-dasharray="2 5"/>
+        <path d="M560,452 H880" fill="none" stroke="#a89f90" stroke-width="1.6" stroke-dasharray="2 5"/>
+        <path d="M560,452 V470" fill="none" stroke="#a89f90" stroke-width="1.6" stroke-dasharray="2 5"/>
+        <path d="M760,452 V470" fill="none" stroke="#a89f90" stroke-width="1.6" stroke-dasharray="2 5"/>
+        <!-- muri (blocchi) -->
+        <line x1="548" y1="466" x2="572" y2="466" stroke="#c0392b" stroke-width="3.4"/>
+        <line x1="748" y1="466" x2="772" y2="466" stroke="#c0392b" stroke-width="3.4"/>
+        <!-- box A: 8 robot solo a chiamata -->
+        <rect x="468" y="470" width="184" height="52" rx="9" fill="#f2eee6" stroke="#a89f90" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <text x="560" y="492" text-anchor="middle" fill="#7a7061" font-size="11" font-weight="700">8 robot</text>
+        <text x="560" y="509" text-anchor="middle" fill="#8a8072" font-size="10">solo a chiamata</text>
+        <!-- box B: 3 a orario solo main -->
+        <rect x="668" y="470" width="184" height="52" rx="9" fill="#f2eee6" stroke="#a89f90" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <text x="760" y="492" text-anchor="middle" fill="#7a7061" font-size="11" font-weight="700">3 a orario</text>
+        <text x="760" y="509" text-anchor="middle" fill="#8a8072" font-size="10">solo su &#8220;main&#8221;</text>
+        <!-- box C: Copilot / Codex spenti (ridondanza vera, staccata) -->
+        <rect x="930" y="470" width="230" height="52" rx="9" fill="#fbf1f0" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="3 3"/>
+        <circle cx="952" cy="489" r="4.5" fill="#c0392b"/><circle cx="952" cy="505" r="4.5" fill="#c0392b"/>
+        <text x="1050" y="491" text-anchor="middle" fill="#a5342a" font-size="11" font-weight="700">Copilot &#183; Codex</text>
+        <text x="1050" y="508" text-anchor="middle" fill="#b5453b" font-size="10">l'unica ridondanza vera &#8212; spenta</text>
+
+        <!-- ===== LEGENDA ===== -->
+        <g font-size="11" fill="#6b6153">
+          <line x1="60" y1="600" x2="96" y2="600" stroke="#b9831a" stroke-width="3.4" marker-end="url(#g)"/>
+          <text x="104" y="604">corrente (il flusso)</text>
+          <circle cx="270" cy="600" r="6" fill="#3f8f3a" stroke="#2b2622" stroke-width="1"/><text x="284" y="604">attivo</text>
+          <circle cx="360" cy="600" r="6" fill="#cf9a1f" stroke="#2b2622" stroke-width="1"/><text x="374" y="604">parziale</text>
+          <circle cx="470" cy="600" r="6" fill="#c0392b" stroke="#2b2622" stroke-width="1"/><text x="484" y="604">spento / rotto</text>
+        </g>
+        <text x="1160" y="604" text-anchor="end" fill="#9a907f" font-size="10.5">bozza F4 &#183; generato dai dati reali &#183; la pallina: F6</text>
+      </svg>
+    </section>
   </main>
 
   <footer>
-    <span>THT Systems · System Lab</span>
-    <span class="r">Fase 1 · il campo è libero per il disegno</span>
+    <span>THT Systems &#183; System Lab</span>
+    <span class="r">Fase 4 &#183; l'impianto di funzionamento (bozza) &#8212; da un ordine a sistema aggiornato</span>
   </footer>
 </body>
 </html>
