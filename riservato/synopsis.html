@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System Lab — Synopsis</title>
+<style>
+  :root{
+    --bg:#0a0b0d; --panel:#111418; --panel-2:#0d0f12;
+    --ink:#e9ecef; --muted:#9aa1ab; --faint:#666d76;
+    --line:#252b32; --gold:#e0b03a; --gold-soft:#c9b48a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mono);
+    display:flex;flex-direction:column;min-height:100vh}
+
+  /* barra in alto */
+  header{display:flex;align-items:center;gap:16px;padding:14px 20px;
+    border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0c0e11,var(--bg))}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);border:1px solid var(--line);padding:5px 10px;border-radius:20px}
+  .title{font-family:var(--sans);font-weight:750;font-size:18px;letter-spacing:.01em}
+  .title .sub{color:var(--muted);font-weight:500;font-size:13px;font-family:var(--mono);margin-left:8px}
+  .spacer{margin-left:auto}
+  .close{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;
+    border:1px solid var(--line);padding:8px 14px;border-radius:22px;background:var(--panel);
+    cursor:pointer;transition:border-color .15s,color .15s}
+  .close:hover,.close:focus-visible{color:var(--ink);border-color:var(--gold);outline:none}
+
+  /* lo spazio del Synopsis */
+  main{flex:1;display:flex;padding:22px;min-height:0}
+  .canvas{flex:1;border:1px solid var(--line);border-radius:16px;
+    background:
+      radial-gradient(circle at 50% 42%,rgba(224,176,58,.05),transparent 60%),
+      var(--panel-2);
+    position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  /* reticolo tenue: fa capire che è "lo spazio" del circuito, non contenuto finto */
+  .canvas::before{content:"";position:absolute;inset:0;opacity:.5;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:44px 44px;mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 78%);
+    -webkit-mask-image:radial-gradient(circle at 50% 45%,#000 30%,transparent 78%)}
+  .ph{position:relative;text-align:center;max-width:560px;padding:0 20px}
+  .ph .big{font-family:var(--sans);font-weight:800;font-size:clamp(30px,5vw,52px);letter-spacing:.02em;
+    color:var(--ink)}
+  .ph .big b{color:var(--gold)}
+  .ph .line{color:var(--muted);font-size:14.5px;line-height:1.6;margin-top:14px}
+  .ph .phase{display:inline-block;margin-top:20px;font-family:var(--mono);font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--gold-soft);
+    border:1px dashed var(--line);border-radius:20px;padding:6px 14px}
+
+  footer{padding:12px 20px;border-top:1px solid var(--line);color:var(--faint);
+    font-family:var(--mono);font-size:11.5px;display:flex;gap:14px;flex-wrap:wrap}
+  footer .r{margin-left:auto}
+  @media (max-width:640px){ .title .sub{display:none} main{padding:14px} }
+</style>
+</head>
+<body>
+  <header>
+    <span class="tag">System Lab</span>
+    <span class="title">Synopsis<span class="sub">il diagramma vivo dell'architettura</span></span>
+    <span class="spacer"></span>
+    <a class="close" href="index.html" onclick="if(history.length>1){history.back();return false;}">Chiudi &#10005;</a>
+  </header>
+
+  <main>
+    <section class="canvas" role="img" aria-label="Lo spazio dove vivra' il Synopsis: il circuito dell'architettura e la pallina che ne prova i percorsi. Fase 1: la cornice, ancora vuota.">
+      <div class="ph">
+        <div class="big"><b>Synopsis</b></div>
+        <div class="line">Qui vivrà il circuito dell'architettura — i <b style="color:var(--gold-soft)">nodi</b> (i componenti) collegati dagli <b style="color:var(--gold-soft)">archi</b> (i percorsi), e la <b style="color:var(--gold-soft)">pallina</b> che li attraversa tutti per provarli.</div>
+        <span class="phase">Fase 1 · lo spazio</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>THT Systems · System Lab</span>
+    <span class="r">bozza · si costruisce per gradi</span>
+  </footer>
+</body>
+</html>
