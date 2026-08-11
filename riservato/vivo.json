@@ -1,14 +1,14 @@
 {
- "versione": "v2026.2346 · 52a05726",
- "quando": "2026-08-11T00:29:49+02:00",
+ "versione": "v2026.2305 · 9129566a",
+ "quando": "2026-08-11T09:41:08+02:00",
  "gh": {
-  "oggi": 1,
-  "budget": 59.6,
+  "oggi": 33,
+  "budget": 58.2,
   "restano": 21,
   "tetto": 2000,
   "comprati": 2667,
-  "min_mese": 3415,
-  "min_restano": 1252,
+  "min_mese": 3445,
+  "min_restano": 1222,
   "serie": [
    {
     "iso": "2026-07-19",
@@ -189,8 +189,8 @@
    {
     "iso": "2026-08-10",
     "d": "10/08",
-    "min": 1,
-    "usd": 0.01,
+    "min": 33,
+    "usd": 0.2,
     "run": 0,
     "pagato": true
    }
@@ -201,40 +201,11 @@
  },
  "gh_quando": "2026-08-08T17:09:40Z",
  "err": {
-  "totale": 161,
-  "fermati": 155,
-  "aperti": 6,
+  "totale": 146,
+  "fermati": 134,
+  "aperti": 12,
   "vivi": 6,
   "attesa": 0,
-  "attesa_scade": null,
-  "per_ai": {
-   "generativa": 160,
-   "revisione": 1
-  },
-  "confronto": {
-   "da": "2026-08-10",
-   "generativa": 15,
-   "revisione": 1,
-   "treni": 53
-  },
-  "fase": {
-   "preventivo": 0,
-   "consuntivo": 0,
-   "non_classificato": 1
-  }
- },
- "auto": {
-  "oggi": 2,
-  "totale": 2346,
-  "giri": 50,
-  "preventivi": 13
- },
- "aperti_da": {
-  "nudi": 1,
-  "code": 4,
-  "stefano": 1,
-  "oltre": 0,
-  "malformati": 0,
-  "visto": "2026-08-11T00:29:49+02:00"
+  "attesa_scade": null
  }
 }
