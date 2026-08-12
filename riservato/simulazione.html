@@ -36,9 +36,11 @@ function draw(m,p,l,d,t){var a=at(p,l,d),b=at(p,l,Math.min(T(l),d+4)),an=Math.at
  m.setAttribute("d","M"+a[0]+","+a[1]+" L"+(a[0]+r*Math.cos(a1))+","+(a[1]+r*Math.sin(a1))+" A"+r+","+r+" 0 1 0 "+(a[0]+r*Math.cos(a2))+","+(a[1]+r*Math.sin(a2))+" Z");}
 function hide(m){m.setAttribute("d","");}
 var SP=0.5,tPRE=T(lPRE)/SP,tMax=Math.max(T(lL),T(lC),T(lR))/SP,tPO=T(lPO)/SP,PA=1400;
-var COLLP=[[870, 1120], [1330, 1120], [1330, 1255], [870, 1255]],lCOLL=len(COLLP),STX=[1000.0, 1028.9, 1057.8, 1086.7, 1115.6, 1144.5, 1173.5, 1202.4, 1231.3, 1260.2, 1289.1, 1318.0],HUBX=870;
-var tCOLL=T(lCOLL)/SP+500;   // fase COLLAUDO: la pallina blu esce (stazioni) e RIENTRA, tra i corridoi e la pubblicazione
-var MENO=tPRE+tMax+tCOLL+tPO+PA,dB=GD[BK],tB=dB/SP,HOLD=2400,PIU=tB+HOLD,CY=MENO+PIU,t0=null,forced=null;
+var COLLP=[[870, 1120], [1330, 1120], [1330, 1255], [870, 1255]],lCOLL=len(COLLP),STX=[1000.0, 1028.9, 1057.8, 1086.7, 1115.6, 1144.5, 1173.5, 1202.4, 1231.3, 1260.2, 1289.1, 1318.0],HUBX=870,OUTLEN=460;
+var KOP=[[870, 1120], [1330, 1120], [1330, 1150], [1382, 1150]],lKOP=len(KOP);   // caso KO: la pallina blu esce e poi DEVIA all'ERRORE
+var tCOLL=T(lCOLL)/SP+500;   // fase COLLAUDO (esito OK): la pallina blu esce (stazioni) e RIENTRA, tra i corridoi e la pubblicazione
+var tKO=T(lKOP)/SP+300,HOLDKO=2600,KODUR=tPRE+tMax+tKO+HOLDKO;   // terza corsa: COLLAUDO FALLITO
+var MENO=tPRE+tMax+tCOLL+tPO+PA,dB=GD[BK],tB=dB/SP,HOLD=2400,PIU=tB+HOLD,CY=MENO+PIU+KODUR,t0=null,forced=null;
 var badge=document.getElementById("simbadge");
 function setBadge(t,c){if(badge){badge.textContent=t;badge.style.background=c;}}
 // DISPLAY: controllo elettronico dell'esito. Testo CENTRATO. Per ora TUTTO azzurro (anche l'errore).
@@ -49,6 +51,8 @@ var SUBG="#e0801a",SUBOFF="#e6bd8f",ERRC="#d0442f",GOLDOFF="#d4bd8e",VFILL=["vd_
 var BLUON="#2f6fc0",BLUOFF="#9fc0e6";
 function litBlu(on){["bluOut","bluPass"].forEach(function(id){var e=document.getElementById(id);if(e)e.setAttribute("stroke",on?BLUON:BLUOFF);});}
 function bluSt(dc){for(var s=0;s<STX.length;s++){var e=document.getElementById("bluSt"+s);if(e)e.setAttribute("fill",(dc>=(STX[s]-HUBX))?"#46b23e":DORM);}}
+function litBluFail(on){var e=document.getElementById("bluFail");if(e)e.setAttribute("stroke",on?ERRC:BLUOFF);}
+function litErrTerm(on){var t=on?ERRC:SUBOFF;var er=document.getElementById("errRing");if(er)er.setAttribute("stroke",t);var ed=document.getElementById("errDot");if(ed)ed.setAttribute("fill",t);var et=document.getElementById("errTxt");if(et)et.setAttribute("fill",t);}
 // DORMIENTE = ORO SBIADITO (non più grigio): la linea principale si accende ORO INTENSO al passaggio.
 function paintS(id,on){var e=document.getElementById(id);if(e)e.setAttribute("stroke",on?e.getAttribute("data-on"):GOLDOFF);}
 function paintF(id,on){var e=document.getElementById(id);if(e)e.setAttribute("fill",on?e.getAttribute("data-on"):DORM);}  // componenti oro: interno verde o sabbia (dormiente)
@@ -73,6 +77,8 @@ function setDisp(k){if(k===dS)return;
    d1.textContent="una richiesta percorre la pipeline";d1.style.color="#41515d";d2.textContent="";litSub(false);
  } else if(k=="coll"){dT.textContent="COLLAUDO · VERIFICA PROFONDA";dT.style.color="#7fb0e6";dT.style.textShadow="0 0 12px #2f6fc077";
    d1.textContent="i 12 controlli girano · esito positivo → si prosegue";d1.style.color="#7fb0e6";d2.textContent="";litSub(false);
+ } else if(k=="collko"){dT.textContent="COLLAUDO FALLITO";dT.style.color="#e6a08f";dT.style.textShadow="0 0 12px #b03a2a77";
+   d1.textContent="verifica profonda NEGATIVA · pubblicazione bloccata";d1.style.color="#e6a08f";d2.textContent="l'esito KO devia all'ERRORE · nulla è online";d2.style.color="#e6a08f";
  } else if(k=="ok"){dT.textContent="MISSIONE COMPIUTA";dT.style.color="#86e0ff";dT.style.textShadow="0 0 12px #2ea6d8aa";
    d1.textContent="ordine → consegna · "+new Date().toLocaleString("it-IT");d1.style.color="#7fcbe2";
    d2.textContent="16/16 cancelli · 3/3 schemi coincisi · "+SECS+" s · pubblicato";d2.style.color="#7fcbe2";litSub(false);
@@ -80,23 +86,37 @@ function setDisp(k){if(k===dS)return;
    d1.textContent="bloccata al cancello "+BKNAME+" · "+new Date().toLocaleString("it-IT");d1.style.color="#7fcbe2";
    d2.textContent="motore 160/161 · commit rifiutato · nulla è stato pubblicato";d2.style.color="#7fcbe2";litSub(true);}}
 function fr(ts){if(t0===null)t0=ts;var mode,tt;
- if(forced){mode=forced;tt=(ts-t0)%((forced=="meno")?MENO:PIU);}
- else {var t=(ts-t0)%CY; if(t<MENO){mode="meno";tt=t;} else {mode="piu";tt=t-MENO;}}
+ if(forced){mode=forced;tt=(ts-t0)%((forced=="meno")?MENO:(forced=="piu")?PIU:KODUR);}
+ else {var t=(ts-t0)%CY; if(t<MENO){mode="meno";tt=t;} else if(t<MENO+PIU){mode="piu";tt=t-MENO;} else {mode="collko";tt=t-MENO-PIU;}}
  [bP,bL,bC,bR,bO,bBlu].forEach(hide);green.setAttribute("opacity",0);cross.setAttribute("opacity",0);
  if(mode=="meno"){ setBadge("SIMULAZIONE · corsa sana","#3a7a3a"); setValle(true);
    var dP=(tt<tPRE)?tt*SP:1e9; gatesSim(dP,false);
    mem(tt<tPRE?1:(tt<tPRE+tMax?2:3));   // memoria: agenda → registro → diario, progressivi
-   if(tt<tPRE){litBlu(false);bluSt(-1);draw(bP,PRE,lPRE,tt*SP,ts);setDisp("run");setTr(trPRE,tt*SP);setTr(trL,0);setTr(trC,0);setTr(trR,0);}
+   if(tt<tPRE){litBlu(false);bluSt(-1);litBluFail(false);draw(bP,PRE,lPRE,tt*SP,ts);setDisp("run");setTr(trPRE,tt*SP);setTr(trL,0);setTr(trC,0);setTr(trR,0);}
    else if(tt<tPRE+tMax){var dt=tt-tPRE;draw(bL,L1,lL,Math.min(T(lL),dt*SP),ts);draw(bC,C1,lC,Math.min(T(lC),dt*SP),ts);draw(bR,R1,lR,Math.min(T(lR),dt*SP),ts);setDisp("run");setTr(trPRE,1e5);setTr(trL,Math.min(T(lL),dt*SP));setTr(trC,Math.min(T(lC),dt*SP));setTr(trR,Math.min(T(lR),dt*SP));}
    else if(tt<tPRE+tMax+tCOLL){var dc=(tt-tPRE-tMax)*SP;litBlu(true);bluSt(dc);draw(bBlu,COLLP,lCOLL,Math.min(T(lCOLL),dc),ts);setDisp("coll");setTr(trPRE,1e5);setTr(trL,1e5);setTr(trC,1e5);setTr(trR,1e5);}
    else if(tt<tPRE+tMax+tCOLL+tPO){draw(bO,PO,lPO,(tt-tPRE-tMax-tCOLL)*SP,ts);setDisp("run");setTr(trPRE,1e5);setTr(trL,1e5);setTr(trC,1e5);setTr(trR,1e5);}
    else {green.setAttribute("opacity",1);setDisp("ok");setTr(trPRE,1e5);setTr(trL,1e5);setTr(trC,1e5);setTr(trR,1e5);}
- } else { setBadge("SIMULAZIONE · guasto","#b03a2a"); setValle(false); litBlu(false); bluSt(-1);
+ } else if(mode=="piu"){ setBadge("SIMULAZIONE · guasto","#b03a2a"); setValle(false); litBlu(false); bluSt(-1); litBluFail(false);
    var d=Math.min(tt*SP,dB); gatesSim(d,true); draw(bP,PRE,lPRE,d,ts);
    setTr(trPRE,d);setTr(trL,0);setTr(trC,0);setTr(trR,0);   // guasto: scia solo fino al blocco; corridoi mai raggiunti
    mem(tt<tB*0.6?1:(tt<tB?2:3));        // anche nel guasto la memoria registra (incluso l'errore)
    if(tt>=tB){cross.setAttribute("opacity",(0.55+0.45*Math.sin(ts/140)));hide(bP);setDisp("err");}
    else setDisp("run");
+ } else { setBadge("SIMULAZIONE · collaudo fallito","#b03a2a"); setValle(false);
+   // i CANCELLI passano e i corridoi girano; il guasto è nel COLLAUDO → esito KO all'ERRORE (MISSIONE mai raggiunta)
+   var dP=(tt<tPRE)?tt*SP:1e9; gatesSim(dP,false);
+   mem(tt<tPRE?1:(tt<tPRE+tMax?2:3));
+   if(tt>=tPRE){VFILL.forEach(function(id){var e=document.getElementById(id);if(e)e.setAttribute("fill","#46b23e");});}
+   if(tt<tPRE){litBlu(false);bluSt(-1);litBluFail(false);litErrTerm(false);draw(bP,PRE,lPRE,tt*SP,ts);setDisp("run");setTr(trPRE,tt*SP);setTr(trL,0);setTr(trC,0);setTr(trR,0);}
+   else if(tt<tPRE+tMax){var dt=tt-tPRE;draw(bL,L1,lL,Math.min(T(lL),dt*SP),ts);draw(bC,C1,lC,Math.min(T(lC),dt*SP),ts);draw(bR,R1,lR,Math.min(T(lR),dt*SP),ts);setDisp("run");setTr(trPRE,1e5);setTr(trL,Math.min(T(lL),dt*SP));setTr(trC,Math.min(T(lC),dt*SP));setTr(trR,Math.min(T(lR),dt*SP));}
+   else { var dc=(tt-tPRE-tMax)*SP; litBlu(true); bluSt(dc);
+     if(dc>=OUTLEN){litBluFail(true);}   // superato il fork: la via KO si accende ROSSA
+     var end=T(lKOP);
+     if(dc<end-2){draw(bBlu,KOP,lKOP,Math.min(end,dc),ts);setDisp((dc>=OUTLEN)?"collko":"coll");}
+     else {hide(bBlu);litErrTerm(true);setDisp("collko");}
+     setTr(trPRE,1e5);setTr(trL,1e5);setTr(trC,1e5);setTr(trR,1e5);
+   }
  }
  requestAnimationFrame(fr);}requestAnimationFrame(fr);
 window.__simMode=function(m){forced=m;t0=null;dS="";_valle=null;};
