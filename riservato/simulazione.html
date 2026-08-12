@@ -15,11 +15,13 @@ var GD=[580.0, 704.3, 828.6, 952.9, 1077.1, 1201.4, 1325.7, 1450.0, 1555.0, 1679
 var BKNAME="Collaudatore",DIAG="motore 160/161 \u2014 un caso di prova fallisce \u00b7 commit rifiutato \u00b7 nulla \u00e8 stato pubblicato";
 var NS="http://www.w3.org/2000/svg",fx=document.getElementById("fx");
 var GEls=[];for(var k=0;k<GD.length;k++){GEls.push(document.getElementById("G"+k));}
-var OFF="#e6dfcf",GRN="#46b23e",RED="#d0442f";  // outline oro fisso; si accende SOLO l'interno
+var OFF="#e6dfcf",GRN="#46b23e",RED="#d0442f";  // outline oro fisso; si accende SOLO l'interno + PULSA al passaggio
 function setg(k,col){if(GEls[k])GEls[k].setAttribute("fill",col);}
-function gatesSim(dP,piu){for(var k=0;k<GD.length;k++){
+function gatesSim(dP,piu){for(var k=0;k<GD.length;k++){var base=GB[k]?11:9;
+  var d=dP-GD[k],ex=(d>=0&&d<45)?(1-d/45):0;   // swell breve nell'istante del passaggio
   if(piu&&k==BK) setg(k, dP>=GD[k]?RED:OFF);
-  else setg(k, dP>=GD[k]?GRN:OFF); }}
+  else setg(k, dP>=GD[k]?GRN:OFF);
+  if(GEls[k])GEls[k].setAttribute("r",base+ex*7); }}
 function len(p){var a=[0];for(var i=1;i<p.length;i++)a.push(a[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]));return a;}
 function at(p,l,d){var t=l[l.length-1];if(d<=0)return p[0];if(d>=t)return p[p.length-1];for(var i=1;i<p.length;i++){if(d<=l[i]){var f=(d-l[i-1])/(l[i]-l[i-1]);return[p[i-1][0]+(p[i][0]-p[i-1][0])*f,p[i-1][1]+(p[i][1]-p[i-1][1])*f];}}return p[p.length-1];}
 var lPRE=len(PRE),lL=len(L1),lC=len(C1),lR=len(R1),lPO=len(PO);function T(l){return l[l.length-1];}

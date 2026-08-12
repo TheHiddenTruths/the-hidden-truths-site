@@ -9,9 +9,10 @@ var PRE=[[870, 110], [870, 150], [430, 150], [430, 250], [430.0, 250], [554.3, 2
 var GD=[580.0, 704.3, 828.6, 952.9, 1077.1, 1201.4, 1325.7, 1450.0, 1555.0, 1679.3, 1803.6, 1927.9, 2052.1, 2176.4, 2300.7, 2425.0],GB=[1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
 var NS="http://www.w3.org/2000/svg",svg=document.getElementById("synmap"),fx=document.getElementById("fx");
 var GEls=[];for(var k=0;k<GD.length;k++){GEls.push(document.getElementById("G"+k));}
-var OFF="#e6dfcf",GRN="#46b23e";  // outline resta oro (color-pista); qui si accende SOLO l'interno
-function gates(dP){for(var k=0;k<GD.length;k++){var el=GEls[k];if(!el)continue;
- el.setAttribute("fill",dP>=GD[k]?GRN:OFF);}}
+var OFF="#e6dfcf",GRN="#46b23e";  // outline resta oro (color-pista); si accende SOLO l'interno + PULSA al passaggio
+function gates(dP){for(var k=0;k<GD.length;k++){var el=GEls[k];if(!el)continue;var base=GB[k]?11:9;
+ var d=dP-GD[k],ex=(d>=0&&d<45)?(1-d/45):0;   // swell breve nell'istante in cui la pallina passa
+ el.setAttribute("fill",dP>=GD[k]?GRN:OFF);el.setAttribute("r",base+ex*7);}}
 function len(p){var a=[0];for(var i=1;i<p.length;i++)a.push(a[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]));return a;}
 function at(p,l,d){var t=l[l.length-1];if(d<=0)return p[0];if(d>=t)return p[p.length-1];for(var i=1;i<p.length;i++){if(d<=l[i]){var f=(d-l[i-1])/(l[i]-l[i-1]);return[p[i-1][0]+(p[i][0]-p[i-1][0])*f,p[i-1][1]+(p[i][1]-p[i-1][1])*f];}}return p[p.length-1];}
 var lPRE=len(PRE),lL=len(L1),lC=len(C1),lR=len(R1),lPO=len(PO);
