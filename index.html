@@ -150,7 +150,7 @@
   .tr-entry .stack{position:relative;display:inline-flex}
   /* Synopsis a tutta larghezza di System Lab, MA il contenuto a sinistra: l'occhio resta
      alla stessa distanza dal bordo del lucchetto e della ruota (armonia chiesta da Stefano) */
-  .tr-entry .stack a.sub{position:absolute;top:100%;left:0;right:0;margin-top:14px}
+  .tr-entry .stack .substack{position:absolute;top:100%;left:0;right:0;margin-top:14px;display:flex;flex-direction:column;gap:14px}
 </style>
 </head>
 <body>
@@ -162,7 +162,7 @@
     <input id="gl-pw" type="text" inputmode="numeric" autocomplete="off" aria-label="Codice">
     <button id="gl-enter" aria-label="Entra">&nbsp;</button>
   </div>
-  <div class="gl-ver">v2026.2430 · 0a9f5943 · Powered by THT Systems</div>
+  <div class="gl-ver">v2026.2432 · 6c71ab82 · Powered by THT Systems</div>
 </div>
 
 <div class="hero">
@@ -182,8 +182,10 @@
     <a class="riservato" href="riservato/"><span class="ico">🔒</span> cockpit</a>
     <span class="stack">
       <a class="riservato" href="riservato/synopsis.html"><span class="ico">⚙️</span> system lab</a>
-      <a class="riservato sub" href="riservato/synopsis.html"><span class="ico">👁️</span> synopsis</a>
-      <a class="riservato sub" href="riservato/simulazione.html"><span class="ico">▶</span> simulazione</a>
+      <span class="substack">
+        <a class="riservato sub" href="riservato/synopsis.html"><span class="ico">👁️</span> synopsis</a>
+        <a class="riservato sub" href="riservato/simulazione.html"><span class="ico">▶</span> simulazione</a>
+      </span>
     </span>
   </div>
 
@@ -212,7 +214,7 @@
       </div>
       <div class="legal">
         <span class="legal-txt">© 2026 THT — The Hidden Truths<span class="sep">·</span><span class="piva">P. IVA ⟨da inserire⟩</span><span class="sep">·</span><a href="privacy/">Privacy</a><span class="sep">·</span><a href="cookie/">Cookie</a><span class="sep">·</span><a href="note-legali/">Note legali</a><span class="sep">·</span><a href="contatti/">Contatti</a></span>
-        <span class="ver">v2026.2430 · 0a9f5943 · Powered by THT Systems</span>
+        <span class="ver">v2026.2432 · 6c71ab82 · Powered by THT Systems</span>
       </div>
     </div>
 
