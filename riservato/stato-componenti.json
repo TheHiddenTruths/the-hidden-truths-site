@@ -297,6 +297,14 @@
    "file": "tools/geometria.py"
   },
   {
+   "id": "robot-collaudo-blu",
+   "nome": "Collaudo BLU",
+   "strato": "robot",
+   "stato": "giallo",
+   "nota": "la linea blu resa reale: orchestra i controlli QA e da' UN verdetto. Per ora SHADOW (osserva e registra, NON blocca) — quando in ombra e' affidabile passa a --enforce e diventa cancello del deploy",
+   "file": "tools/collaudo_blu.py"
+  },
+  {
    "id": "robot-deploy",
    "nome": "Deploy GitHub",
    "strato": "robot",
