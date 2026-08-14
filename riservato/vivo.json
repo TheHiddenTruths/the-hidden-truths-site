@@ -1,6 +1,6 @@
 {
- "versione": "v2026.2499 · c83f5cbe",
- "quando": "2026-08-14T13:49:23+02:00",
+ "versione": "v2026.2502 · 6750f6af",
+ "quando": "2026-08-14T14:01:03+02:00",
  "gh": {
   "oggi": 33,
   "budget": 67.9,
@@ -215,7 +215,7 @@
    "da": "2026-08-10",
    "generativa": 15,
    "revisione": 1,
-   "treni": 204
+   "treni": 207
   },
   "fase": {
    "preventivo": 0,
@@ -224,8 +224,8 @@
   }
  },
  "auto": {
-  "oggi": 14,
-  "totale": 2499,
+  "oggi": 17,
+  "totale": 2502,
   "giri": 50,
   "preventivi": 14
  },
@@ -235,6 +235,6 @@
   "stefano": 1,
   "oltre": 4,
   "malformati": 0,
-  "visto": "2026-08-14T13:49:23+02:00"
+  "visto": "2026-08-14T14:01:03+02:00"
  }
 }
