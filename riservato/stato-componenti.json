@@ -763,8 +763,8 @@
    "id": "robot-censimento-controlli",
    "nome": "Controlli",
    "strato": "robot",
-   "stato": "verde",
-   "nota": "censisce i dati del cockpit in ordine di lettura, col codice",
+   "stato": "giallo",
+   "nota": "censisce i dati del cockpit; esiste ma NON e' cablato (nessun invocatore) — dormiente (audit Fable 14/08)",
    "file": "tools/censimento_cockpit.py"
   },
   {
