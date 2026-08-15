@@ -812,7 +812,7 @@
    "nome": "Gamba ChatGPT",
    "strato": "strumenti",
    "stato": "giallo",
-   "nota": "reale; run TARGET",
+   "nota": "reale; credito ko",
    "file": "tools/council_openai_call.py"
   }
  ],
