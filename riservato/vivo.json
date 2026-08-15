@@ -1,14 +1,14 @@
 {
- "versione": "v2026.2565 · 1ea4833d",
- "quando": "2026-08-15T19:11:02+02:00",
+ "versione": "v2026.2575 · 21ff84a7",
+ "quando": "2026-08-15T20:01:02+02:00",
  "gh": {
-  "oggi": 33,
-  "budget": 57.4,
+  "oggi": 2,
+  "budget": 52.9,
   "restano": 17,
   "tetto": 2000,
   "comprati": 2667,
-  "min_mese": 3692,
-  "min_restano": 975,
+  "min_mese": 3767,
+  "min_restano": 900,
   "serie": [
    {
     "iso": "2026-07-19",
@@ -189,33 +189,73 @@
    {
     "iso": "2026-08-10",
     "d": "10/08",
-    "min": 33,
-    "usd": 0.2,
+    "min": 112,
+    "usd": 0.67,
+    "run": 0,
+    "pagato": true
+   },
+   {
+    "iso": "2026-08-11",
+    "d": "11/08",
+    "min": 68,
+    "usd": 0.41,
+    "run": 0,
+    "pagato": true
+   },
+   {
+    "iso": "2026-08-12",
+    "d": "12/08",
+    "min": 73,
+    "usd": 0.44,
+    "run": 0,
+    "pagato": true
+   },
+   {
+    "iso": "2026-08-13",
+    "d": "13/08",
+    "min": 2,
+    "usd": 0.01,
+    "run": 0,
+    "pagato": true
+   },
+   {
+    "iso": "2026-08-14",
+    "d": "14/08",
+    "min": 98,
+    "usd": 0.59,
+    "run": 0,
+    "pagato": true
+   },
+   {
+    "iso": "2026-08-15",
+    "d": "15/08",
+    "min": 2,
+    "usd": 0.01,
     "run": 0,
     "pagato": true
    }
   ],
-  "oggi_e_oggi": false,
-  "oggi_d": "10/08",
+  "oggi_e_oggi": true,
+  "oggi_d": "15/08",
   "quando_misura": null
  },
  "gh_quando": "2026-08-08T17:09:40Z",
  "err": {
-  "totale": 191,
+  "totale": 195,
   "fermati": 155,
-  "aperti": 36,
-  "vivi": 36,
+  "aperti": 40,
+  "vivi": 40,
   "attesa": 0,
   "attesa_scade": null,
   "per_ai": {
-   "generativa": 190,
+   "generativa": 194,
    "revisione": 1
   },
   "confronto": {
    "da": "2026-08-10",
-   "generativa": 45,
+   "generativa": 49,
    "revisione": 1,
-   "treni": 270
+   "treni": 271
   },
   "fase": {
    "preventivo": 0,
@@ -224,17 +264,17 @@
   }
  },
  "auto": {
-  "oggi": 42,
-  "totale": 2565,
-  "giri": 77,
+  "oggi": 43,
+  "totale": 2575,
+  "giri": 78,
   "preventivi": 30
  },
  "aperti_da": {
-  "nudi": 31,
+  "nudi": 35,
   "code": 4,
   "stefano": 1,
   "oltre": 4,
   "malformati": 0,
-  "visto": "2026-08-15T19:11:02+02:00"
+  "visto": "2026-08-15T20:01:02+02:00"
  }
 }
