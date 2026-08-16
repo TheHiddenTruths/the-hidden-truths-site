@@ -816,6 +816,14 @@
    "file": "tools/council_openai_call.py"
   },
   {
+   "id": "str-council-anthropic",
+   "nome": "Gamba Fable",
+   "strato": "strumenti",
+   "stato": "giallo",
+   "nota": "model id da verificare",
+   "file": "tools/council_anthropic_call.py"
+  },
+  {
    "id": "robot-posta",
    "nome": "Posta",
    "strato": "robot",
