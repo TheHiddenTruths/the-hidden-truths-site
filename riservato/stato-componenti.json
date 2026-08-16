@@ -6,7 +6,7 @@
   "rosso": "non funzionante / non costruito",
   "grigio": "non applicabile / in attesa"
  },
- "_aggiornato": "2026-08-15",
+ "_aggiornato": "2026-08-16",
  "_ordine_canonico": "I prodotti si elencano sempre: Instant, Fast, Full (densita' crescente).",
  "componenti": [
   {
@@ -811,8 +811,8 @@
    "id": "str-council-openai",
    "nome": "Gamba ChatGPT",
    "strato": "strumenti",
-   "stato": "giallo",
-   "nota": "reale; credito ko",
+   "stato": "verde",
+   "nota": "provata end-to-end 16/08",
    "file": "tools/council_openai_call.py"
   }
  ],
