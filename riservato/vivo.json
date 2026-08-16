@@ -1,6 +1,6 @@
 {
- "versione": "v2026.2602 · 8fccc4a6",
- "quando": "2026-08-16T18:51:21+02:00",
+ "versione": "v2026.2603 · 97698742",
+ "quando": "2026-08-16T18:54:01+02:00",
  "gh": {
   "oggi": 12,
   "budget": 28.4,
@@ -250,9 +250,9 @@
  "gh_quando": "2026-08-08T17:09:40Z",
  "err": {
   "totale": 217,
-  "fermati": 155,
-  "aperti": 62,
-  "vivi": 62,
+  "fermati": 156,
+  "aperti": 61,
+  "vivi": 61,
   "attesa": 0,
   "attesa_scade": null,
   "per_ai": {
@@ -263,7 +263,7 @@
    "da": "2026-08-10",
    "generativa": 71,
    "revisione": 1,
-   "treni": 294
+   "treni": 295
   },
   "fase": {
    "preventivo": 0,
@@ -272,17 +272,17 @@
   }
  },
  "auto": {
-  "oggi": 11,
-  "totale": 2602,
+  "oggi": 12,
+  "totale": 2603,
   "giri": 87,
   "preventivi": 36
  },
  "aperti_da": {
-  "nudi": 57,
+  "nudi": 56,
   "code": 4,
   "stefano": 1,
   "oltre": 4,
   "malformati": 0,
-  "visto": "2026-08-16T18:51:21+02:00"
+  "visto": "2026-08-16T18:54:01+02:00"
  }
 }
