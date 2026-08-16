@@ -840,6 +840,14 @@
    "file": "tools/posta.py"
   },
   {
+   "id": "robot-prove",
+   "nome": "Le prove",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "misurato vs dichiarato",
+   "file": "tools/prova.py"
+  },
+  {
    "id": "str-synopsis",
    "nome": "Cartografo",
    "strato": "strumenti",
