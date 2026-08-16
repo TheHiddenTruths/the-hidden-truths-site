@@ -94,6 +94,14 @@
    "nota": "ordini e proposte"
   },
   {
+   "id": "str-agenda-viva",
+   "nome": "Agenda viva",
+   "strato": "strumenti",
+   "stato": "giallo",
+   "nota": "il dato c'e'; nel cockpit no",
+   "file": "tools/agenda.py"
+  },
+  {
    "id": "str-mask-instant",
    "nome": "Costruttore Mask Instant",
    "strato": "strumenti",
