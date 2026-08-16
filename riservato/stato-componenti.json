@@ -814,6 +814,22 @@
    "stato": "verde",
    "nota": "provata end-to-end 16/08",
    "file": "tools/council_openai_call.py"
+  },
+  {
+   "id": "robot-posta",
+   "nome": "Posta",
+   "strato": "robot",
+   "stato": "verde",
+   "nota": "conta le consegne non lette",
+   "file": "tools/posta.py"
+  },
+  {
+   "id": "str-synopsis",
+   "nome": "Cartografo",
+   "strato": "strumenti",
+   "stato": "verde",
+   "nota": "disegna la mappa Synopsis",
+   "file": "tools/synopsis_rete.py"
   }
  ],
  "_ordine_lettura": "Si legge come un LIBRO (deciso da Stefano 5/08, notte): dentro ogni strato le card stanno in sequenza temporale-logica di azione, non in ordine di nascita. ROBOT = il viaggio di una modifica: mentre si lavora (Coscienza); al commit la catena del Guardiano nell'ordine esatto dell'hook (Navigatore/Impact, Collaudatore/Machine Test, Setaccio/Validator, Orologio, Livella); al push (Deploy, Engine, Visual, Interaction, Graph); i registri (Reporter, Census); i giornalieri e sorveglianti (Daily Report, System Health, Coverage Audit, Ritratto, Adunata, AI attiva); in coda i revisori esterni non attivi. STRUMENTI = il ciclo della giornata: risveglio, agenda, costruttori (Instant, Fast, Full: ordine canonico), generazione, sterilizzazione, pubblicazione, misure e registri, documentazione; i superati/rotti in fondo. MEMORIA = intake (Agenda), poi Registro, poi la prova (Diario).",
