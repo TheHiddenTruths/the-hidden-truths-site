@@ -819,8 +819,8 @@
    "id": "str-council-anthropic",
    "nome": "Gamba Fable",
    "strato": "strumenti",
-   "stato": "giallo",
-   "nota": "model id da verificare",
+   "stato": "verde",
+   "nota": "provata end-to-end 16/08",
    "file": "tools/council_anthropic_call.py"
   },
   {
